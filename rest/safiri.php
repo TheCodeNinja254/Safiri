@@ -7,7 +7,7 @@ class SafiriRentalDriver
     private $DB_con;
 
     /**
-     * AfricaBeatDriver constructor.
+     * SafiriRentalDriver constructor.
      */
     function __construct()
     {

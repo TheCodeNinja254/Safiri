@@ -1,13 +1,5 @@
 <?php
 
-/**
- * Host: ctfsmysqlvm.cloudapp.net
- * Username: mshaharaonline
- * Password:  codetechcloud
- *
- * AfricaBeat API V0.9.0 (AuthMissing)
- */
-
 //error_reporting(0);
 
 include_once 'safiri.php';
