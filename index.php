@@ -10,7 +10,7 @@
 
 include_once 'rest/safiri.php';
 
-//error_reporting(0);
+error_reporting(0);
 
 $driver = new SafiriRentalDriver();
 //$path = @$_GET['path'];

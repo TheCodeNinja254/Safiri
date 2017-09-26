@@ -22,6 +22,7 @@ if($host === 'localhost'){
 <script src="<?php echo $host_name; ?>/assets/js/material.js" type="text/javascript"></script>
 <!--  Charts Plugin -->
 <script src="<?php echo $host_name; ?>/assets/js/chartist.js"></script>
+
 <!--  Dynamic Elements plugin -->
 <script src="<?php echo $host_name; ?>/assets/js/arrive.js"></script>
 <!--  Sharrre Plugin -->
@@ -30,6 +31,7 @@ if($host === 'localhost'){
 <script src="<?php echo $host_name; ?>/assets/js/perfect-scrollbar.js"></script>
 <!--  Notifications Plugin    -->
 <script src="<?php echo $host_name; ?>/assets/js/bootstrap-notify.js"></script>
+<script src="<?php echo $host_name; ?>/assets/js/jasny-bootstrap.min.js" type="text/javascript"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="<?php echo $host_name; ?>/assets/js/material-dashboard.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->

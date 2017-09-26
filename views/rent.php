@@ -65,7 +65,7 @@
 								<span class="input-group-addon">
 									<i class="fa fa-envelope"></i>
 								</span>
-                                           <input type="text" name="email_address" class="form-control" placeholder="Email" required>
+                                           <input type="email" name="email_address" class="form-control" placeholder="Email" required>
                                        </div>
                                    </div>
 
@@ -74,7 +74,7 @@
 								<span class="input-group-addon">
 									<i class="fa fa-key"></i>
 								</span>
-                                           <input type="text" name="supplier_username" class="form-control" placeholder="Email" required>
+                                           <input type="text" name="supplier_username" class="form-control" placeholder="Username" required>
                                        </div>
                                    </div>
 

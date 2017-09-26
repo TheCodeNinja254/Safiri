@@ -62,8 +62,8 @@ class SafiriRentalDriver
         }
 
         //Finally
-        define("API_KEY", $csk_prefix."-".$csk_microtime."-".$csk_rand."-".$csk_rand_key_one."-".$csk_rand_key_two);
-        echo API_KEY;
+        define("CSK", $csk_prefix."-".$csk_microtime."-".$csk_rand."-".$csk_rand_key_one."-".$csk_rand_key_two);
+        return CSK;
     }
 
     /**
@@ -110,7 +110,9 @@ class SafiriRentalDriver
         if(isset($api_key) && !empty($api_key)){
 
 
-            if((bool)self::api_key_get_owner($api_key)){
+            if($api_key === "web"){
+//                continue
+            }else if((bool)self::api_key_get_owner($api_key)){
 //                continue
             }else{
                 $row["response"] = false;
@@ -225,6 +227,102 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
+
+    /**
+     * @param $username
+     * @param $password
+     */
+    public function sf_auth_login($username, $password)
+    {
+
+//       sf_auth
+        $jsonData = array();
+
+        $hash_password = self::hash_password($password);
+        self::sf_auth_set_csk($username, "0000");
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT id, f_name, m_name, l_name, postal_address, email_adddress, username, user_type, national_id_num, phone_num, date_of_registration, uri_copy_of_id
+                                                    FROM safirire_safiri.users 
+                                                    WHERE username = :username
+                                                    AND password = :hash_password');
+
+            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(':hash_password', $hash_password);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $counter = 0;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $counter++;
+
+                    $current_session_key = self::sf_auth_generate_csk();
+
+                    if((bool)self::sf_auth_set_csk($username, $current_session_key)){
+
+                        $jsonData["response"] = true;
+                        $row["current_session_key"] = $current_session_key;
+                        $jsonData["data"] = $row;
+
+                    }else{
+
+                        $row["response"] = false;
+                        $row["error"] = "AUTH_FAILED";
+                        $row["extended_error"] = "CSK_SET_FAILED";
+                        $row["ab_csk"] = null;
+                        $jsonData["data"] = $row;
+                    }
+                }
+
+            } else {
+
+                $row["response"] = false;
+                $row["error"] = "AUTH_FAILED";
+                $row["current_session_key"] = null;
+                $jsonData["data"] = $row;
+
+            }
+
+
+        } catch (Exception $e) {
+            $row["response"] = false;
+            $row["error"] = "AUTH_FAILED";
+            $row["extended_error"] = $e->getMessage();
+            $row["current_session_key"] = null;
+            $jsonData["data"] = $row;
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    private function sf_auth_set_csk($username,$csk)
+    {
+
+        try {
+            $stmt = $this->DB_con->prepare('UPDATE safirire_safiri.users 
+                                            SET users.current_session_key = :csk 
+                                            WHERE users.username = :username');
+
+            $stmt->bindParam(':csk', $csk);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+
+            if($stmt->rowCount() > 0){
+
+                return true;
+
+            }else{
+
+                return false;
+            }
+
+        } catch (Exception $e) {
+
+            return false;
+        }
+
+    }
 
 
 }

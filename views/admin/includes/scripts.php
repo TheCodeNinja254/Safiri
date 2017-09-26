@@ -30,6 +30,7 @@ if($host === 'localhost'){
 <script src="<?php echo $host_name; ?>/assets/js/perfect-scrollbar.js"></script>
 <!--  Notifications Plugin    -->
 <script src="<?php echo $host_name; ?>/assets/js/bootstrap-notify.js"></script>
+<script src="<?php echo $host_name; ?>/assets/js/jasny-bootstrap.min.js" type="text/javascript"></script>
 <!--  Google Maps Plugin    -->
 <script type="text/javascript" src="<?php echo $host_name; ?>/assets/js/js"></script>
 <!-- Material Dashboard javascript methods -->

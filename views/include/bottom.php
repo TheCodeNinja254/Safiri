@@ -86,26 +86,29 @@
             </div>
             <div class="modal-body">
                 <div class="">
-                    <form class="form" method="post" action="https://api.safirirental.com/userLogin/web/">
+                    <form id="loginForm" class="form" method="post" action="https://api.safirirental.com/userLogin/web/">
                         <p class="title">Login</p>
                         <div class="content">
                             <div class="input-group">
 										<span class="input-group-addon">
 											<i class="material-icons">email</i>
 										</span>
-                                <input type="text" class="form-control" placeholder="Email...">
+                                <input type="text" name="lg_username" class="form-control" placeholder="Username...">
                             </div>
 
                             <div class="input-group">
 										<span class="input-group-addon">
 											<i class="material-icons">lock_outline</i>
 										</span>
-                                <input type="password" placeholder="Password..." class="form-control" />
+                                <input type="password" name="lg_password" placeholder="Password..." class="form-control" />
                             </div>
 
 
                             <div class="checkbox text-center">
-                                <a class="btn btn-simple btn-primary btn-sm btn-round">LOGIN</a><strong> OR </strong><a href="<?php echo $host_name; ?>/home/rent" class="btn btn-success btn-sm btn-round">REGISTER</a>
+                                <button type="submit" class="btn btn-simple btn-primary btn-sm btn-round">LOGIN</button>
+                                </form>
+
+                                <strong>OR </strong><a href="<?php echo $host_name; ?>/home/rent" class="btn btn-success btn-sm btn-round">REGISTER</a>
                             </div>
                         </div>
                         <div class="footer text-center">

@@ -30,7 +30,9 @@ if($host === 'localhost'){
 
 <!--  Plugin for the Datepicker, full documentation here: http://www.eyecon.ro/bootstrap-datepicker/ -->
 <script src="<?php echo $host_name; ?>/assets/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="<?php echo $host_name; ?>/assets/js/bootstrap-notify.js" type="text/javascript"></script>
 <script src="<?php echo $host_name; ?>/assets/js/toastr.min.js" type="text/javascript"></script>
+<script src="<?php echo $host_name; ?>/assets/js/jasny-bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo $host_name; ?>/assets/js/safiri/myToast.js" type="text/javascript"></script>
 
 <!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
