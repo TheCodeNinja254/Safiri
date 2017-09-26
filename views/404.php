@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="brand">
-                        <center><img src="../assets/img/logo.png" style="height:50px;width: 50px;"></center>
+                        <center><img src="<?php echo $host_name;?>/assets/img/logo.png" style="height:50px;width: 50px;"></center>
                         <h1>Safiri Car Rental.</h1>
                         <h5>Fast, Reliable with quality service.</h5>
                     </div>
