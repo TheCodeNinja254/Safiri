@@ -76,6 +76,51 @@
 </div>
 <!--  End Modal -->
 
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content card card-signup">
+            <div class="modal-headertext-center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <form class="form" method="post" action="https://api.safirirental.com/userLogin/web/">
+                        <p class="title">Login</p>
+                        <div class="content">
+                            <div class="input-group">
+										<span class="input-group-addon">
+											<i class="material-icons">email</i>
+										</span>
+                                <input type="text" class="form-control" placeholder="Email...">
+                            </div>
+
+                            <div class="input-group">
+										<span class="input-group-addon">
+											<i class="material-icons">lock_outline</i>
+										</span>
+                                <input type="password" placeholder="Password..." class="form-control" />
+                            </div>
+
+
+                            <div class="checkbox text-center">
+                                <a class="btn btn-simple btn-primary btn-sm btn-round">LOGIN</a><strong> OR </strong><a href="<?php echo $host_name; ?>/home/rent" class="btn btn-success btn-sm btn-round">REGISTER</a>
+                            </div>
+                        </div>
+                        <div class="footer text-center">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-simple">Nice Button</button>
+        <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal">Close</button>
+    </div>
+</div>
 
 </body>
 <!--   Core JS Files   -->

@@ -59,6 +59,11 @@
                         <i class="fa fa-envelope"></i> Contact Us
                     </a>
                 </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#loginModal">
+                        <i class="fa fa-user"></i> ACCOUNT
+                    </a>
+                </li>
 
             </ul>
         </div>
