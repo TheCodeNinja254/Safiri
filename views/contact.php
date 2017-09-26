@@ -8,7 +8,7 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="brand">
                         <h1>Safiri Car Rental.</h1>
-                        <h5>Register today and start earning.</h5>
+                        <h5>We love hearing from our customers, Talk to us.</h5>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="content">
-                            <center><h5 class=""><i class="fa fa-user-plus text-main"></i> <br ><strong>Fill the form below to Register </strong></h5></center>
+                            <center><h5 class=""><i class="fa fa-user-plus text-main"></i> <br ><strong>Send your Message. complain or complement </strong></h5></center>
                             <div class="row">
                                 <form>
                                 <div class="col-md-6">
