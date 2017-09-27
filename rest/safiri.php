@@ -271,7 +271,8 @@ class SafiriRentalDriver
 
                     }else{
 
-                        $row["response"] = false;
+                        $jsonData["response"] = false;
+                        $jsonData["status"] = 403;
                         $row["error"] = "AUTH_FAILED";
                         $row["extended_error"] = "CSK_SET_FAILED";
                         $row["ab_csk"] = null;
@@ -281,7 +282,8 @@ class SafiriRentalDriver
 
             } else {
 
-                $row["response"] = false;
+                $jsonData["response"] = false;
+                $jsonData["status"] = 403;
                 $row["error"] = "AUTH_FAILED";
                 $row["current_session_key"] = null;
                 $jsonData["data"] = $row;
@@ -290,7 +292,8 @@ class SafiriRentalDriver
 
 
         } catch (Exception $e) {
-            $row["response"] = false;
+            $jsonData["response"] = false;
+            $jsonData["status"] = 500;
             $row["error"] = "AUTH_FAILED";
             $row["extended_error"] = $e->getMessage();
             $row["current_session_key"] = null;
@@ -324,9 +327,208 @@ class SafiriRentalDriver
         } catch (Exception $e) {
 
             return false;
+
         }
 
     }
+
+    public function sf_get_locations()
+    {
+
+        $jsonData = array();
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT *
+                                                    FROM safirire_safiri.location 
+                                                    ORDER BY id DESC');
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $counter = 0;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $counter++;
+
+
+                        $jsonData["response"] = true;
+                        $jsonData["status"] = 200;
+                        $jsonData["data"] = $row;
+
+                }
+
+            } else {
+
+                $jsonData["response"] = false;
+                $jsonData["status"] = 403;
+                $row["error"] = "FAILED";
+                $jsonData["data"] = $row;
+
+            }
+
+
+        } catch (Exception $e) {
+            $jsonData["response"] = false;
+            $row["error"] = "AUTH_FAILED";
+            $row["extended_error"] = $e->getMessage();
+            $jsonData["status"] = 500;
+            $jsonData["data"] = $row;
+        }
+
+        echo json_encode($jsonData);
+    }
+
+
+    public function sf_get_pickup_points($location_code)
+    {
+
+        $jsonData = array();
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT *
+                                                    FROM safirire_safiri.pick_up_points
+                                                    WHERE location_code = :location_code
+                                                    ORDER BY id DESC');
+
+            $stmt->bindParam(':location_code', $location_code);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $counter = 0;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $counter++;
+
+
+                    $jsonData["response"] = true;
+                    $jsonData["status"] = 200;
+                    $jsonData["data"] = $row;
+
+                }
+
+            } else {
+
+                $jsonData["response"] = false;
+                $jsonData["status"] = 403;
+                $row["error"] = "FAILED";
+                $jsonData["data"] = $row;
+
+            }
+
+
+        } catch (Exception $e) {
+            $jsonData["response"] = false;
+            $row["error"] = "AUTH_FAILED";
+            $row["extended_error"] = $e->getMessage();
+            $jsonData["status"] = 500;
+            $jsonData["data"] = $row;
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    public function sf_get_body_types()
+    {
+
+        $jsonData = array();
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT *
+                                                    FROM safirire_safiri.body_type
+                                                    ORDER BY type_id DESC');
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $counter = 0;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $counter++;
+
+
+                    $jsonData["response"] = true;
+                    $jsonData["status"] = 200;
+                    $jsonData["data"] = $row;
+
+                }
+
+            } else {
+
+                $jsonData["response"] = false;
+                $jsonData["status"] = 403;
+                $row["error"] = "FAILED";
+                $jsonData["data"] = $row;
+
+            }
+
+
+        } catch (Exception $e) {
+            $jsonData["response"] = false;
+            $row["error"] = "AUTH_FAILED";
+            $row["extended_error"] = $e->getMessage();
+            $jsonData["status"] = 500;
+            $jsonData["data"] = $row;
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    public function sf_get_cars_per_pickup($pick_up_point, $body_type)
+    {
+
+        $jsonData = array();
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT *, NULL AS password, NULL AS access_level, NULL AS user_type
+                                                    FROM safirire_safiri.cars, safirire_safiri.pick_up_points, safirire_safiri.car_pictures, safirire_safiri.pic_type, safirire_safiri.make, safirire_safiri.users
+                                                    WHERE cars.pick_up_point = :pick_up_point
+                                                    AND cars.body_type = :body_type
+                                                    AND cars.pick_up_point = pick_up_points.pick_up_point
+                                                    AND car_pictures.car_id = cars.car_id
+                                                    AND car_pictures.pic_type = pic_type.pic_type_code
+                                                    AND cars.make = make.make_id
+                                                    AND cars.owner_username = users.username
+                                                    ORDER BY cars.car_id DESC');
+
+            $stmt->bindParam(':pick_up_point', $pick_up_point);
+            $stmt->bindParam(':body_type', $body_type);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $counter = 0;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $counter++;
+
+
+                    $jsonData["response"] = true;
+                    $jsonData["status"] = 200;
+                    $jsonData["data"] = $row;
+
+                }
+
+            } else {
+
+                $jsonData["response"] = false;
+                $jsonData["status"] = 403;
+                $row["error"] = "FAILED";
+                $jsonData["data"] = $row;
+
+            }
+
+
+        } catch (Exception $e) {
+            $jsonData["response"] = false;
+            $row["error"] = "AUTH_FAILED";
+            $row["extended_error"] = $e->getMessage();
+            $jsonData["status"] = 500;
+            $jsonData["data"] = $row;
+        }
+
+        echo json_encode($jsonData);
+    }
+
+
 
 
 }
