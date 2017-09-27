@@ -258,6 +258,10 @@ class SafiriRentalDriver
                     $counter++;
 
                     $current_session_key = self::sf_auth_generate_csk();
+                    $_SESSION['username'] = $username;
+                    $_SESSION['csk'] = $current_session_key;
+                    setcookie("username", $username, 86400, "/", "htts://safirirental.com", "httpsonly");
+
 
                     if((bool)self::sf_auth_set_csk($username, $current_session_key)){
 
