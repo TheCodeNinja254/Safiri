@@ -139,6 +139,5 @@
     <!--    Footer, MODAL and JS -->
 <?php include 'include/bottom.php';?>
 <?php include 'include/scripts.php';?>
-<script src="<?php echo $host_name; ?>/assets/js/safiri/safiri_custom.js" type="text/javascript"></script>
 </html>
 

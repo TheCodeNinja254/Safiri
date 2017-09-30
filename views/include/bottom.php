@@ -125,7 +125,6 @@
     </div>
 </div>
 
-</body>
 <!--   Core JS Files   -->
 
 

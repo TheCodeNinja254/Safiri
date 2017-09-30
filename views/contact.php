@@ -143,3 +143,4 @@
     <!--    Footer, MODAL and JS -->
 <?php include 'include/bottom.php';?>
 <?php include 'include/scripts.php';?>
+</html>

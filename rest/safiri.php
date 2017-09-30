@@ -42,7 +42,7 @@ class SafiriRentalDriver
 
         $length_one = 12;
         $length_two = 12;
-        $csk_prefix = "safiri";
+        $csk_prefix = "SAFIRI";
         $csk_microtime = round(microtime(true));
         $csk_rand = rand(10000000000,99999999999999);
         $csk_rand_key_one = "";
@@ -353,7 +353,7 @@ class SafiriRentalDriver
 
                         $jsonData["response"] = true;
                         $jsonData["status"] = 200;
-                        $jsonData["data"] = $row;
+                        $jsonData["data"][] = $row;
 
                 }
 
@@ -402,7 +402,7 @@ class SafiriRentalDriver
 
                     $jsonData["response"] = true;
                     $jsonData["status"] = 200;
-                    $jsonData["data"] = $row;
+                    $jsonData["data"][] = $row;
 
                 }
 
@@ -448,7 +448,8 @@ class SafiriRentalDriver
 
                     $jsonData["response"] = true;
                     $jsonData["status"] = 200;
-                    $jsonData["data"] = $row;
+                    $jsonData["count"] = $counter;
+                    $jsonData["data"][] = $row;
 
                 }
 
@@ -479,12 +480,13 @@ class SafiriRentalDriver
         $jsonData = array();
 
         try {
-            $stmt = $this->DB_con->prepare('SELECT *, NULL AS password, NULL AS access_level, NULL AS user_type
-                                                    FROM safirire_safiri.cars, safirire_safiri.pick_up_points, safirire_safiri.car_pictures, safirire_safiri.pic_type, safirire_safiri.make, safirire_safiri.users
-                                                    WHERE cars.pick_up_point = :pick_up_point
-                                                    AND cars.body_type = :body_type
-                                                    AND cars.pick_up_point = pick_up_points.pick_up_point
-                                                    AND car_pictures.car_id = cars.car_id
+            $stmt = $this->DB_con->prepare('SELECT *, NULL AS password, NULL AS current_session_key, NULL AS date_of_registration, NULL AS user_type, NULL AS username, NULL AS uri_log_book
+                                                    FROM safirire_safiri.cars, safirire_safiri.pick_up_points, safirire_safiri.car_pictures, safirire_safiri.pic_type, safirire_safiri.make, safirire_safiri.users, safirire_safiri.body_type
+                                                    WHERE cars.pick_up_point = 001
+                                                    AND cars.body_type = 001
+                                                    AND cars.body_type = body_type.type_code
+                                                    AND cars.pick_up_point = pick_up_points.id
+                                                    AND cars.car_id = car_pictures.car_id 
                                                     AND car_pictures.pic_type = pic_type.pic_type_code
                                                     AND cars.make = make.make_id
                                                     AND cars.owner_username = users.username
@@ -500,10 +502,10 @@ class SafiriRentalDriver
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     $counter++;
 
-
                     $jsonData["response"] = true;
                     $jsonData["status"] = 200;
-                    $jsonData["data"] = $row;
+                    $jsonData["count"] = $counter;
+                    $jsonData["data"][] = $row;
 
                 }
 
@@ -528,6 +530,152 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
+    public function add_location($location_name){
+        $jsonData = array();
+
+        $location_code = rand(1000000, 99999999);
+        try {
+            $stmt = $this->DB_con->prepare('INSERT INTO safirire_safiri.location (location_code, location_name)
+                                                  
+                                          VALUES (
+                                                  :location_code, 
+                                                  :location_name
+                                                  
+                                          )');
+
+            $stmt->bindParam(':location_code', $location_code);
+            $stmt->bindParam(':location_name', $location_name);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $row["response"] = true;
+                $row["status"] = 200;
+                $jsonData["data"] = $row;
+
+            } else {
+
+                $row["response"] = false;
+                $row["status"] = 200;
+                $row["error"] = "INSERT_FAILED";
+                $jsonData["data"] = $row;
+            }
+
+
+        } catch (Exception $e) {
+            $row["response"] = false;
+            $row["status"] = 500;
+            $row["error"] = $e->getMessage();
+            $jsonData["data"] = $row;
+        }
+        echo json_encode($jsonData);
+    }
+
+    public function add_pick_up_point($pick_up_point){
+        $jsonData = array();
+
+        $location_code = rand(1000000, 99999999);
+        try {
+            $stmt = $this->DB_con->prepare('INSERT INTO safirire_safiri.pick_up_points(location_code, pick_up_point)
+                                                  
+                                          VALUES (
+                                                  :location_code, 
+                                                  :pick_up_point
+                                                  
+                                          )');
+
+            $stmt->bindParam(':location_code', $location_code);
+            $stmt->bindParam(':pick_up_point', $pick_up_point);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $row["response"] = true;
+                $row["status"] = 200;
+                $jsonData["data"] = $row;
+
+            } else {
+
+                $row["response"] = false;
+                $row["status"] = 500;
+                $row["error"] = "INSERT_FAILED";
+                $jsonData["data"] = $row;
+            }
+
+
+        } catch (Exception $e) {
+            $row["response"] = false;
+            $row["status"] = 500;
+            $row["error"] = $e->getMessage();
+            $jsonData["data"] = $row;
+        }
+        echo json_encode($jsonData);
+    }
+
+    public function add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username){
+        $jsonData = array();
+
+        $hire_status = 00;
+        try {
+            $stmt = $this->DB_con->prepare('INSERT 
+                                            INTO safirire_safiri.cars (
+                                            make, 
+                                            model, 
+                                            uri_log_book, 
+                                            body_type, 
+                                            hire_price_per_day, 
+                                            pick_up_point, 
+                                            owner_username, 
+                                            hire_status)
+                                                  
+                                          VALUES (
+                                                  :make,
+                                                  :model,
+                                                  :uri_log_book,
+                                                  :body_type,
+                                                  :hire_price_per_day,
+                                                  :pick_up_point,
+                                                  :owner_username,
+                                                  :hire_status
+                                                  
+                                          )');
+
+            $stmt->bindParam(':make', $make);
+            $stmt->bindParam(':model', $model);
+            $stmt->bindParam(':uri_log_book', $uri_log_book);
+            $stmt->bindParam(':body_type', $body_type);
+            $stmt->bindParam(':hire_price_per_day', $hire_price_per_day);
+            $stmt->bindParam(':pick_up_point', $pick_up_point);
+            $stmt->bindParam(':owner_username', $owner_username);
+            $stmt->bindParam(':hire_status', $hire_status);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $row["response"] = true;
+                $row["status"] = 200;
+                $jsonData["data"] = $row;
+
+            } else {
+
+                $row["response"] = false;
+                $row["status"] = 500;
+                $row["error"] = "INSERT_FAILED";
+                $jsonData["data"] = $row;
+            }
+
+
+        } catch (Exception $e) {
+            $row["response"] = false;
+            $row["status"] = 500;
+            $row["error"] = $e->getMessage();
+            $jsonData["data"] = $row;
+        }
+        echo json_encode($jsonData);
+    }
 
 
 

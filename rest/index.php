@@ -16,6 +16,7 @@ header("Access-Control-Allow-Origin: https://safirirental.com");
 header("Access-Control-Allow-Methods: POST, GET, HEAD");
 header("Access-Control-Max-Age: 86400");
 header("Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7");
+header('Content-Type: application/json');
 
 
 //setcookie(name, value, expire, path, domain, secure, httponly);
@@ -107,12 +108,12 @@ if($method === 'getPickUpPoints'){
     $driver ->sf_get_pickup_points($location_code);
 }
 
-if($method === 'getCars'){
+if($method === 'getBodyTypes'){
 
     $driver ->sf_get_body_types();
 }
 
-if($method === 'getBodyTypes'){
+if($method === 'getCars'){
 
     $pick_up_point = array_key_exists("pick_up_point", $_REQUEST) ? $_REQUEST["pick_up_point"] : null;
     $body_type = array_key_exists("body_type", $_REQUEST) ? $_REQUEST["body_type"] : null;

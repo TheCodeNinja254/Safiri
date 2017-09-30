@@ -34,6 +34,7 @@ if($host === 'localhost'){
 <script src="<?php echo $host_name; ?>/assets/js/toastr.min.js" type="text/javascript"></script>
 <script src="<?php echo $host_name; ?>/assets/js/jasny-bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo $host_name; ?>/assets/js/safiri/myToast.js" type="text/javascript"></script>
+<script src="<?php echo $host_name; ?>/assets/js/safiri/safiri_custom.js" type="text/javascript"></script>
 
 <!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
 <script src="<?php echo $host_name; ?>/assets/js/material-kit.js" type="text/javascript"></script>
@@ -61,4 +62,5 @@ if($host === 'localhost'){
 
     });
 </script>
+</body>
 
