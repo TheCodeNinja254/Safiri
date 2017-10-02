@@ -245,6 +245,8 @@ class SafiriRentalDriver
             $stmt = $this->DB_con->prepare('SELECT id, f_name, m_name, l_name, postal_address, email_adddress, username, user_type, national_id_num, phone_num, date_of_registration, uri_copy_of_id
                                                     FROM safirire_safiri.users 
                                                     WHERE username = :username
+                                                    OR email_adddress = :username
+                                                    OR phone_num = :username
                                                     AND password = :hash_password');
 
             $stmt->bindParam(':username', $username);
@@ -259,11 +261,12 @@ class SafiriRentalDriver
 
                     $current_session_key = self::sf_auth_generate_csk();
                     $_SESSION['username'] = $username;
+                    $_SESSION['email_address'] = $row['email_address'];
                     $_SESSION['csk'] = $current_session_key;
                     setcookie("username", $username, 86400, "/", "htts://safirirental.com", "httpsonly");
 
-
-                    if((bool)self::sf_auth_set_csk($username, $current_session_key)){
+                    $csk_set_username = $row['username'];
+                    if((bool)self::sf_auth_set_csk($csk_set_username, $current_session_key)){
 
                         $jsonData["response"] = true;
                         $row["current_session_key"] = $current_session_key;
@@ -275,7 +278,7 @@ class SafiriRentalDriver
                         $jsonData["status"] = 403;
                         $row["error"] = "AUTH_FAILED";
                         $row["extended_error"] = "CSK_SET_FAILED";
-                        $row["ab_csk"] = null;
+                        $row["current_session_key"] = null;
                         $jsonData["data"] = $row;
                     }
                 }
@@ -572,10 +575,9 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
-    public function add_pick_up_point($pick_up_point){
+    public function add_pick_up_point($pick_up_point, $location_code){
         $jsonData = array();
-
-        $location_code = rand(1000000, 99999999);
+        
         try {
             $stmt = $this->DB_con->prepare('INSERT INTO safirire_safiri.pick_up_points(location_code, pick_up_point)
                                                   
@@ -614,7 +616,7 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
-    public function add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username){
+    public function add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point){
         $jsonData = array();
 
         $hire_status = 00;
@@ -677,6 +679,13 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
+    public function sf_auth_logout($username){
+        $jsonData = array();
+        self::sf_auth_set_csk($username, "0000");
+        $row["response"] = true;
+        $jsonData["data"] = $row;
+        echo json_encode($jsonData);
+    }
 
 
 }

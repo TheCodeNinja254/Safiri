@@ -121,6 +121,42 @@ if($method === 'getCars'){
     $driver ->sf_get_cars_per_pickup($pick_up_point, $body_type);
 }
 
+if($method === 'addLocation'){
+
+    $location_name = array_key_exists("location_name", $_REQUEST) ? $_REQUEST["location_name"] : null;
+
+    $driver ->add_location($location_name);
+}
+
+if($method === 'addPickupPoint'){
+
+    $location_code = array_key_exists("location_code", $_REQUEST) ? $_REQUEST["location_code"] : null;
+    $pick_up_point = array_key_exists("pick_up_point", $_REQUEST) ? $_REQUEST["pick_up_point"] : null;
+
+    $driver ->add_pick_up_point($pick_up_point, $location_code);
+}
+
+if($method === 'addCar'){
+
+    $make = array_key_exists("make", $_REQUEST) ? $_REQUEST["make"] : null;
+    $model = array_key_exists("model", $_REQUEST) ? $_REQUEST["model"] : null;
+    $body_type = array_key_exists("body_type", $_REQUEST) ? $_REQUEST["body_type"] : null;
+    $pick_up_point = array_key_exists("pick_up_point", $_REQUEST) ? $_REQUEST["pick_up_point"] : null;
+    $hire_price_per_day = array_key_exists("hire_price_per_day", $_REQUEST) ? $_REQUEST["hire_price_per_day"] : null;
+    $owner_username = "admin";
+    $uri_log_book = 00;
+
+    $driver ->add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point);
+}
+
+if ($method === 'sfOAuthLogout') {
+    $driver -> api_key_verifier();
+
+    $username = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
+    $driver -> sf_auth_logout($username);
+
+}
+
 
 
 
