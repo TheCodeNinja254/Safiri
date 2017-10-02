@@ -687,6 +687,141 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
+    /**
+     * @param $newphotoname
+     * @return bool
+     */
+    public function uploadImage($newphotoname){
+
+        //File Upload Library
+        $target_dir = "uploads/"; //uploads refers to the preferred folder
+        $target_file = $target_dir . $newphotoname;
+        $uploadOk = 1;
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+        // Check if image file is a actual image or fake image
+
+        $check = getimagesize($_FILES["post_image"]["tmp_name"]);
+
+
+        if ($_FILES["post_image"]["size"] > 30000000 ) {
+
+
+            return false;
+
+        }
+
+        // Allow certain file formats
+        if($imageFileType != "jpg"
+            && $imageFileType != "png"
+            && $imageFileType != "jpeg"
+            && $imageFileType != "gif"
+            && $imageFileType != "JPG"
+            && $imageFileType != "GIF"
+            && $imageFileType != "JPEG" ) {
+
+//                    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+
+            return false;
+
+        }
+
+        if($_FILES['post_image']['error']) {
+            // handle the error
+
+            echo $_FILES["post_image"]["error"];
+        } else {
+            // process
+
+            if (move_uploaded_file($_FILES["post_image"]["tmp_name"], $target_file)) {
+
+                return true;
+
+            } else {
+
+//                echo $target_dir;
+//                echo "::::";
+//                echo $target_file;
+//                echo "::::";
+//                echo $_FILES['post_image']['temp_name'];
+//                echo "::::";
+//                echo "Sorry, there was an error uploading your file. Error => " . $_FILES["post_image"]["error"];
+//                ini_set('display_errors', 1);
+//                error_reporting(E_ALL);
+
+                return false;
+            }
+        }
+    }
+
+
+    public function uploadFile($newfilename){
+
+        //File Upload Library
+        $target_dir = "uploads/files/"; //uploads refers to the preferred folder
+        $target_file = $target_dir . $newfilename;
+        $uploadOk = 1;
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+        // Check if image file is a actual image or fake image
+
+        $check = getimagesize($_FILES["post_file"]["tmp_name"]);
+
+
+        if ($_FILES["post_file"]["size"] > 30000000 ) {
+
+
+            return false;
+
+        }
+
+        // Allow certain file formats
+        if($imageFileType != "pdf"
+            && $imageFileType != "doc"
+            && $imageFileType != "docx"
+            && $imageFileType != "jpg"
+            && $imageFileType != "DOC"
+            && $imageFileType != "DOCX"
+            && $imageFileType != "ODT"
+            && $imageFileType != "PDF" ) {
+
+//                    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+
+            return false;
+
+        }
+
+        if($_FILES['post_file']['error']) {
+            // handle the error
+
+            echo $_FILES["post_file"]["error"];
+        } else {
+            // process
+
+            if (move_uploaded_file($_FILES["post_file"]["tmp_name"], $target_file)) {
+
+                return true;
+
+            } else {
+
+//                echo $target_dir;
+//                echo "::::";
+//                echo $target_file;
+//                echo "::::";
+//                echo $_FILES['post_image']['temp_name'];
+//                echo "::::";
+//                echo "Sorry, there was an error uploading your file. Error => " . $_FILES["post_image"]["error"];
+//                ini_set('display_errors', 1);
+//                error_reporting(E_ALL);
+
+                return false;
+            }
+        }
+    }
+
+
 
 }
 
