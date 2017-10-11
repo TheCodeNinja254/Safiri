@@ -150,11 +150,23 @@ if($method === 'addCar'){
 }
 
 if ($method === 'sfOAuthLogout') {
-    $driver -> api_key_verifier();
 
     $username = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
     $driver -> sf_auth_logout($username);
 
+}
+
+
+if ($method === 'getMyCars') {
+
+//    $owner = $_SESSION['username'];
+    $owner = 'admin';//for test
+    $driver -> sf_get_cars_per_owner($owner);
+}
+
+if ($method === 'getAllCars') {
+
+    $driver -> sf_get_all_cars();
 }
 
 

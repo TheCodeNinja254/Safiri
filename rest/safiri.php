@@ -264,6 +264,7 @@ class SafiriRentalDriver
                     $_SESSION['email_address'] = $row['email_address'];
                     $_SESSION['csk'] = $current_session_key;
                     setcookie("username", $username, 86400, "/", "htts://safirirental.com", "httpsonly");
+                    setcookie("csk", $current_session_key, 86400, "/", "htts://safirirental.com", "httpsonly");
 
                     $csk_set_username = $row['username'];
                     if((bool)self::sf_auth_set_csk($csk_set_username, $current_session_key)){
@@ -485,8 +486,8 @@ class SafiriRentalDriver
         try {
             $stmt = $this->DB_con->prepare('SELECT *, NULL AS password, NULL AS current_session_key, NULL AS date_of_registration, NULL AS user_type, NULL AS username, NULL AS uri_log_book
                                                     FROM safirire_safiri.cars, safirire_safiri.pick_up_points, safirire_safiri.car_pictures, safirire_safiri.pic_type, safirire_safiri.make, safirire_safiri.users, safirire_safiri.body_type
-                                                    WHERE cars.pick_up_point = 001
-                                                    AND cars.body_type = 001
+                                                    WHERE cars.pick_up_point = :pick_up_point
+                                                    AND cars.body_type = :body_type
                                                     AND cars.body_type = body_type.type_code
                                                     AND cars.pick_up_point = pick_up_points.id
                                                     AND cars.car_id = car_pictures.car_id 
@@ -532,6 +533,113 @@ class SafiriRentalDriver
 
         echo json_encode($jsonData);
     }
+
+    public function sf_get_cars_per_owner($owner)
+    {
+
+        $jsonData = array();
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT *, NULL AS password, NULL AS current_session_key, NULL AS date_of_registration, NULL AS user_type, NULL AS username, NULL AS uri_log_book
+                                                    FROM safirire_safiri.cars, safirire_safiri.pick_up_points, safirire_safiri.car_pictures, safirire_safiri.pic_type, safirire_safiri.make, safirire_safiri.users, safirire_safiri.body_type
+                                                    WHERE  cars.owner_username = :owner_username
+                                                    AND  cars.body_type = body_type.type_code
+                                                    AND cars.pick_up_point = pick_up_points.id
+                                                    AND cars.car_id = car_pictures.car_id 
+                                                    AND car_pictures.pic_type = pic_type.pic_type_code
+                                                    AND cars.make = make.make_id
+                                                    AND cars.owner_username = users.username
+                                                    ORDER BY cars.car_id DESC');
+
+            $stmt->bindParam(':owner_username', $owner);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $counter = 0;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $counter++;
+
+                    $jsonData["response"] = true;
+                    $jsonData["status"] = 200;
+                    $jsonData["count"] = $counter;
+                    $jsonData["data"][] = $row;
+
+                }
+
+            } else {
+
+                $jsonData["response"] = false;
+                $jsonData["status"] = 403;
+                $row["error"] = "FAILED";
+                $jsonData["data"] = $row;
+
+            }
+
+
+        } catch (Exception $e) {
+            $jsonData["response"] = false;
+            $row["error"] = "AUTH_FAILED";
+            $row["extended_error"] = $e->getMessage();
+            $jsonData["status"] = 500;
+            $jsonData["data"] = $row;
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    public function sf_get_all_cars()
+    {
+
+        $jsonData = array();
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT *, NULL AS password, NULL AS current_session_key, NULL AS date_of_registration, NULL AS user_type, NULL AS username, NULL AS uri_log_book
+                                                    FROM safirire_safiri.cars, safirire_safiri.pick_up_points, safirire_safiri.car_pictures, safirire_safiri.pic_type, safirire_safiri.make, safirire_safiri.users, safirire_safiri.body_type
+                                                    WHERE  cars.body_type = body_type.type_code
+                                                    AND cars.pick_up_point = pick_up_points.id
+                                                    AND cars.car_id = car_pictures.car_id 
+                                                    AND car_pictures.pic_type = pic_type.pic_type_code
+                                                    AND cars.make = make.make_id
+                                                    AND cars.owner_username = users.username
+                                                    ORDER BY cars.car_id DESC');
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $counter = 0;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $counter++;
+
+                    $jsonData["response"] = true;
+                    $jsonData["status"] = 200;
+                    $jsonData["count"] = $counter;
+                    $jsonData["data"][] = $row;
+
+                }
+
+            } else {
+
+                $jsonData["response"] = false;
+                $jsonData["status"] = 403;
+                $row["error"] = "FAILED";
+                $jsonData["data"] = $row;
+
+            }
+
+
+        } catch (Exception $e) {
+            $jsonData["response"] = false;
+            $row["error"] = "AUTH_FAILED";
+            $row["extended_error"] = $e->getMessage();
+            $jsonData["status"] = 500;
+            $jsonData["data"] = $row;
+        }
+
+        echo json_encode($jsonData);
+    }
+
 
     public function add_location($location_name){
         $jsonData = array();
