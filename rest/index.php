@@ -27,6 +27,12 @@ $pathTrimmed = trim($path, '/');
 $pathTokens = explode('/', $pathTrimmed);
 
 $method = $pathTokens[0];
+
+
+if($method === null || !isset($method) || $method === ''){
+$driver -> error_reporting("METHOD_MISSING");    
+}
+
 $driver-> api_key_verifier();
 
 
@@ -127,6 +133,15 @@ if($method === 'addLocation'){
 
     $driver ->add_location($location_name);
 }
+
+if($method === 'addBodyTypes'){
+
+    $type = array_key_exists("body_type", $_REQUEST) ? $_REQUEST["body_type"] : null;
+    $body_type_placeholder = array_key_exists("body_type_placeholder ", $_REQUEST) ? $_REQUEST["body_type_placeholder "] : null;
+
+    $driver ->add_body_types($type, $body_type_placeholder);
+}
+
 
 if($method === 'addPickupPoint'){
 

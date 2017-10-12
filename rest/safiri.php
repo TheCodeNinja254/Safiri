@@ -683,6 +683,50 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
+    public function add_body_types($type, $body_type_placeholder){
+        $jsonData = array();
+
+        $type_code = rand(1000000, 99999999);
+        try {
+            $stmt = $this->DB_con->prepare('INSERT INTO safirire_safiri.body_type (type_code, type, body_type_placeholder)
+                                                  
+                                          VALUES (
+                                                  :type_code, 
+                                                  :type, 
+                                                  :body_type_placeholder
+                                                  
+                                          )');
+
+            $stmt->bindParam(':type_code', $type_code);
+            $stmt->bindParam(':type', $type);
+            $stmt->bindParam(':body_type_placeholder', $body_type_placeholder);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $row["response"] = true;
+                $row["status"] = 200;
+                $jsonData["data"] = $row;
+
+            } else {
+
+                $row["response"] = false;
+                $row["status"] = 200;
+                $row["error"] = "INSERT_FAILED";
+                $jsonData["data"] = $row;
+            }
+
+
+        } catch (Exception $e) {
+            $row["response"] = false;
+            $row["status"] = 500;
+            $row["error"] = $e->getMessage();
+            $jsonData["data"] = $row;
+        }
+        echo json_encode($jsonData);
+    }
+
     public function add_pick_up_point($pick_up_point, $location_code){
         $jsonData = array();
         
@@ -929,8 +973,26 @@ class SafiriRentalDriver
         }
     }
 
+    public function error_reporting($err){
+        $jsonData = array();
 
+        $ERROR = "";
+        $DESCRIPTION = "";
 
+        if($err === "METHOD_MISSING"){
+            $ERROR = "METHOD_MISSING";
+            $DESCRIPTION = "The Callback-Method is missing from your query. Contact Developers.";
+        }
+
+        $row["response"] = false;
+        $row["status"] = 500;
+        $row["error"] = $ERROR;
+        $row["error_description"] = $DESCRIPTION;
+        $jsonData["data"] = $row;
+
+        echo json_encode($jsonData);
+        die();
+    }
 }
 
 
