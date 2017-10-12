@@ -99,7 +99,7 @@
 								<span class="input-group-addon">
 									<i class="fa fa-lock"></i>
 								</span>
-                                           <input type="text"  name="supplier_password_two" class="form-control" placeholder="Confirm Password">
+                                           <input type="password"  name="supplier_password_two" class="form-control" placeholder="Confirm Password">
                                        </div>
                                    </div>
                                    <center><button class="btn btn-danger btn-round btn-sm text-center">Clear</button>

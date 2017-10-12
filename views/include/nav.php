@@ -21,7 +21,7 @@
             <a href="">
                 <div class="logo-container">
                     <div class="logo">
-                        <img src="<?php echo $host_name; ?>/assets/img/logo.png" alt="Creative Tim Logo" rel="tooltip" title="<b>Material Kit</b> was Designed & Coded with care by the staff from <b>Creative Tim</b>" data-placement="bottom" data-html="true">
+                        <img src="<?php echo $host_name; ?>/assets/img/logo.png" alt="Safiri APP">
                     </div>
                     <div class="brand text-main">
                         Safiri car Rental
@@ -41,7 +41,7 @@
                 </li>
                 <li>
                     <a href="<?php echo $host_name; ?>/home/rent/" >
-                        <i class="fa fa-taxi"></i> Rent It
+                        <i class="fa fa-taxi"></i> Register to Rent
                     </a>
                 </li>
                 <li>

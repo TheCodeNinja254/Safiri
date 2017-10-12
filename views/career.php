@@ -36,34 +36,34 @@
                             </thead>
                             <tr>
                                 <td><i class="fa fa-user-plus text-main"></i> </td>
-                                <td>Full Time driver</td>
+                                <td>Freelance Marketing Executives</td>
                                 <td>15</td>
                                 <td class="text-center"><a class='' href="#"><i class="fa fa-download"></i> <strong>APPLY</strong></a> </td>
                             </tr>
-                            <tr>
-                                <td><i class="fa fa-user-plus text-main"></i> </td>
-                                <td>Full Time driver</td>
-                                <td>15</td>
-                                <td class="text-center"><a class='' href="#"><i class="fa fa-download"></i> <strong>APPLY</strong></a> </td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-user-plus text-main"></i> </td>
-                                <td>Full Time driver</td>
-                                <td>15</td>
-                                <td class="text-center"><a class='' href="#"><i class="fa fa-download"></i> <strong>APPLY</strong></a> </td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-user-plus text-main"></i> </td>
-                                <td>Full Time driver</td>
-                                <td>15</td>
-                                <td class="text-center"><a class='' href="#"><i class="fa fa-download"></i> <strong>APPLY</strong></a> </td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-user-plus text-main"></i> </td>
-                                <td>Full Time driver</td>
-                                <td>15</td>
-                                <td class="text-center"><a class='' href="#"><i class="fa fa-download"></i> <strong>APPLY</strong></a> </td>
-                            </tr>
+<!--                            <tr>-->
+<!--                                <td><i class="fa fa-user-plus text-main"></i> </td>-->
+<!--                                <td>Full Time driver</td>-->
+<!--                                <td>15</td>-->
+<!--                                <td class="text-center"><a class='' href="#"><i class="fa fa-download"></i> <strong>APPLY</strong></a> </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td><i class="fa fa-user-plus text-main"></i> </td>-->
+<!--                                <td>Full Time driver</td>-->
+<!--                                <td>15</td>-->
+<!--                                <td class="text-center"><a class='' href="#"><i class="fa fa-download"></i> <strong>APPLY</strong></a> </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td><i class="fa fa-user-plus text-main"></i> </td>-->
+<!--                                <td>Full Time driver</td>-->
+<!--                                <td>15</td>-->
+<!--                                <td class="text-center"><a class='' href="#"><i class="fa fa-download"></i> <strong>APPLY</strong></a> </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td><i class="fa fa-user-plus text-main"></i> </td>-->
+<!--                                <td>Full Time driver</td>-->
+<!--                                <td>15</td>-->
+<!--                                <td class="text-center"><a class='' href="#"><i class="fa fa-download"></i> <strong>APPLY</strong></a> </td>-->
+<!--                            </tr>-->
 
 
                         </table>

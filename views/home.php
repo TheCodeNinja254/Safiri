@@ -1,7 +1,7 @@
 <?php include 'include/header.php';?>
 <?php include 'include/nav.php';?>
 <div class="wrapper">
-	<div class="header header-filter" style="background-image: url('/assets/img/banner2.jpeg');">
+	<div class="header header-filter" style="background-image: url('/assets/img/banner3.jpeg');">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">

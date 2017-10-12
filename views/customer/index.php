@@ -9,7 +9,7 @@
                                     <i class="fa fa-car"></i>
                                 </div>
                                 <div class="card-content">
-                                    <a class="btn btn-warning btn-sm" href="#pablo"><i class="fa fa-eye"></i> View your cars</a>
+                                    <a class="btn btn-warning btn-sm" href="<?php echo $host_name; ?>cars"><i class="fa fa-eye"></i> View your cars</a>
                                 </div>
                             </div>
                         </div>
@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <a class="btn btn-success btn-sm" href="#pablo"><i class="fa fa-plus-circle"></i> Add a car</a>
+                                        <a class="btn btn-success btn-sm" href="<?php echo $host_name; ?>/customer/dashboard/cars/"><i class="fa fa-plus-circle"></i> Add a car</a>
                                     </div>
                                 </div>
                             </div>

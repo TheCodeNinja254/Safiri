@@ -22,7 +22,7 @@
                                         <center>
                                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail img-circle">
-                                                    <img src="../../assets/img/automobile.png" alt="...">
+                                                    <img src="<?php echo $host_name;?>assets/img/automobile.png" alt="...">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
                                                 <div>
@@ -42,7 +42,7 @@
                                         <center>
                                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail img-circle">
-                                                    <img src="../../assets/img/automobile.png" alt="...">
+                                                    <img src="<?php echo $host_name;?>assets/img/automobile.png" alt="...">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
                                                 <div>
@@ -62,7 +62,7 @@
                                         <center>
                                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail img-circle">
-                                                    <img src="../../assets/img/automobile.png" alt="...">
+                                                    <img src="<?php echo $host_name;?>assets/img/automobile.png" alt="...">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
                                                 <div>
@@ -82,7 +82,7 @@
                                         <center>
                                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail img-circle">
-                                                    <img src="../../assets/img/automobile.png" alt="...">
+                                                    <img src="<?php echo $host_name;?>assets/img/automobile.png" alt="...">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
                                                 <div>

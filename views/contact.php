@@ -23,7 +23,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="content">
-                            <center><h5 class=""><i class="fa fa-user-plus text-main"></i> <br ><strong>Send your Message. complain or complement </strong></h5></center>
+                            <center><h5 class=""><i class="fa fa-envelope text-main"></i> <br ><strong>Send your Message. complain or complement </strong></h5></center>
                             <div class="row">
                                 <form>
                                 <div class="col-md-6">
@@ -33,8 +33,10 @@
 								</span>
                                         <input type="text" class="form-control" placeholder="First Name">
                                     </div>
+
                                 </div>
                                 <div class="col-md-6">
+
                                     <div class="input-group">
 								<span class="input-group-addon">
 									<i class="fa fa-user"></i>
@@ -105,7 +107,7 @@
                                         </div>
                                         <div class="description">
                                             <h5 class="info-title">Give us a ring</h5>
-                                            <p> Peter Okwiri<br>
+                                            <p> Safiri Applications<br>
                                                 +254 799 391 657<br>
                                                 Mon - Fri, 8:00-17:00
                                             </p>
@@ -120,8 +122,7 @@
                                         <div class="description">
                                             <h5 class="info-title">Write to us</h5>
                                             <p> Safiri Car Rental<br>
-                                                info@safirirental.com<br>
-                                                pokwiri@yahoo.com
+                                                Info@safirirentals.com
                                             </p>
                                         </div>
                                     </div>
