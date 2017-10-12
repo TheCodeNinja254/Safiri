@@ -382,6 +382,52 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
+    public function sf_get_car_make()
+    {
+
+        $jsonData = array();
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT *
+                                                    FROM safirire_safiri.make 
+                                                    ORDER BY make_id DESC');
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $counter = 0;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $counter++;
+
+
+                    $jsonData["response"] = true;
+                    $jsonData["status"] = 200;
+                    $jsonData["data"][] = $row;
+
+                }
+
+            } else {
+
+                $jsonData["response"] = false;
+                $jsonData["status"] = 403;
+                $row["error"] = "FAILED";
+                $jsonData["data"] = $row;
+
+            }
+
+
+        } catch (Exception $e) {
+            $jsonData["response"] = false;
+            $row["error"] = "AUTH_FAILED";
+            $row["extended_error"] = $e->getMessage();
+            $jsonData["status"] = 500;
+            $jsonData["data"] = $row;
+        }
+
+        echo json_encode($jsonData);
+    }
+
 
     public function sf_get_pickup_points($location_code)
     {
@@ -682,6 +728,44 @@ class SafiriRentalDriver
         }
         echo json_encode($jsonData);
     }
+
+
+    public function add_make($make){
+        $jsonData = array();
+        
+        try {
+            $stmt = $this->DB_con->prepare('INSERT INTO safirire_safiri.make (make)
+                                                  
+                                          VALUES (:make)');
+
+            $stmt->bindParam(':make', $make);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $row["response"] = true;
+                $row["status"] = 200;
+                $jsonData["data"] = $row;
+
+            } else {
+
+                $row["response"] = false;
+                $row["status"] = 200;
+                $row["error"] = "INSERT_FAILED";
+                $jsonData["data"] = $row;
+            }
+
+
+        } catch (Exception $e) {
+            $row["response"] = false;
+            $row["status"] = 500;
+            $row["error"] = $e->getMessage();
+            $jsonData["data"] = $row;
+        }
+        echo json_encode($jsonData);
+    }
+
 
     public function add_body_types($type, $body_type_placeholder){
         $jsonData = array();
