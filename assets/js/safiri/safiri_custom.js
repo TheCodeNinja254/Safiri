@@ -131,8 +131,105 @@ $('#loginForm').submit(function(event) {
 
         });
     // stop the form from submitting the normal way and refreshing the page
-    event.preventDefault();
 });
+
+function load_car_make() {
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+
+    var api_url = "https://api.safirirental.com/";
+    var callback = "getCarMake";
+    var source = "/web/";
+
+
+    $.ajax({
+        type        :   'GET',
+        url         :   api_url+callback+source,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $(data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $.each(data.data, function(key, value) {
+                        $('#car_make_list').append("<option value='sdsd'>Some</option>");
+                        // console.log(make);
+                        console.log(value.make)
+                    });
+
+                }else{
+
+                    // $.notify("Registration Failed, incorrect username/password combination", "danger");
+                    $.notify('Registration Failed, incorrect username/password combination', {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+}
+
+
+function load_body_types() {
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+
+    var api_url = "https://api.safirirental.com/";
+    var callback = "getBodyTypes";
+    var source = "/web/";
+
+
+    $.ajax({
+        type        :   'GET',
+        url         :   api_url+callback+source,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $(data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $.each(data.data, function(key, value) {
+                        $('#car_body_type_list')
+                            .append($("<option></option>")
+                                .attr("value",data.type_code)
+                                .text(data.type));
+                    });
+
+                }else{
+
+                    // $.notify("Registration Failed, incorrect username/password combination", "danger");
+                    $.notify('Registration Failed, incorrect username/password combination', {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+}
 
 
 

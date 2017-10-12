@@ -5,7 +5,7 @@
                 <div class="container-fluid">
                     <div class="card">
                         <h4 class="text-center text-main">Please provide CORRECT information of your</h4>
-                        <form>
+                        <form action="https://api.safirirental.com/addCar/web/" method="post" enctype="multipart/form-data">
                     <div class="row" style="padding-left: 10px">
                         <div class="col-md-8">
                             <div class="row">
@@ -13,16 +13,8 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <select class="selectpicker" data-style="btn-primary" data-width="100%"  title="Choose your Car Make...">
-                                                    <option>Toyota</option>
-                                                    <option>Nissan</option>
-                                                    <option>Mazda</option>
-                                                    <option>Mitsubishi</option>
-                                                    <option>Hyundai</option>
-                                                    <option>Volkswagen</option>
-                                                    <option>Audi</option>
-                                                    <option>BMW</option>
-                                                    <option>Mercedes-Benz</option>
+                                                <select id="car_make_list" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Choose your Car Make...">
+                                                    <option value="">Select Make</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -37,16 +29,8 @@
                                 <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <select class="selectpicker" data-style="btn-primary" data-width="100%"  title="Choose your Car Body Type...">
-                                        <option>Saloon</option>
-                                        <option>Station Wagon</option>
-                                        <option>Hatch Back</option>
-                                        <option>Pick Up</option>
-                                        <option>SUV</option>
-                                        <option>Canter</option>
-                                        <option>Lorry</option>
-                                        <option>Luxury Class</option>
-                                        <option>Mercedes-Benz</option>
+                                    <select id="car_body_type_list" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Choose your Car Body Type...">
+                                        <option value="">Select Body Type</option>
                                     </select>
                                 </div>
                             </div>
@@ -85,7 +69,7 @@
                                                     <span class="btn btn-round btn-primary btn-file">
                                                         <span class="fileinput-new">Upload Logbook</span>
                                                         <span class="fileinput-exists">Change</span>
-                                                        <input type="file" name="..." />
+                                                        <input type="file" name="post_file" accept="*"/>
                                                     </span>
                                         <br />
                                         <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
@@ -116,3 +100,9 @@
         </div>
     </div>
 <?php include 'includes/scripts.php';?>
+<script type="application/javascript">
+    $( document ).ready(function() {
+        load_car_make();
+        load_body_types();
+    });
+</script>
