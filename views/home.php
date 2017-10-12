@@ -1,7 +1,7 @@
 <?php include 'include/header.php';?>
 <?php include 'include/nav.php';?>
 <div class="wrapper">
-	<div class="header header-filter" style="background-image: url('/assets/img/banner2.jpeg');">
+	<div class="header header-filter" style="background-image: url('/assets/img/banner3.jpeg');">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
@@ -23,7 +23,7 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="content">
-                                <center><h3 class=""><i class="fa fa-car text-main"></i> <br ><strong>Big variety of car categories </strong></h3></center>
+                                <center><h3 class=""><i class="fa fa-car text-main"></i> <br ><strong>Big varietyssss of car categories </strong></h3></center>
                                 <p>At Safiri Car Rental, we allow many categories of cars. This means that whatever car you want to rent on our APP is allowed as long as it falls under our creterias.</p>
                                 <center><button class="btn btn-primary-outline btn-round btn-sm text-center">Register</button></center>
 

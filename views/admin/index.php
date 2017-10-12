@@ -17,7 +17,7 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="fa fa-eye"></i>
-                                        <a href="#pablo">View</a>
+                                        <a href="/admin/dashboard/cars">View</a>
                                     </div>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="fa fa-eye"></i>
-                                        <a href="#pablo">View</a>
+                                        <a href="/admin/dashboard/customers">View</a>
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="fa fa-eye"></i>
-                                        <a href="#pablo">View</a>
+                                        <a href="/admin/dashboard/owners">View</a>
                                     </div>
                                 </div>
                             </div>

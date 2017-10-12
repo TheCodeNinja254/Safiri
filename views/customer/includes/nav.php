@@ -24,21 +24,15 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo $host_name; ?>/customer/dashboard/my-cars/">
+                        <a href="<?php echo $host_name; ?>/customer/dashboard/cars/">
                             <i class="fa fa-car"></i>
-                            <p>Cars</p>
+                            <p>Add Cars</p>
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo $host_name; ?>/customer/dashboard/customers/">
-                            <i class="fa fa-users"></i>
-                            <p>Customers</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo $host_name; ?>/customer/dashboard/owners/">
+                        <a href="<?php echo $host_name; ?>/customer/dashboard/my-cars/">
                             <i class="fa fa-taxi"></i>
-                            <p>Car Owners</p>
+                            <p>You Cars</p>
                         </a>
                     </li>
                     <li>
@@ -50,7 +44,7 @@
                     <li>
                         <a href="<?php echo $host_name; ?>/customer/dashboard/subscriptions/">
                             <i class="fa fa-money"></i>
-                            <p>Subscriptions</p>
+                            <p>YSubscriptions</p>
                         </a>
                     </li>
                                       <!--</li>-->
@@ -67,7 +61,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"> Hey Admin, Welcome </a>
+                        <a class="navbar-brand" href="#"> Hey Supplier, Welcome </a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right ">

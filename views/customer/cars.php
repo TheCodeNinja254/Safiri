@@ -92,7 +92,7 @@
                                     </div>
                                 </div><br>
                                     <button class="btn btn-success btn-sm" type="submit">SAVE</button>
-                                    <button class="btn btn-primary btn-sm" type="submit">UPload Photos</button>
+                                    <a class="btn btn-primary btn-sm" href="<?php echo $host_name ?>/photos/" >UPload Photos</a>
                                 </center>
                             </div>
                         </form>

@@ -22,7 +22,7 @@
             <div class="container">
                     <div class="col-md-12">
                         <h3 class="title text-center">Our Story</h3>
-                        <p class="text-justify"> It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+                        <p class="text-justify">  Safiri is an Android mobile based application that aims at bring together car hire operators and clients/customers, making the process of hiring out and renting vehicles easy and convenient. This is a subscription based platform for car hire operators who can upload information of their vehicles through an easy, fast and secure process and start earning money today by clicking on the registration tab above . For Car Hire customers/clients, please download our <strong>"SAFIRI"</strong> app for free on google playstore (ANDROID PHONES) and hire a car of your choice today</p>
 
                     </div>
                 </div>

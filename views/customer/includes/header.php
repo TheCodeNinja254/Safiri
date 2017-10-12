@@ -38,8 +38,10 @@ if($host === 'localhost'){
     <link href="<?php echo $host_name; ?>/assets/css/customer_css/bootstrap-select.min.css" rel="stylesheet">
     <!--  Material Dashboard CSS    -->
     <link href="<?php echo $host_name; ?>/assets/css/customer_css/material-dashboard.css" rel="stylesheet">
-    <!--  Style     -->
+    <!--  Style & Select    -->
     <link href="<?php echo $host_name; ?>/assets/css/customer_css/demo.css" rel="stylesheet">
+    <link href="<?php echo $host_name; ?>/assets/css/customer_css/bootstrap-select.min.css" rel="stylesheet">
+
     <!--     Fonts and icons     -->
     <link href="<?php echo $host_name; ?>/assets/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo $host_name; ?>/assets/css/customer_css/css.css" rel="styleshet" type="text/css">

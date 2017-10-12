@@ -36,6 +36,10 @@ if($host === 'localhost'){
 <script src="<?php echo $host_name; ?>/assets/js/material-dashboard.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="<?php echo $host_name; ?>/assets/js/demo.js"></script>
+<!-- Select! -->
+<script src="<?php echo $host_name; ?>/assets/js/bootstrap-select.min.js"></script>
+<!-- File Upload! -->
+<script src="<?php echo $host_name; ?>/assets/js/jasny-bootstrap.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
 
