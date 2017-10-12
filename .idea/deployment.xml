@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="SafiriRental" filePermissions="420" folderPermissions="493">
+  <component name="PublishConfigData" autoUpload="Always" serverName="SafiriRental2" filePermissions="420" folderPermissions="493">
     <serverData>
-      <paths name="SafiriRental">
+      <paths name="SafiriRental2">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
