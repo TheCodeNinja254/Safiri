@@ -40,6 +40,7 @@ if($host === 'localhost'){
 <script src="<?php echo $host_name; ?>/assets/js/bootstrap-select.min.js"></script>
 <!-- File Upload! -->
 <script src="<?php echo $host_name; ?>/assets/js/jasny-bootstrap.min.js"></script>
+<script src="<?php echo $host_name; ?>/assets/js/safiri/safiri_custom.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -49,4 +50,3 @@ if($host === 'localhost'){
     });
 </script>
 
-</body><!--   Core JS Files   --></html>
