@@ -3,9 +3,9 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="47f8c071-784c-4ea9-bb0b-ed2d051b5bb7" name="SafiriRental2" url="http://safirirental.com">
-        <fileTransfer host="safirirental.com" port="21" rootFolder="/public_html" password="dfd9dfcbdfccdfc3dfd8dfc3dfeadf98df9adf9bdf9d" username="safirire">
+        <fileTransfer host="safirirental.com" port="21" rootFolder="/public_html" username="safirire" password="dfd9dfcbdfccdfc3dfd8dfc3dfeadf98df9adf9bdf9d">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" />
+            <advancedOptions dataProtectionLevel="Private" showHiddenFiles="true" />
           </advancedOptions>
           <option name="port" value="21" />
         </fileTransfer>

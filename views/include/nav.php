@@ -9,7 +9,7 @@
 
 <body class="index-page">
 <!-- Navbar -->
-<nav class="navbar  navbar-fixed-top ">
+<nav class="navbar navbar-white  navbar-fixed-top ">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-index">

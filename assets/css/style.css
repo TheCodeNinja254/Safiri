@@ -14,8 +14,11 @@ h1, .h1 {
     text-align: center;
 }
 .navbar, .navbar.navbar-default {
-    background-color: #EEEEEE;
+    background-color: #fff;
     color: #05BFE9;
+}
+footer{
+    background-color: #fff!important;
 }
 .text-main{
     color: #05BFE9!important;

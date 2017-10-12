@@ -1,16 +1,19 @@
 <?php include 'include/header.php';?>
 <?php include 'include/nav.php';?>
+
 <div class="wrapper">
-	<div class="header header-filter" style="background-image: url('/assets/img/banner3.jpeg');">
+	<div class="header header-filter" style="background-image: url('https://safirirental.com/assets/img/banner3.jpeg');">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="brand">
-						<h1>Safiri Car Rental.</h1>
+						<h1>Safiri Car Rental. </h1>
 						<h>Register today and start earning.</h>
 					</div>
 				</div>
 			</div>
+
+
 
 		</div>
 	</div>
