@@ -134,14 +134,15 @@ if($method === 'addLocation'){
     $driver ->add_location($location_name);
 }
 
-if($method === 'addBodyTypes'){
+if($method === 'addBodyType'){
 
     $type = array_key_exists("body_type", $_REQUEST) ? $_REQUEST["body_type"] : null;
-    $body_type_placeholder = array_key_exists("body_type_placeholder ", $_REQUEST) ? $_REQUEST["body_type_placeholder "] : null;
+    $body_type_placeholder = array_key_exists("body_type_placeholder", $_REQUEST) ? $_REQUEST["body_type_placeholder"] : null;
 
     $driver ->add_body_types($type, $body_type_placeholder);
 }
-
+//Nissan, Toyota, Mazda, Mistubishi,
+// Suzuki, Audi, BMW, Mercedes, Land Rover, Isuzu, Lexus, Subaru, Peugeot, Ford, Volkswagen
 
 if($method === 'addPickupPoint'){
 
@@ -159,7 +160,12 @@ if($method === 'addCar'){
     $pick_up_point = array_key_exists("pick_up_point", $_REQUEST) ? $_REQUEST["pick_up_point"] : null;
     $hire_price_per_day = array_key_exists("hire_price_per_day", $_REQUEST) ? $_REQUEST["hire_price_per_day"] : null;
     $owner_username = "admin";
-    $uri_log_book = 00;
+
+    $photo = basename($_FILES["post_file"]["name"]);
+    $temp = explode(".", $_FILES["post_file"]["name"]);
+    $newFileName = "safiri"."-".round(microtime(true)) . '.' . end($temp);
+
+    $uri_log_book = "https://api.safirirental.com/uploads/files/".$newFileName;
 
     $driver ->add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point);
 }
@@ -168,6 +174,19 @@ if ($method === 'sfOAuthLogout') {
 
     $username = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
     $driver -> sf_auth_logout($username);
+
+}
+
+if ($method === 'addCarMake') {
+
+    $make = array_key_exists("make", $_REQUEST) ? $_REQUEST["make"] : null;
+    $driver -> add_make($make);
+
+}
+
+if ($method === 'getCarMake') {
+
+    $driver -> sf_get_car_make();
 
 }
 
