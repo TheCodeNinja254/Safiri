@@ -1,86 +1,74 @@
 <?php include 'includes/header.php';?>
-<?php include 'includes/nav.php';?>
-            <div class="content">
-                <div class="container-fluid">
+<?php include 'includes/nav.php';?><br><br>
+<div class="main">
+            <div class="container-fluid">
+                <div class="col-lg-12 col-md-12">
                     <div class="row">
+                        <div class="card">
+                            <h4 class="text-center text-main">Use the Field Below to Add New Locations</h4>
+                            <form>
+                                <div class="row" style="padding-left: 10px">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" value="" placeholder="Enter New Rentals Location" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <center>
+                                        <button class="btn btn-danger btn-sm" type="reset">CLEAR</button>
+                                        <button type="submit" class="btn btn-success btn-sm" href="//localhost/safiri/photos/" >ADD</button>
+                                        </center>
+                                    </div></div>
+                            </form>
+                        </div></div></div></div>
                         <div class="col-lg-12 col-md-12">
                             <div class="card">
-<h3 class="text-center">Registered Car Owners</h3>
+<h3 class="text-center">Your Locations</h3>
                                 <div class="card-content table-responsive">
-                                                <table class="table table-hover">
+                                                <table class="table table-hover text-center">
                                                     <thead class="text-main">
-                                                    <tr><th><strong>ID</strong></th>
-                                                        <th><strong>First name</strong></th>
-                                                        <th><strong>Last name</strong></th>
-                                                        <th><strong>Email</strong></th>
-                                                        <th><strong>Phone</strong></th>
-                                                        <th><strong>Date Joined</strong></th>
-                                                        <th><strong>Number of cars</strong></th>
+                                                    <tr><th class="text-center"><strong>ID</strong></th>
+                                                        <th class="text-center"><strong>Location</strong></th>
+                                                        <th class="text-center"><strong>Action</strong></th>
                                                     </tr></thead>
                                                     <tbody>
                                                     <tr>
                                                         <td>01</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
+                                                        <td>Nairobi</td>
+                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>02</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
+                                                        <td>Mombasa</td>
+                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>03</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
+                                                        <td>Kisumu</td>
+                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>04</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
+                                                        <td>Nakuru</td>
+                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>05</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
+                                                        <td>Eldoret</td>
+                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>06</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
+                                                        <td>Kericho</td>
+                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
+
                                                     </tr>
                                                     <tr>
                                                         <td>07</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
+                                                        <td>Thika</td>
+                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
+
 
 
 
@@ -93,9 +81,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
             <footer class="footer text-center">
                 <div class="container-fluid">
                     <p class="copyright">

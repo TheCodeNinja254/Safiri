@@ -56,7 +56,13 @@ if($base === "admin"){
         include 'views/admin/customers.php';
     }else if($pathTokens[2] === 'owners') {
         include 'views/admin/owners.php';
-    }else{
+    }else if($pathTokens[2] === 'locations'){
+        include 'views/admin/locations.php';
+    }else if($pathTokens[2] === 'pick-up'){
+        include 'views/admin/pick-up.php';
+    }else if($pathTokens[2] === 'makes'){
+        include 'views/admin/makes.php';
+    }else {
         include 'views/admin/index.php';
     }
 
@@ -73,7 +79,7 @@ if($base === "customer"){
         include 'views/customer/id.php';
     }else if($pathTokens[2] === 'owners') {
         include 'views/customer/id.php';
-    }else if($pathTokens[2] === 'photo-upload') {
+    }else if($pathTokens[2] === 'photos') {
         include 'views/customer/photos.php';
     }else{
         include 'views/customer/index.php';

@@ -10,27 +10,27 @@
 <body class="index-page">
 <!-- Navbar -->
 <nav class="navbar navbar-white  navbar-fixed-top ">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-index">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="">
-                <div class="logo-container">
-                    <div class="logo">
-                        <img src="<?php echo $host_name; ?>/assets/img/logo.png" alt="Safiri APP">
-                    </div>
-                    <div class="brand text-main">
-                        Safiri car Rental
-                    </div>
-
-
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-index">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="<?php echo $host_name; ?>/assets/img/logo.png" alt="Safiri APP">
                 </div>
-            </a>
-        </div>
+                <div class="brand text-main">
+                    Safiri car Rental
+                </div>
+
+
+            </div>
+        </a>
+    </div>
+    <div class="container">
 
         <div class="collapse navbar-collapse" id="navigation-index">
             <ul class="nav navbar-nav navbar-right">

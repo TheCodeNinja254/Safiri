@@ -42,6 +42,24 @@
                         </a>
                     </li>
                     <li>
+                        <a href="<?php echo $host_name; ?>/admin/dashboard/locations/">
+                            <i class="fa fa-map-marker"></i>
+                            <p>Locations</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $host_name; ?>/admin/dashboard/pick-up/">
+                            <i class="fa fa-street-view"></i>
+                            <p>Pick-up Points</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $host_name; ?>/admin/dashboard/makes/">
+                            <i class="fa fa-taxi"></i>
+                            <p>Car Makes</p>
+                        </a>
+                    </li>
+                    <li>
                         <a href="<?php echo $host_name; ?>/admin/dashboard/reviews/">
                             <i class="fa fa-commenting"></i>
                             <p>Reviews and Comments</p>

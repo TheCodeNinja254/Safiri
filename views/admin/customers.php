@@ -8,14 +8,13 @@
 <h3 class="text-center">Registered Customers</h3>
                                 <div class="card-content table-responsive">
                                                 <table class="table table-hover">
-                                                    <thead class="text-warning">
-                                                    <tr><th>ID</th>
-                                                        <th>First name</th>
-                                                        <th>Last name</th>
-                                                        <th>Email</th>
-                                                        <th>Phone</th>
-                                                        <th>Date Joined</th>
-                                                        <th>Number of cars</th>
+                                                    <thead class="text-main text-bold">
+                                                    <tr><th><strong>ID</strong></th>
+                                                        <th><strong>First name</strong></th>
+                                                        <th><strong>Last name</strong></th>
+                                                        <th><strong>Email</strong></th>
+                                                        <th><strong>Phone</strong></th>
+                                                        <th><strong>Date Joined</strong></th>
                                                     </tr></thead>
                                                     <tbody>
                                                     <tr>
