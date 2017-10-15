@@ -19,83 +19,7 @@ class SafiriRentalDriver
             $this->DB_con = new PDO("mysql:host={$DB_host};dbname={$DB_name}", $DB_user, $DB_pass);
             $this->DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    private function crypto_rand_secure($min, $max)
-    {
-        $range = $max - $min;
-        if ($range < 1) return $min; // not so random...
-        $log = ceil(log($range, 2));
-        $bytes = (int) ($log / 8) + 1; // length in bytes
-        $bits = (int) $log + 1; // length in bits
-        $filter = (int) (1 << $bits) - 1; // set all lower bits to 1
-        do {
-            $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
-            $rnd = $rnd & $filter; // discard irrelevant bits
-        } while ($rnd > $range);
-        return $min + $rnd;
-    }
-
-    public function sf_auth_generate_csk(){
-
-        $length_one = 12;
-        $length_two = 12;
-        $csk_prefix = "SAFIRI";
-        $csk_microtime = round(microtime(true));
-        $csk_rand = rand(10000000000,99999999999999);
-        $csk_rand_key_one = "";
-        $csk_rand_key_two = "";
-
-        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
-        $codeAlphabet.= "0123456789";
-        $max = strlen($codeAlphabet); // edited
-
-        for ($i=0; $i < $length_one; $i++) {
-            $csk_rand_key_one .= $codeAlphabet[self::crypto_rand_secure(0, $max-1)];
-        }
-
-        for ($i=0; $i < $length_two; $i++) {
-            $csk_rand_key_two .= $codeAlphabet[self::crypto_rand_secure(0, $max-1)];
-        }
-
-        //Finally
-        define("CSK", $csk_prefix."-".$csk_microtime."-".$csk_rand."-".$csk_rand_key_one."-".$csk_rand_key_two);
-        return CSK;
-    }
-
-    /**
-     * @param $pass
-     * @return string
-     */
-    public function hash_password($pass) {
-        $salt = "@^sas8876&997hJH&^bjj%&^z£a8)*&()5";
-        return sha1($pass . $salt);
-    }
-
-    private function api_key_get_owner($api_key){
-        try {
-            $stmt = $this->DB_con->prepare('SELECT api_key_owner
-                                            FROM safirire_safiri.api_keys
-                                            WHERE api_keys.api_key = :passed_api_key');
-
-            $stmt->bindParam(':passed_api_key', $api_key);
-            $stmt->execute();
-
-            if ($stmt->rowCount() > 0) {
-
-                return true;
-
-            } else {
-
-                return false;
-            }
-
-
-        } catch (Exception $e) {
-            return false;
+//            echo $e->getMessage();
         }
     }
 
@@ -134,6 +58,30 @@ class SafiriRentalDriver
         }
     }
 
+    private function api_key_get_owner($api_key){
+        try {
+            $stmt = $this->DB_con->prepare('SELECT api_key_owner
+                                            FROM safirire_safiri.api_keys
+                                            WHERE api_keys.api_key = :passed_api_key');
+
+            $stmt->bindParam(':passed_api_key', $api_key);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                return true;
+
+            } else {
+
+                return false;
+            }
+
+
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
     /**
      * @param $f_name
      * @param $m_name
@@ -150,7 +98,7 @@ class SafiriRentalDriver
      */
     public function add_user($f_name, $m_name, $l_name, $national_id_num, $postal_address, $email_adddress, $phone_num, $date_of_registration, $username, $password, $user_type, $uri_copy_of_id){
         $jsonData = array();
-        
+
         //Statics
         $status = "unverified";
         $access_level = 1;
@@ -227,6 +175,14 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
+    /**
+     * @param $pass
+     * @return string
+     */
+    public function hash_password($pass) {
+        $salt = "@^sas8876&997hJH&^bjj%&^z£a8)*&()5";
+        return sha1($pass . $salt);
+    }
 
     /**
      * @param $username
@@ -334,6 +290,49 @@ class SafiriRentalDriver
 
         }
 
+    }
+
+    public function sf_auth_generate_csk(){
+
+        $length_one = 12;
+        $length_two = 12;
+        $csk_prefix = "SAFIRI";
+        $csk_microtime = round(microtime(true));
+        $csk_rand = rand(10000000000,99999999999999);
+        $csk_rand_key_one = "";
+        $csk_rand_key_two = "";
+
+        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+        $codeAlphabet.= "0123456789";
+        $max = strlen($codeAlphabet); // edited
+
+        for ($i=0; $i < $length_one; $i++) {
+            $csk_rand_key_one .= $codeAlphabet[self::crypto_rand_secure(0, $max-1)];
+        }
+
+        for ($i=0; $i < $length_two; $i++) {
+            $csk_rand_key_two .= $codeAlphabet[self::crypto_rand_secure(0, $max-1)];
+        }
+
+        //Finally
+        define("CSK", $csk_prefix."-".$csk_microtime."-".$csk_rand."-".$csk_rand_key_one."-".$csk_rand_key_two);
+        return CSK;
+    }
+
+    private function crypto_rand_secure($min, $max)
+    {
+        $range = $max - $min;
+        if ($range < 1) return $min; // not so random...
+        $log = ceil(log($range, 2));
+        $bytes = (int) ($log / 8) + 1; // length in bytes
+        $bits = (int) $log + 1; // length in bits
+        $filter = (int) (1 << $bits) - 1; // set all lower bits to 1
+        do {
+            $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
+            $rnd = $rnd & $filter; // discard irrelevant bits
+        } while ($rnd > $range);
+        return $min + $rnd;
     }
 
     public function sf_get_locations()
@@ -923,75 +922,6 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
-    /**
-     * @param $newphotoname
-     * @return bool
-     */
-    public function uploadImage($newphotoname){
-
-        //File Upload Library
-        $target_dir = "uploads/"; //uploads refers to the preferred folder
-        $target_file = $target_dir . $newphotoname;
-        $uploadOk = 1;
-        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-
-        // Check if image file is a actual image or fake image
-
-        $check = getimagesize($_FILES["post_image"]["tmp_name"]);
-
-
-        if ($_FILES["post_image"]["size"] > 30000000 ) {
-
-
-            return false;
-
-        }
-
-        // Allow certain file formats
-        if($imageFileType != "jpg"
-            && $imageFileType != "png"
-            && $imageFileType != "jpeg"
-            && $imageFileType != "gif"
-            && $imageFileType != "JPG"
-            && $imageFileType != "GIF"
-            && $imageFileType != "JPEG" ) {
-
-//                    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            $uploadOk = 0;
-
-            return false;
-
-        }
-
-        if($_FILES['post_image']['error']) {
-            // handle the error
-
-            echo $_FILES["post_image"]["error"];
-        } else {
-            // process
-
-            if (move_uploaded_file($_FILES["post_image"]["tmp_name"], $target_file)) {
-
-                return true;
-
-            } else {
-
-//                echo $target_dir;
-//                echo "::::";
-//                echo $target_file;
-//                echo "::::";
-//                echo $_FILES['post_image']['temp_name'];
-//                echo "::::";
-//                echo "Sorry, there was an error uploading your file. Error => " . $_FILES["post_image"]["error"];
-//                ini_set('display_errors', 1);
-//                error_reporting(E_ALL);
-
-                return false;
-            }
-        }
-    }
-
-
     public function uploadFile($newfilename){
 
         //File Upload Library
@@ -1077,6 +1007,193 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
         die();
     }
+
+    public function upload_to_cdn($car_id){
+        //globals
+        $jsonData = array();
+        $cdn = $pic_url = "https://cdn.safirirental.com/images/";
+
+        //First Photo;
+        $temp = explode(".", $_FILES["post_image_one"]["name"]);
+        $newFileName = "safiri"."-".round(microtime(true)) .rand(1000000,99999999). '.' . end($temp);
+
+        $pic_url = $cdn.$newFileName; 
+        $pic_type = 00;
+
+        self:: uploadImage($newFileName);
+        if(self::upload_car_photos($car_id, $pic_url, $pic_type)) {
+            $row['pic_one_upload_ok'] = true;
+        } else {
+            $row['pic_one_upload_ok'] = false;
+        }
+        //---------------------------
+
+
+        //Second Photo
+        $temp1 = explode(".", $_FILES["post_image_two"]["name"]);
+        $newFileName1 = "safiri"."-".round(microtime(true)) . rand(1000000,99999999).'.' . end($temp1);
+
+        $pic_url1 = $cdn.$newFileName1;
+        $pic_type = 00;
+
+        self:: uploadImage($newFileName1);
+        if(self::upload_car_photos($car_id, $pic_url1, $pic_type)) {
+            $row['pic_two_upload_ok'] = true;
+        } else {
+            $row['pic_two_upload_ok'] = false;
+        }
+        //---------------------------
+
+
+        //Third Photo
+        $temp = explode(".", $_FILES["post_image_three"]["name"]);
+        $newFileNam2 = "safiri"."-".round(microtime(true)) . rand(1000000,99999999).'.' . end($temp);
+
+        $pic_url2 = $cdn.$newFileNam2;
+        $pic_type = 00;
+
+        self:: uploadImage($newFileNam2);
+        if(self::upload_car_photos($car_id, $pic_url2, $pic_type)) {
+            $row['pic_three_upload_ok'] = true;
+        } else {
+            $row['pic_three_upload_ok'] = false;
+        }
+        //---------------------------
+
+
+        //Fourth Photo
+        $temp = explode(".", $_FILES["post_image_four"]["name"]);
+        $newFileName3 = "safiri"."-".round(microtime(true)) . rand(1000000,99999999).'.' . end($temp);
+
+        $pic_url3 = $cdn.$newFileName3;
+        $pic_type = 00;
+
+        self:: uploadImage($newFileName3);
+        if(self::upload_car_photos($car_id, $pic_url2, $pic_type)) {
+            $row['pic_four_upload_ok'] = true;
+        } else {
+            $row['pic_four_upload_ok'] = false;
+        }
+        //---------------------------
+
+//    Commit
+        $row["response"] = true;
+        $row["status"] = 200;
+        $jsonData["data"] = $row;
+
+        echo json_encode($jsonData);
+
+    }
+
+    /**
+     * @param $newphotoname
+     * @return bool
+     */
+    public function uploadImage($newphotoname){
+
+        //File Upload Library
+        $target_dir = "uploads/images"; //uploads refers to the preferred folder
+        $target_file = $target_dir . $newphotoname;
+        $uploadOk = 1;
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+        // Check if image file is a actual image or fake image
+
+        $check = getimagesize($_FILES["post_image"]["tmp_name"]);
+
+
+        if ($_FILES["post_image"]["size"] > 30000000 ) {
+
+
+            return false;
+
+        }
+
+        // Allow certain file formats
+        if($imageFileType != "jpg"
+            && $imageFileType != "png"
+            && $imageFileType != "jpeg"
+            && $imageFileType != "gif"
+            && $imageFileType != "JPG"
+            && $imageFileType != "GIF"
+            && $imageFileType != "JPEG" ) {
+
+//                    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+
+            return false;
+
+        }
+
+        if($_FILES['post_image']['error']) {
+            // handle the error
+
+//            echo $_FILES["post_image"]["error"];
+            return false;
+
+        } else {
+            // process
+
+            if (move_uploaded_file($_FILES["post_image"]["tmp_name"], $target_file)) {
+
+                return true;
+
+            } else {
+
+                //For Debugging purposes only
+//                echo $target_dir;
+//                echo "::::";
+//                echo $target_file;
+//                echo "::::";
+//                echo $_FILES['post_image']['temp_name'];
+//                echo "::::";
+//                echo "Sorry, there was an error uploading your file. Error => " . $_FILES["post_image"]["error"];
+//                ini_set('display_errors', 1);
+//                error_reporting(E_ALL);
+
+                return false;
+            }
+        }
+    }
+
+    public function upload_car_photos($car_id, $pic_url, $pic_type){
+
+        try {
+            $stmt = $this->DB_con->prepare('INSERT 
+                                            INTO safirire_safiri.car_pictures (
+                                            car_id, 
+                                            pic_url, 
+                                            pic_type)
+                                                  
+                                          VALUES (
+                                                  :car_id,
+                                                  :pic_url,
+                                                  :pic_type
+                                                  
+                                          )');
+
+            $stmt->bindParam(':car_id', $car_id);
+            $stmt->bindParam(':pic_url', $pic_url);
+            $stmt->bindParam(':pic_type', $pic_type);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                return true;
+
+            } else {
+
+                return false;
+            }
+
+
+        } catch (Exception $e) {
+            return false;
+        }
+
+    }
+
 }
 
 

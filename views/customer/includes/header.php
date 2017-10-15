@@ -18,7 +18,7 @@ if($host === 'localhost'){
 
 ?>
 <!DOCTYPE html>
-<html class="perfect-scrollbar-on" lang="en"><head>
+<html class="" lang="en"><head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <link rel="apple-touch-icon" sizes="76x76" href="<?php echo $host_name; ?>/assets/img/apple-icon.png">
@@ -28,10 +28,10 @@ if($host === 'localhost'){
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <meta name="viewport" content="width=device-width">
     <!-- Canonical SEO -->
-    <link rel="canonical" href="https://www.creative-tim.com/product/material-dashboard">
+    <link rel="canonical" href="https://safirirental.com/">
     <!--  Social tags      -->
-    <meta name="keywords" content="material dashboard, bootstrap material admin, bootstrap material dashboard, material design admin, material design, creative tim, html dashboard, html css dashboard, web dashboard, freebie, free bootstrap dashboard, css3 dashboard, bootstrap admin, bootstrap dashboard, frontend, responsive bootstrap dashboard">
-    <meta name="description" content="Material Dashboard is a Free Material Bootstrap Admin with a fresh, new design inspired by Google's Material Design.">
+    <meta name="keywords" content="Car Hire Services">
+    <meta name="description" content="Car Hire Services">
 
     <!-- Bootstrap core CSS     -->
     <link href="<?php echo $host_name; ?>/assets/css/customer_css/bootstrap.css" rel="stylesheet">
@@ -45,5 +45,7 @@ if($host === 'localhost'){
     <!--     Fonts and icons     -->
     <link href="<?php echo $host_name; ?>/assets/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo $host_name; ?>/assets/css/customer_css/css.css" rel="styleshet" type="text/css">
-    <script type="text/javascript" charset="UTF-8" src="<?php echo $host_name; ?>/assets/js/common.js"></script><script type="text/javascript" charset="UTF-8" src="Material%20Dashboard%20by%20Creative%20Tim_files/util.js"></script><script type="text/javascript" charset="UTF-8" src="Material%20Dashboard%20by%20Creative%20Tim_files/stats.js"></script></head>
+    <script type="text/javascript" charset="UTF-8" src="<?php echo $host_name; ?>/assets/js/common.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="<?php echo $host_name; ?>/assets/js/util.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="<?php echo $host_name; ?>/assets/js/stats.js"></script></head>
 

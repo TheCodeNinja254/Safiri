@@ -73,13 +73,15 @@
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="verified">
                                                 <div class="card-content table-responsive">
-                                                    <table class="table table-hover">
+                                                    <table class="table table-hover table-responsive" id="ownersCarsDataTable">
+
                                                         <thead class="text-main">
                                                         <tr><th>Reg Number</th>
                                                             <th>Make</th>
                                                             <th>Model</th>
-                                                            <th>Type</th>
+                                                            <th>Body Type</th>
                                                             <th>Location</th>
+                                                            <th>Pick Up Point</th>
                                                             <th>Price per day</th>
                                                             <th>Status</th>
                                                         </tr></thead>

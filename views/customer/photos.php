@@ -4,14 +4,14 @@
                 <div class="container-fluid">
                     <div class="card">
                         <h4 class="text-center text-main">Please Upload photos of your car<small>(Maximum Photos 5)</small> </h4>
-                        <form>
+                        <form id="uploadCarPhotosWebForm" action="https://api.safirirental.com/uploadCarPhotos/web/" method="post" enctype="multipart/form-data" >
                     <div class="row" style="padding-left: 10px">
                         <div class="col-md-12">
                             <center>
                                             <div class="form-group">
-                                                <select class="selectpicker" data-style="btn-primary" data-width="300px"  title="Choose your Car...">
-                                                    <option>KAG 993K</option>
-                                                    <option>KCL 887L</option>
+                                                <select class="selectpicker" id="owner_cars_list_select" name="owner_cars_list_select" data-style="btn-primary" data-width="300px"  title="Choose your Car..." required>
+                                                    <option value="KAG 993K">KAG 993K</option>
+                                                    <option value="KCL 887">KCL 887L</option>
                                                 </select>
                                             </div>
                             </center></div>
@@ -22,14 +22,14 @@
                                         <center>
                                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail img-circle">
-                                                    <img src="<?php echo $host_name;?>assets/img/automobile.png" alt="...">
+                                                    <img src="<?php echo $host_name;?>/assets/img/automobile.png" alt="...">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
                                                 <div>
                                                     <span class="btn btn-round btn-primary btn-file">
                                                         <span class="fileinput-new">Select photo</span>
                                                         <span class="fileinput-exists">Change</span>
-                                                        <input type="file" name="..." />
+                                                        <input type="file" name="post_image_one" accept="image/*" required/>
                                                     </span>
                                                     <br />
                                                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
@@ -42,14 +42,14 @@
                                         <center>
                                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail img-circle">
-                                                    <img src="<?php echo $host_name;?>assets/img/automobile.png" alt="...">
+                                                    <img src="<?php echo $host_name;?>/assets/img/automobile.png" alt="...">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
                                                 <div>
                                                     <span class="btn btn-round btn-primary btn-file">
                                                         <span class="fileinput-new">Select photo</span>
                                                         <span class="fileinput-exists">Change</span>
-                                                        <input type="file" name="..." />
+                                                        <input type="file" name="post_image_two" accept="image/*"/>
                                                     </span>
                                                     <br />
                                                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
@@ -62,14 +62,14 @@
                                         <center>
                                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail img-circle">
-                                                    <img src="<?php echo $host_name;?>assets/img/automobile.png" alt="...">
+                                                    <img src="<?php echo $host_name;?>/assets/img/automobile.png" alt="...">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
                                                 <div>
                                                     <span class="btn btn-round btn-primary btn-file">
                                                         <span class="fileinput-new">Select photo</span>
                                                         <span class="fileinput-exists">Change</span>
-                                                        <input type="file" name="..." />
+                                                        <input type="file" name="post_image_three" accept="image/*"/>
                                                     </span>
                                                     <br />
                                                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
@@ -82,14 +82,14 @@
                                         <center>
                                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail img-circle">
-                                                    <img src="<?php echo $host_name;?>assets/img/automobile.png" alt="...">
+                                                    <img src="<?php echo $host_name;?>/assets/img/automobile.png" alt="...">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
                                                 <div>
                                                     <span class="btn btn-round btn-primary btn-file">
                                                         <span class="fileinput-new">Select photo</span>
                                                         <span class="fileinput-exists">Change</span>
-                                                        <input type="file" name="..." />
+                                                        <input type="file" name="post_image_four" accept="image/*"/>
                                                     </span>
                                                     <br />
                                                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
@@ -123,3 +123,8 @@
 </body>
 
 <?php include 'includes/scripts.php';?>
+<script type="application/javascript">
+    $( document ).ready(function() {
+       load_owner_cars_list();
+    });
+</script>

@@ -10,7 +10,6 @@ date_default_timezone_set('Africa/Nairobi');
 $date = date("j  F Y  g.i", time());
 
 
-
 //To allow/Restrict cross domain RESTApi requests
 header("Access-Control-Allow-Origin: https://safirirental.com");
 header("Access-Control-Allow-Methods: POST, GET, HEAD");
@@ -29,8 +28,8 @@ $pathTokens = explode('/', $pathTrimmed);
 $method = $pathTokens[0];
 
 
-if($method === null || !isset($method) || $method === ''){
-$driver -> error_reporting("METHOD_MISSING");    
+if ($method === null || !isset($method) || $method === '') {
+    $driver->error_reporting("METHOD_MISSING");
 }
 
 $driver-> api_key_verifier();
@@ -46,7 +45,7 @@ $driver-> api_key_verifier();
 
 if ($method === 'getApiKey') {
 
-    $driver -> sf_auth_generate_csk();
+    $driver->sf_auth_generate_csk();
 
 }
 
@@ -65,9 +64,9 @@ if ($method === 'addSupplier') {
     $username = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
     $password = array_key_exists("password", $_REQUEST) ? $_REQUEST["password"] : null;
     $uri_copy_of_id = "00";
-    
-    
-    $driver -> add_user($f_name, $m_name, $l_name, $national_id_num, $postal_address, $email_adddress, $phone_num, $date_of_registration, $username, $password, $user_type, $uri_copy_of_id);
+
+
+    $driver->add_user($f_name, $m_name, $l_name, $national_id_num, $postal_address, $email_adddress, $phone_num, $date_of_registration, $username, $password, $user_type, $uri_copy_of_id);
 
 }
 
@@ -92,9 +91,6 @@ if ($method === 'addCustomer') {
 
 if ($method === 'safiriOauth') {
 
-
-    $user_type = "customer";
-
     $username = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
     $password = array_key_exists("password", $_REQUEST) ? $_REQUEST["password"] : null;;
 
@@ -103,56 +99,54 @@ if ($method === 'safiriOauth') {
 }
 
 
-if($method === 'getLocations'){
+if ($method === 'getLocations') {
 
-    $driver ->sf_get_locations();
+    $driver->sf_get_locations();
 }
 
-if($method === 'getPickUpPoints'){
+if ($method === 'getPickUpPoints') {
 
     $location_code = array_key_exists("location_code", $_REQUEST) ? $_REQUEST["location_code"] : null;
-    $driver ->sf_get_pickup_points($location_code);
+    $driver->sf_get_pickup_points($location_code);
 }
 
-if($method === 'getBodyTypes'){
+if ($method === 'getBodyTypes') {
 
-    $driver ->sf_get_body_types();
+    $driver->sf_get_body_types();
 }
 
-if($method === 'getCars'){
+if ($method === 'getCars') {
 
     $pick_up_point = array_key_exists("pick_up_point", $_REQUEST) ? $_REQUEST["pick_up_point"] : null;
     $body_type = array_key_exists("body_type", $_REQUEST) ? $_REQUEST["body_type"] : null;
 
-    $driver ->sf_get_cars_per_pickup($pick_up_point, $body_type);
+    $driver->sf_get_cars_per_pickup($pick_up_point, $body_type);
 }
 
-if($method === 'addLocation'){
+if ($method === 'addLocation') {
 
     $location_name = array_key_exists("location_name", $_REQUEST) ? $_REQUEST["location_name"] : null;
 
-    $driver ->add_location($location_name);
+    $driver->add_location($location_name);
 }
 
-if($method === 'addBodyType'){
+if ($method === 'addBodyType') {
 
     $type = array_key_exists("body_type", $_REQUEST) ? $_REQUEST["body_type"] : null;
     $body_type_placeholder = array_key_exists("body_type_placeholder", $_REQUEST) ? $_REQUEST["body_type_placeholder"] : null;
 
-    $driver ->add_body_types($type, $body_type_placeholder);
+    $driver->add_body_types($type, $body_type_placeholder);
 }
-//Nissan, Toyota, Mazda, Mistubishi,
-// Suzuki, Audi, BMW, Mercedes, Land Rover, Isuzu, Lexus, Subaru, Peugeot, Ford, Volkswagen
 
-if($method === 'addPickupPoint'){
+if ($method === 'addPickupPoint') {
 
     $location_code = array_key_exists("location_code", $_REQUEST) ? $_REQUEST["location_code"] : null;
     $pick_up_point = array_key_exists("pick_up_point", $_REQUEST) ? $_REQUEST["pick_up_point"] : null;
 
-    $driver ->add_pick_up_point($pick_up_point, $location_code);
+    $driver->add_pick_up_point($pick_up_point, $location_code);
 }
 
-if($method === 'addCar'){
+if ($method === 'addCar') {
 
     $make = array_key_exists("make", $_REQUEST) ? $_REQUEST["make"] : null;
     $model = array_key_exists("model", $_REQUEST) ? $_REQUEST["model"] : null;
@@ -163,30 +157,31 @@ if($method === 'addCar'){
 
     $photo = basename($_FILES["post_file"]["name"]);
     $temp = explode(".", $_FILES["post_file"]["name"]);
-    $newFileName = "safiri"."-".round(microtime(true)) . '.' . end($temp);
+    $newFileName = "safiri" . "-" . round(microtime(true)) . '.' . end($temp);
 
-    $uri_log_book = "https://api.safirirental.com/uploads/files/".$newFileName;
+    $uri_log_book = "https://api.safirirental.com/uploads/files/" . $newFileName;
 
-    $driver ->add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point);
+    $driver->uploadFile($uri_log_book);
+    $driver->add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point);
 }
 
 if ($method === 'sfOAuthLogout') {
 
     $username = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
-    $driver -> sf_auth_logout($username);
+    $driver->sf_auth_logout($username);
 
 }
 
 if ($method === 'addCarMake') {
 
     $make = array_key_exists("make", $_REQUEST) ? $_REQUEST["make"] : null;
-    $driver -> add_make($make);
+    $driver->add_make($make);
 
 }
 
 if ($method === 'getCarMake') {
 
-    $driver -> sf_get_car_make();
+    $driver->sf_get_car_make();
 
 }
 
@@ -195,13 +190,20 @@ if ($method === 'getMyCars') {
 
 //    $owner = $_SESSION['username'];
     $owner = 'admin';//for test
-    $driver -> sf_get_cars_per_owner($owner);
+    $driver->sf_get_cars_per_owner($owner);
 }
 
 if ($method === 'getAllCars') {
 
-    $driver -> sf_get_all_cars();
+    $driver->sf_get_all_cars();
 }
+
+if ($method === 'uploadCarPhotos') {
+
+    $car_id = array_key_exists("car_id", $_REQUEST) ? $_REQUEST["car_id"] : null;
+    $driver->upload_to_cdn($car_id);
+}
+
 
 
 
