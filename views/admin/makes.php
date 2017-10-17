@@ -5,7 +5,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="row">
                         <div class="card">
-                            <h4 class="text-center text-main">Use the Field Below to Add New Locations</h4>
+                            <h4 class="text-center text-main">Use the Field Below to Add New Makes</h4>
                             <form>
                                 <div class="row" style="padding-left: 10px">
                                     <div class="col-md-6">
@@ -28,44 +28,44 @@
                                                 <table class="table table-hover text-center">
                                                     <thead class="text-main">
                                                     <tr><th class="text-center"><strong>ID</strong></th>
-                                                        <th class="text-center"><strong>Location</strong></th>
+                                                        <th class="text-center"><strong>Make</strong></th>
                                                         <th class="text-center"><strong>Action</strong></th>
                                                     </tr></thead>
                                                     <tbody>
                                                     <tr>
                                                         <td>01</td>
-                                                        <td>Nairobi</td>
+                                                        <td>Toyota</td>
                                                         <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>02</td>
-                                                        <td>Mombasa</td>
+                                                        <td>Nissan</td>
                                                         <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>03</td>
-                                                        <td>Kisumu</td>
+                                                        <td>Mitsubishi</td>
                                                         <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>04</td>
-                                                        <td>Nakuru</td>
+                                                        <td>Volkswagen</td>
                                                         <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>05</td>
-                                                        <td>Eldoret</td>
+                                                        <td>Subaru</td>
                                                         <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>06</td>
-                                                        <td>Kericho</td>
+                                                        <td>Mercedes Benz</td>
                                                         <td><button class="btn btn-danger btn-sm">Delete</button></td>
 
                                                     </tr>
                                                     <tr>
                                                         <td>07</td>
-                                                        <td>Thika</td>
+                                                        <td>BMW</td>
                                                         <td><button class="btn btn-danger btn-sm">Delete</button></td>
                                                     </tr>
 

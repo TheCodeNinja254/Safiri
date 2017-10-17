@@ -79,7 +79,7 @@ if($base === "customer"){
         include 'views/customer/id.php';
     }else if($pathTokens[2] === 'owners') {
         include 'views/customer/id.php';
-    }else if($pathTokens[2] === 'photo-upload') {
+    }else if($pathTokens[2] === 'photos') {
         include 'views/customer/photos.php';
     }else{
         include 'views/customer/index.php';

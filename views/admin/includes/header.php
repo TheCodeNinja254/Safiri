@@ -35,8 +35,10 @@ if($host === 'localhost'){
     <link href="<?php echo $host_name; ?>/assets/css/admin_css/bootstrap.css" rel="stylesheet">
     <!--  Material Dashboard CSS    -->
     <link href="<?php echo $host_name; ?>/assets/css/admin_css/material-dashboard.css" rel="stylesheet">
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <!--  CSS & SELECT    -->
     <link href="<?php echo $host_name; ?>/assets/css/admin_css/demo.css" rel="stylesheet">
+    <link href="<?php echo $host_name; ?>/assets/css/customer_css/bootstrap-select.min.css" rel="stylesheet">
+
     <!--     Fonts and icons     -->
     <link href="<?php echo $host_name; ?>/assets/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo $host_name; ?>/assets/css/admin_css/css.css" rel="styleshet" type="text/css">
