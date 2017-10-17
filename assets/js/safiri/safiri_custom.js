@@ -361,15 +361,15 @@ $('#addCarWebForm').submit(function(event) {
     var source = "/web/";
 
 
-    // var formData = new FormData($(this)[0]);
+    var formData = new FormData($(this)[0]);
 
     
-         var formData = {
-        'make': $('select[name=ad_car_make]').val(),
-        'model': $('input[name=ad_car_model]').val(),
-        'body_type': $('select[name=ad_car_body_type]').val(),
-        'pick_up_point': $('select[name=ad_car_pickup_point]').val(),
-        'hire_price_per_day': $('input[name=ad_price_per_day]').val()
+          formData.append = {
+        'make': $('select[name=make]').val(),
+        'model': $('input[name=model]').val(),
+        'body_type': $('select[name=body_type]').val(),
+        'pick_up_point': $('select[name=pick_up_point]').val(),
+        'hire_price_per_day': $('input[name=hire_price_per_day]').val()
     };
 
     console.log(formData);
@@ -382,9 +382,6 @@ $('#addCarWebForm').submit(function(event) {
         url         : api_url+callback+source, // the url where we want to POST
         data        : formData, // our data object
         dataType    : 'json', // what type of data do we expect back from the server
-        encode      : true,
-        async       : false,
-        cache       : false,
         contentType : false,
         enctype     : 'multipart/form-data',
         processData : false
@@ -437,7 +434,7 @@ $('#uploadCarPhotosWebForm').submit(function(event) {
     var formData = new FormData($(this)[0]);
 
     formData.append = {
-        'car_id': $('input[name=owner_cars_list_select]').val()
+        'car_id': $('input[name=car_id_from_list]').val()
     };
 
     // process the form
@@ -510,10 +507,10 @@ function load_owner_cars_list() {
                 if(value.response === true){
 
                     $.each(data.data, function(key, value) {
-                        $('#owner_cars_list_select')
-                            .append($("<option></option>")
-                                .attr("value",data.type_code)
-                                .text(data.type));
+                        
+                        var selectList = $('#owner_cars_list_select');
+                        selectList.append("<option value='"+value.car_number_plate+"'>"+value.car_number_plate+" - "+value.make+"</option>");
+
                     });
 
                 }else{

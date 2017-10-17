@@ -160,13 +160,12 @@ if ($method === 'addCar') {
     $hire_price_per_day = array_key_exists("hire_price_per_day", $_REQUEST) ? $_REQUEST["hire_price_per_day"] : null;
     $owner_username = "admin";
 
-    $photo = basename($_FILES["post_file"]["name"]);
     $temp = explode(".", $_FILES["post_file"]["name"]);
     $newFileName = "safiri" . "-" . round(microtime(true)) . '.' . end($temp);
 
     $uri_log_book = "https://cdn.safirirental.com/files/" . $newFileName;
 
-    $driver->uploadFile($uri_log_book);
+    $driver->uploadFile($newFileName);
     $driver->add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point);
 }
 
@@ -205,7 +204,7 @@ if ($method === 'getAllCars') {
 
 if ($method === 'uploadCarPhotos') {
 
-    $car_id = array_key_exists("car_id", $_REQUEST) ? $_REQUEST["car_id"] : null;
+    $car_id = array_key_exists("car_id_from_list", $_REQUEST) ? $_REQUEST["car_id_from_list"] : null;
     $driver->upload_to_cdn($car_id);
 }
 

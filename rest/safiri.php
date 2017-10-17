@@ -530,13 +530,11 @@ class SafiriRentalDriver
 
         try {
             $stmt = $this->DB_con->prepare('SELECT *, NULL AS password, NULL AS current_session_key, NULL AS date_of_registration, NULL AS user_type, NULL AS username, NULL AS uri_log_book
-                                                    FROM safirire_safiri.cars, safirire_safiri.pick_up_points, safirire_safiri.car_pictures, safirire_safiri.pic_type, safirire_safiri.make, safirire_safiri.users, safirire_safiri.body_type
+                                                    FROM safirire_safiri.cars, safirire_safiri.pick_up_points,  safirire_safiri.make, safirire_safiri.users, safirire_safiri.body_type
                                                     WHERE cars.pick_up_point = :pick_up_point
                                                     AND cars.body_type = :body_type
                                                     AND cars.body_type = body_type.type_code
                                                     AND cars.pick_up_point = pick_up_points.id
-                                                    AND cars.car_id = car_pictures.car_id 
-                                                    AND car_pictures.pic_type = pic_type.pic_type_code
                                                     AND cars.make = make.make_id
                                                     AND cars.owner_username = users.username
                                                     ORDER BY cars.car_id DESC');
@@ -581,20 +579,28 @@ class SafiriRentalDriver
 
     public function sf_get_cars_per_owner($owner)
     {
-
+            
         $jsonData = array();
 
         try {
-            $stmt = $this->DB_con->prepare('SELECT *, NULL AS password, NULL AS current_session_key, NULL AS date_of_registration, NULL AS user_type, NULL AS username, NULL AS uri_log_book
-                                                    FROM safirire_safiri.cars, safirire_safiri.pick_up_points, safirire_safiri.car_pictures, safirire_safiri.pic_type, safirire_safiri.make, safirire_safiri.users, safirire_safiri.body_type
-                                                    WHERE  cars.owner_username = :owner_username
-                                                    AND  cars.body_type = body_type.type_code
-                                                    AND cars.pick_up_point = pick_up_points.id
-                                                    AND cars.car_id = car_pictures.car_id 
-                                                    AND car_pictures.pic_type = pic_type.pic_type_code
-                                                    AND cars.make = make.make_id
-                                                    AND cars.owner_username = users.username
-                                                    ORDER BY cars.car_id DESC');
+
+            $stmt = $this->DB_con->prepare("SELECT *, 
+                                            NULL AS password, 
+                                            NULL AS current_session_key, 
+                                            NULL AS date_of_registration, 
+                                            NULL AS user_type, 
+                                            NULL AS username 
+                                            FROM safirire_safiri.cars, 
+                                            safirire_safiri.pick_up_points, 
+                                            safirire_safiri.make, 
+                                            safirire_safiri.users, 
+                                            safirire_safiri.body_type 
+                                            WHERE cars.owner_username = :owner_username
+                                            AND cars.body_type = body_type.type_code 
+                                            AND cars.pick_up_point = pick_up_points.id 
+                                            AND cars.make = make.make_id 
+                                            AND cars.owner_username = users.username 
+                                            ORDER BY cars.car_id DESC");
 
             $stmt->bindParam(':owner_username', $owner);
             $stmt->execute();
@@ -639,12 +645,10 @@ class SafiriRentalDriver
         $jsonData = array();
 
         try {
-            $stmt = $this->DB_con->prepare('SELECT *, NULL AS password, NULL AS current_session_key, NULL AS date_of_registration, NULL AS user_type, NULL AS username, NULL AS uri_log_book
-                                                    FROM safirire_safiri.cars, safirire_safiri.pick_up_points, safirire_safiri.car_pictures, safirire_safiri.pic_type, safirire_safiri.make, safirire_safiri.users, safirire_safiri.body_type
+            $stmt = $this->DB_con->prepare('SELECT *, NULL AS password, NULL AS current_session_key, NULL AS date_of_registration, NULL AS user_type, NULL AS username
+                                                    FROM safirire_safiri.cars, safirire_safiri.pick_up_points, safirire_safiri.make, safirire_safiri.users, safirire_safiri.body_type
                                                     WHERE  cars.body_type = body_type.type_code
                                                     AND cars.pick_up_point = pick_up_points.id
-                                                    AND cars.car_id = car_pictures.car_id 
-                                                    AND car_pictures.pic_type = pic_type.pic_type_code
                                                     AND cars.make = make.make_id
                                                     AND cars.owner_username = users.username
                                                     ORDER BY cars.car_id DESC');
@@ -977,13 +981,13 @@ class SafiriRentalDriver
 //                echo "::::";
 //                echo $target_file;
 //                echo "::::";
-//                echo $_FILES['post_image']['temp_name'];
+//                echo $_FILES['post_file']['temp_name'];
 //                echo "::::";
 //                echo "Sorry, there was an error uploading your file. Error => " . $_FILES["post_image"]["error"];
 //                ini_set('display_errors', 1);
 //                error_reporting(E_ALL);
-
-                return false;
+//
+//                return false;
             }
         }
     }
@@ -1070,7 +1074,7 @@ class SafiriRentalDriver
         $pic_type = 00;
 
         self:: uploadImage($newFileName3);
-        if(self::upload_car_photos($car_id, $pic_url2, $pic_type)) {
+        if(self::upload_car_photos($car_id, $pic_url3, $pic_type)) {
             $row['pic_four_upload_ok'] = true;
         } else {
             $row['pic_four_upload_ok'] = false;

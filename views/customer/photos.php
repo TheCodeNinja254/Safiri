@@ -9,9 +9,8 @@
                         <div class="col-md-12">
                             <center>
                                             <div class="form-group">
-                                                <select class="selectpicker" id="owner_cars_list_select" name="owner_cars_list_select" data-style="btn-primary" data-width="300px"  title="Choose your Car..." required>
-                                                    <option value="KAG 993K">KAG 993K</option>
-                                                    <option value="KCL 887">KCL 887L</option>
+                                                <select class="" id="owner_cars_list_select" name="car_id_from_list" data-style="btn-primary" data-width="300px"  title="Choose your Car..." required>
+                                                    <option value="">Select a car</option>
                                                 </select>
                                             </div>
                             </center></div>

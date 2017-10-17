@@ -45,7 +45,6 @@ if($host === 'localhost'){
     <!--     Fonts and icons     -->
     <link href="<?php echo $host_name; ?>/assets/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo $host_name; ?>/assets/css/customer_css/css.css" rel="styleshet" type="text/css">
-    <script type="text/javascript" charset="UTF-8" src="<?php echo $host_name; ?>/assets/js/common.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="<?php echo $host_name; ?>/assets/js/util.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="<?php echo $host_name; ?>/assets/js/stats.js"></script></head>
+
+
 

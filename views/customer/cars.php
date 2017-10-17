@@ -14,13 +14,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
 <!--                                                <select id="car_make_list" name="ad_car_make" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Choose your Car Make...">-->
-                                                <select id="car_make_list" name="ad_car_make" >
+                                                <select id="car_make_list" name="make" required>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" name="ad_car_model" value="" placeholder="Enter Your car Model" class="form-control" />
+                                                <input type="text" name="model" value="" required placeholder="Enter Your car Model" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
@@ -30,14 +30,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
 <!--                                    <select id="car_body_type_list" name="ad_car_body_type" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Choose your Car Body Type...">-->
-                                    <select id="car_body_type_list" name="ad_car_body_type">
+                                    <select id="car_body_type_list" name="body_type" required>
                                         <option value="">Select Body Type</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="ad_car_number_plate" value="" placeholder="Enter Your car Number Plate" class="form-control" />
+                                    <input type="text" name="car_number_plate" value="" required placeholder="Enter Your car Number Plate" class="form-control" />
                                 </div>
                             </div>
                             </div>
@@ -47,14 +47,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
 <!--                                            <select id="car_location_list" name="ad_car_location" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Select a Location...">-->
-                                            <select id="car_location_list" name="ad_car_location">
+                                            <select id="car_location_list" name="ad_car_location" required>
                                                 <option value="">Select Location</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" name="ad_price_per_day" value="" placeholder="Enter Your Price per Day" class="form-control" />
+                                            <input type="text" name="hire_price_per_day" required value="" placeholder="Enter Your Price per Day" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
 <!--                                            <select id="car_pickup_point_list" name="ad_car_pickup_point" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Select a Pickup point">-->
-                                            <select id="car_pickup_point_list" name="ad_car_pickup_point" required>
+                                            <select id="car_pickup_point_list" name="pick_up_point" required>
                                                 <option value="">Select Pick up point</option>
                                             </select>
                                         </div>
