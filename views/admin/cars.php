@@ -39,14 +39,14 @@
                                         <div class="tab-pane active" id="verified">
                                             <div class="card-content table-responsive">
                                                 <table class="table table-hover">
-                                                    <thead class="text-warning">
-                                                    <tr><th>Reg Number</th>
-                                                        <th>Make</th>
-                                                        <th>Model</th>
-                                                        <th>Type</th>
-                                                        <th>Location</th>
-                                                        <th>Owner</th>
-                                                        <th>Action</th>
+                                                    <thead class="text-main">
+                                                    <tr><th><strong>Reg Number</strong></th>
+                                                        <th><strong>Make</strong></th>
+                                                        <th><strong>Model</strong></th>
+                                                        <th><strong>Type</strong></th>
+                                                        <th><strong>Location</strong></th>
+                                                        <th><strong>Owner</strong></th>
+                                                        <th><strong>Action</strong></th>
                                                     </tr></thead>
                                                     <tbody>
                                                     <tr>
@@ -121,14 +121,14 @@
                                         <div class="tab-pane" id="unverified">
                                             <div class="card-content table-responsive">
                                                 <table class="table table-hover">
-                                                    <thead class="text-warning">
-                                                    <tr><th>Reg Number</th>
-                                                        <th>Make</th>
-                                                        <th>Model</th>
-                                                        <th>Type</th>
-                                                        <th>Location</th>
-                                                        <th>Owner</th>
-                                                        <th>Action</th>
+                                                    <thead class="text-main">
+                                                    <tr><th><strong>Reg Number</strong></th>
+                                                        <th><strong>Make</strong></th>
+                                                        <th><strong>Model</strong></th>
+                                                        <th><strong>Type</strong></th>
+                                                        <th><strong>Location</strong></th>
+                                                        <th><strong>Owner</strong></th>
+                                                        <th><strong>Action</strong></th>
                                                     </tr></thead>
                                                     <tbody>
                                                     <tr>
@@ -192,14 +192,14 @@
                                         <div class="tab-pane" id="all">
                                             <div class="card-content table-responsive">
                                                 <table class="table table-hover">
-                                                    <thead class="text-warning">
-                                                    <tr><th>Reg Number</th>
-                                                        <th>Make</th>
-                                                        <th>Model</th>
-                                                        <th>Type</th>
-                                                        <th>Location</th>
-                                                        <th>Owner</th>
-                                                        <th>Status</th>
+                                                    <thead class="text-main">
+                                                    <tr><th><strong>Reg Number</strong></th>
+                                                        <th><strong>Make</strong></th>
+                                                        <th><strong>Model</strong></th>
+                                                        <th><strong>Type</strong></th>
+                                                        <th><strong>Location</strong></th>
+                                                        <th><strong>Owner</strong></th>
+                                                        <th><strong>Status</strong></th>
                                                     </tr></thead>
                                                     <tbody>
                                                     <tr>

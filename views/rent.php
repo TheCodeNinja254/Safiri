@@ -43,7 +43,7 @@
                             <div class="content">
                                 <center><h5 class=""><i class="fa fa-user-plus text-main"></i> <br ><strong>Fill the form below to Register </strong></h5></center>
                                 <div class="row">
-                               <form action="api.safirirental.com/addSupplier/" method="post" id="addSupplierForm">
+                               <form action="https://api.safirirental.com/addSupplier/" method="post" id="addSupplierForm">
                                    <div class="col-md-6">
                                        <div class="input-group">
 								<span class="input-group-addon">

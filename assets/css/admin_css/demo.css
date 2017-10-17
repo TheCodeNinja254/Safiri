@@ -21,6 +21,13 @@ body,.main{
     background: #05BFE9!important;
     color: #fff!important;
 }
+.card-stats .card-content {
+    text-align: center!important;
+}
+.card .card-content {
+    padding: 0px 20px!important;
+    padding-top: 0px;
+}
 @media (min-width: 992px) {
     .typo-line {
         padding-left: 140px;

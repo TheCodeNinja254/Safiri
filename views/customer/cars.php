@@ -13,8 +13,8 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <select id="car_make_list" name="ad_car_make" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Choose your Car Make...">
-                                                    <option value="">Select Make</option>
+<!--                                                <select id="car_make_list" name="ad_car_make" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Choose your Car Make...">-->
+                                                <select id="car_make_list" name="ad_car_make" >
                                                 </select>
                                             </div>
                                         </div>
@@ -29,7 +29,8 @@
                                 <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <select id="car_body_type_list" name="ad_car_body_type" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Choose your Car Body Type...">
+<!--                                    <select id="car_body_type_list" name="ad_car_body_type" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Choose your Car Body Type...">-->
+                                    <select id="car_body_type_list" name="ad_car_body_type">
                                         <option value="">Select Body Type</option>
                                     </select>
                                 </div>
@@ -45,8 +46,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <select id="car_location_list" name="ad_car_location" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Select a Location...">
-                                                <option value="">Nairobi</option>
+<!--                                            <select id="car_location_list" name="ad_car_location" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Select a Location...">-->
+                                            <select id="car_location_list" name="ad_car_location">
+                                                <option value="">Select Location</option>
                                             </select>
                                         </div>
                                     </div>
@@ -59,8 +61,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <select id="car_pickup_point_list" name="ad_car_pickup_point" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Select a Pickup point">
-                                                <option value="">Dandora</option>
+<!--                                            <select id="car_pickup_point_list" name="ad_car_pickup_point" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Select a Pickup point">-->
+                                            <select id="car_pickup_point_list" name="ad_car_pickup_point">
+                                                <option value="">Select Pick up point</option>
                                             </select>
                                         </div>
                                     </div>

@@ -925,6 +925,7 @@ class SafiriRentalDriver
     public function uploadFile($newfilename){
 
         //File Upload Library
+
         $target_dir = "uploads/files/"; //uploads refers to the preferred folder
         $target_file = $target_dir . $newfilename;
         $uploadOk = 1;

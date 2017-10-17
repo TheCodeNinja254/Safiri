@@ -21,8 +21,8 @@ $('#addSupplierForm').submit(function(event) {
             'email_address': $('input[name=email_address]').val()
         };
 
-        // var api_url = "https://api.safirirental.com/";
-        var api_url = "http://localhost/safiri/rest/";
+        var api_url = "https://api.safirirental.com/";
+        // var api_url = "http://localhost/safiri/rest/";
         var callback = "addSupplier";
         var source = "/web";
 
@@ -62,7 +62,7 @@ $('#addSupplierForm').submit(function(event) {
 
             });
     } else {
-        a$.notify('Passwords do not match', {
+        $.notify('Passwords do not match', {
             type: 'warning'
         });
     }
@@ -80,8 +80,8 @@ $('#loginForm').submit(function(event) {
         'password': $('input[name=lg_password]').val()
     };
 
-    // var api_url = "https://api.safirirental.com/";
-    var api_url = "http://localhost/safiri/rest/";
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
     var callback = "safiriOauth";
     var source = "/web";
 
@@ -140,8 +140,8 @@ function load_car_make() {
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
 
-    // var api_url = "https://api.safirirental.com/";
-    var api_url = "http://localhost/safiri/rest/";
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
     var callback = "getCarMake";
     var source = "/web/";
 
@@ -159,7 +159,11 @@ function load_car_make() {
                 if(value.response === true){
 
                     $.each(data.data, function(key, value) {
-                        $('#car_make_list').append("<option value='sdsd'>Some</option>");
+                        var selectList = $('#car_make_list');
+                        selectList.append("<option value=''>Select Car Make</option>");
+                        selectList.append("<option value='"+value.make_id+"'>"+value.make+"</option>");
+                       
+
                         // console.log(make);
                         console.log(value.make)
                     });
@@ -189,8 +193,8 @@ function load_body_types() {
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
 
-    // var api_url = "https://api.safirirental.com/";
-    var api_url = "http://localhost/safiri/rest/";
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
     var callback = "getBodyTypes";
     var source = "/web/";
 
@@ -208,10 +212,9 @@ function load_body_types() {
                 if(value.response === true){
 
                     $.each(data.data, function(key, value) {
-                        $('#car_body_type_list')
-                            .append($("<option></option>")
-                                .attr("value",data.type_code)
-                                .text(data.type));
+                        var selectList = $('#car_body_type_list');
+                        selectList.append("<option value='"+value.type_code+"'>"+value.type+"</option>");
+
                     });
 
                 }else{
@@ -239,8 +242,8 @@ function load_car_location_list() {
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
 
-    // var api_url = "https://api.safirirental.com/";
-    var api_url = "http://localhost/safiri/rest/";
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
     var callback = "getLocations";
     var source = "/web/";
 
@@ -258,9 +261,9 @@ function load_car_location_list() {
                 if(value.response === true){
 
                     $.each(data.data, function(key, value) {
-                        $('#car_make_list').append("<option value='sdsd'>Some</option>");
-                        // console.log(make);
-                        console.log(value.make)
+                        var selectList = $('#car_location_list');
+                        selectList.append("<option value='"+value.location_code+"'>"+value.location_name+"</option>");
+
                     });
 
                 }else{
@@ -284,12 +287,18 @@ function load_car_location_list() {
         });
 }
 
+$('#car_location_list').change(function()
+{
+    // alert('Value change to ' + $(this).val());
+    load_car_pickup_point_list($(this).val())
+});
+
 function load_car_pickup_point_list(location_code) {
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
 
-    // var api_url = "https://api.safirirental.com/";
-    var api_url = "http://localhost/safiri/rest/";
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
     var callback = "getPickUpPoints";
     var source = "/web/";
 
@@ -306,15 +315,18 @@ function load_car_pickup_point_list(location_code) {
     })
         .done(function(data) {
 
+            var selectList = $('#car_pickup_point_list');
+            selectList.empty().append("<option value=''>Select Pick Up Point</option>");
+
             $(data).each(function(key,value){
 
                 if(value.response === true){
 
                     $.each(data.data, function(key, value) {
 
-                        $('#car_pickup_point_list').empty().append("<option value='sdsd'>Some</option>");
-                        // console.log(make);
-                        console.log(value.make)
+                        var selectList = $('#car_pickup_point_list');
+                        selectList.append("<option value='"+value.id+"'>"+value.pick_up_point+"</option>");
+
                     });
 
                 }else{
@@ -342,15 +354,16 @@ $('#addCarWebForm').submit(function(event) {
 
     // get the form data
    
-    // var api_url = "https://api.safirirental.com/";
-    var api_url = "http://localhost/safiri/rest/";
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
     var callback = "addCar";
     var source = "/web/";
 
 
     var formData = new FormData($(this)[0]);
 
-    formData.append = {
+    
+        formData.append = {
         'make': $('input[name=ad_car_make]').val(),
         'model': $('input[name=ad_car_model]').val(),
         'body_type': $('input[name=ad_car_body_type]').val(),
@@ -368,14 +381,14 @@ $('#addCarWebForm').submit(function(event) {
         async       : false,
         cache       : false,
         contentType : false,
-        enctype     : 'multipart/form-data',
+        // enctype     : 'multipart/form-data',
         processData : false
 
     })
         .done(function(data) {
 
-            $('#loginForm')[0].reset();
-            $(data).each(function(key,value){
+            $('#addCarWebForm')[0].reset();
+            $(data.data).each(function(key,value){
 
                 if(value.response === true){
 
@@ -410,8 +423,8 @@ $('#uploadCarPhotosWebForm').submit(function(event) {
 
     // get the form data
 
-    // var api_url = "https://api.safirirental.com/";
-    var api_url = "http://localhost/safiri/rest/";
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
     var callback = "uploadCarPhotos";
     var source = "/web/";
 
@@ -473,8 +486,8 @@ function load_owner_cars_list() {
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
 
-    // var api_url = "https://api.safirirental.com/";
-    var api_url = "http://localhost/safiri/rest/";
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
     var callback = "getMyCars";
     var source = "/web/";
 
@@ -522,8 +535,8 @@ function populate_owners_car_datatable() {
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
 
-    // var api_url = "https://api.safirirental.com/";
-    var api_url = "http://localhost/safiri/rest/";
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
     var callback = "getMyCars";
     var source = "/web/";
 

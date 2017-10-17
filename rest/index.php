@@ -11,7 +11,12 @@ $date = date("j  F Y  g.i", time());
 
 
 //To allow/Restrict cross domain RESTApi requests
-header("Access-Control-Allow-Origin: https://safirirental.com");
+$http_origin = $_SERVER['HTTP_ORIGIN'];
+
+if ($http_origin == "https://www.safirirental.com" || $http_origin == "https://safirirental.com")
+{
+    header("Access-Control-Allow-Origin: $http_origin");
+}
 header("Access-Control-Allow-Methods: POST, GET, HEAD");
 header("Access-Control-Max-Age: 86400");
 header("Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7");
@@ -147,7 +152,7 @@ if ($method === 'addPickupPoint') {
 }
 
 if ($method === 'addCar') {
-
+    
     $make = array_key_exists("make", $_REQUEST) ? $_REQUEST["make"] : null;
     $model = array_key_exists("model", $_REQUEST) ? $_REQUEST["model"] : null;
     $body_type = array_key_exists("body_type", $_REQUEST) ? $_REQUEST["body_type"] : null;
@@ -159,7 +164,7 @@ if ($method === 'addCar') {
     $temp = explode(".", $_FILES["post_file"]["name"]);
     $newFileName = "safiri" . "-" . round(microtime(true)) . '.' . end($temp);
 
-    $uri_log_book = "https://api.safirirental.com/uploads/files/" . $newFileName;
+    $uri_log_book = "https://cdn.safirirental.com/files/" . $newFileName;
 
     $driver->uploadFile($uri_log_book);
     $driver->add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point);

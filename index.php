@@ -56,7 +56,13 @@ if($base === "admin"){
         include 'views/admin/customers.php';
     }else if($pathTokens[2] === 'owners') {
         include 'views/admin/owners.php';
-    }else{
+    }else if($pathTokens[2] === 'locations'){
+        include 'views/admin/locations.php';
+    }else if($pathTokens[2] === 'pick-up'){
+        include 'views/admin/pick-up.php';
+    }else if($pathTokens[2] === 'makes'){
+        include 'views/admin/makes.php';
+    }else {
         include 'views/admin/index.php';
     }
 
