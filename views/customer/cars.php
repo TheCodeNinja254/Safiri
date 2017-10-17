@@ -62,7 +62,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
 <!--                                            <select id="car_pickup_point_list" name="ad_car_pickup_point" class="selectpicker" data-style="btn-primary" data-width="100%"  title="Select a Pickup point">-->
-                                            <select id="car_pickup_point_list" name="ad_car_pickup_point">
+                                            <select id="car_pickup_point_list" name="ad_car_pickup_point" required>
                                                 <option value="">Select Pick up point</option>
                                             </select>
                                         </div>
@@ -83,7 +83,7 @@
                                                     <span class="btn btn-round btn-primary btn-file">
                                                         <span class="fileinput-new">Upload Logbook</span>
                                                         <span class="fileinput-exists">Change</span>
-                                                        <input type="file" name="post_file" accept="*"/>
+                                                        <input type="file" id="log_book_file" name="post_file" accept="*" required/>
                                                     </span>
                                         <br />
                                         <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>

@@ -137,6 +137,8 @@ $('#loginForm').submit(function(event) {
 });
 
 function load_car_make() {
+    var selectList = $('#car_make_list');
+    selectList.append("<option value=''>Select Car Make</option>");
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
 
@@ -159,8 +161,7 @@ function load_car_make() {
                 if(value.response === true){
 
                     $.each(data.data, function(key, value) {
-                        var selectList = $('#car_make_list');
-                        selectList.append("<option value=''>Select Car Make</option>");
+
                         selectList.append("<option value='"+value.make_id+"'>"+value.make+"</option>");
                        
 
@@ -360,16 +361,20 @@ $('#addCarWebForm').submit(function(event) {
     var source = "/web/";
 
 
-    var formData = new FormData($(this)[0]);
+    // var formData = new FormData($(this)[0]);
 
     
-        formData.append = {
-        'make': $('input[name=ad_car_make]').val(),
+         var formData = {
+        'make': $('select[name=ad_car_make]').val(),
         'model': $('input[name=ad_car_model]').val(),
-        'body_type': $('input[name=ad_car_body_type]').val(),
-        'pick_up_point': $('input[name=ad_car_pickup_point]').val(),
+        'body_type': $('select[name=ad_car_body_type]').val(),
+        'pick_up_point': $('select[name=ad_car_pickup_point]').val(),
         'hire_price_per_day': $('input[name=ad_price_per_day]').val()
     };
+
+    console.log(formData);
+    // formData.append('#log_book_file', $('#')[0].files[0]);
+
 
     // process the form
     $.ajax({
@@ -381,7 +386,7 @@ $('#addCarWebForm').submit(function(event) {
         async       : false,
         cache       : false,
         contentType : false,
-        // enctype     : 'multipart/form-data',
+        enctype     : 'multipart/form-data',
         processData : false
 
     })
