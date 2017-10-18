@@ -209,6 +209,20 @@ if ($method === 'uploadCarPhotos') {
     $driver->upload_to_cdn($car_id);
 }
 
+if ($method === 'getAllPickUpPoints') {
+
+    $driver->sf_get_all_pickup();
+}
+
+if ($method === 'getSuppliers') {
+
+    $driver->sf_get_all_users("supplier");
+}
+
+if ($method === 'getCustomers') {
+
+    $driver->sf_get_all_users("customer");
+}
 
 
 

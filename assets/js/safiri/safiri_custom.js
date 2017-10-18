@@ -565,13 +565,13 @@ function populate_owners_car_datatable() {
                         }, {
                             data : "model"
                         }, {
-                            data : "body_type"
+                            data : "type"
                         }, {
                             data : "pick_up_point"
                         }, {
                             data : "hire_price_per_day"
                         }, {
-                            data : "hire_status"
+                            data : "status"
                         }]
                     });
 
@@ -594,6 +594,621 @@ function populate_owners_car_datatable() {
 
         });
 }
+
+function populate_all_cars_datatable() {
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "getAllCars";
+    var source = "/web/";
+
+
+    $.ajax({
+        type        :   'GET',
+        url         :   api_url+callback+source,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $(data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $('#allCarsDataTable').DataTable({
+                        "data" :data.data,
+                        "processing" : true,
+                        dom: 'ftipB',
+                        buttons: [
+                            'copy', 'excel', 'pdf', 'print'
+                        ],columns : [ {
+                            data : "f_name"
+                        }, {
+                            data : "car_number_plate"
+                        }, {
+                            data : "make"
+                        }, {
+                            data : "model"
+                        }, {
+                            data : "type"
+                        }, {
+                            data : "pick_up_point"
+                        }, {
+                            data : "hire_price_per_day"
+                        }, {
+                            data : "status"
+                        }]
+                    });
+
+                }else{
+
+                    $.notify("There are now cars uploaded yet", {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+}
+
+function populate_all_locations_datatable() {
+    if ( $.fn.dataTable.isDataTable( '#allLocationsDataTable' ) ) {
+        table = $('#allLocationsDataTable').DataTable();
+
+        table.destroy();
+    }
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "getLocations";
+    var source = "/web/";
+
+
+    $.ajax({
+        type        :   'GET',
+        url         :   api_url+callback+source,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $(data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $('#allLocationsDataTable').DataTable({
+                        "data" :data.data,
+                        "processing" : true,
+                        dom: 'ftipB',
+                        buttons: [
+                            'copy', 'excel', 'pdf', 'print'
+                        ],columns : [ {
+                            data : "id"
+                        }, {
+                            data : "location_code"
+                        }, {
+                            data : "location_name"
+                        }]
+                    });
+
+                }else{
+
+                    $.notify("There are now locations added yet", {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+}
+
+$('#addLocationFormAdmin').submit(function(event) {
+
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+    var formData = {
+        'location_name': $('input[name=location_name]').val()
+    };
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "addLocation";
+    var source = "/web";
+
+
+    $.ajax({
+        type        :   'POST',
+        url         :   api_url + callback + source,
+        data        :   formData,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $('#addLocatioFormAdmin')[0].reset();
+            $(data.data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $.notify('Location added successfully', {
+                        type: 'success'
+                    });
+                    populate_all_locations_datatable();
+
+                }else{
+
+                    $.notify('There was an error adding the location, please try again later', {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+    // stop the form from submitting the normal way and refreshing the page
+    event.preventDefault();
+});
+
+function populate_all_pickup_datatable() {
+    if ( $.fn.dataTable.isDataTable( '#allPickUpPointsDataTable' ) ) {
+        table = $('#allPickUpPointsDataTable').DataTable();
+
+        table.destroy();
+    }
+
+
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "getAllPickUpPoints";
+    var source = "/web/";
+
+
+
+    $.ajax({
+        type        :   'GET',
+        url         :   api_url+callback+source,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $(data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $('#allPickUpPointsDataTable').DataTable({
+                        "data" :data.data,
+                        "processing" : true,
+                        dom: 'ftipB',
+                        buttons: [
+                            'copy', 'excel', 'pdf', 'print'
+                        ],columns : [ {
+                            data : "id"
+                        }, {
+                            data : "location_name"
+                        }, {
+                            data : "pick_up_point"
+                        }, {
+                            data : "pick_up_point_id"
+                        }]
+                    });
+
+                }else{
+
+                    // $.notify("Registration Failed, incorrect username/password combination", "danger");
+                    $.notify('Could not retrieve a list of available pick up points', {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+}
+
+function load_admin_locations_list() {
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "getLocations";
+    var source = "/web/";
+
+
+    $.ajax({
+        type        :   'GET',
+        url         :   api_url+callback+source,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $(data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $.each(data.data, function(key, value) {
+                        var selectList = $('#car_location_list_admin');
+                        selectList.append("<option value='"+value.location_code+"'>"+value.location_name+"</option>");
+
+                    });
+
+                }else{
+
+                    // $.notify("Registration Failed, incorrect username/password combination", "danger");
+                    $.notify('Could not retrieve a list of available locations', {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+}
+
+$('#addPickupPointsFormAdmin').submit(function(event) {
+
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+    var formData = {
+        'location_code': $('select[name=location_code]').val(),
+        'pick_up_point': $('input[name=pick_up_point]').val()
+    };
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "addPickupPoint";
+    var source = "/web/";
+
+
+    $.ajax({
+        type        :   'POST',
+        url         :   api_url + callback + source,
+        data        :   formData,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $('#addPickupPointsFormAdmin')[0].reset();
+            $(data.data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $.notify('Location added successfully', {
+                        type: 'success'
+                    });
+                    populate_all_pickup_datatable();
+
+                }else{
+
+                    $.notify('There was an error adding the location, please try again later', {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+    // stop the form from submitting the normal way and refreshing the page
+    event.preventDefault();
+});
+
+function load_car_make_datatable() {
+    if ( $.fn.dataTable.isDataTable( '#makeDataTable' ) ) {
+        table = $('#makeDataTable').DataTable();
+
+        table.destroy();
+    }
+
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "getCarMake";
+    var source = "/web/";
+
+
+    $.ajax({
+        type        :   'GET',
+        url         :   api_url+callback+source,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $(data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $('#makeDataTable').DataTable({
+                        "data" :data.data,
+                        "processing" : true,
+                        dom: 'ftipB',
+                        buttons: [
+                            'copy', 'excel', 'pdf', 'print'
+                        ],columns : [ {
+                            data : "make_id"
+                        }, {
+                            data : "make"
+                        }]
+                    })
+
+                }else{
+
+                    // $.notify("Registration Failed, incorrect username/password combination", "danger");
+                    $.notify('Could not retrieve a list of available Car Makes', {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+}
+
+$('#addCarMakeForAdmin').submit(function(event) {
+
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+    var formData = {
+        'make': $('input[name=make]').val()
+    };
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "addCarMake";
+    var source = "/web";
+
+
+    $.ajax({
+        type        :   'POST',
+        url         :   api_url + callback + source,
+        data        :   formData,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $('#addCarMakeForAdmin')[0].reset();
+            $(data.data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $.notify('Location added successfully', {
+                        type: 'success'
+                    });
+                    load_car_make_datatable();
+
+                }else{
+
+                    $.notify('There was an error adding the location, please try again later', {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+    // stop the form from submitting the normal way and refreshing the page
+    event.preventDefault();
+});
+
+
+
+function populate_customers_datatable() {
+
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "getCustomers";
+    var source = "/web/";
+
+
+    $.ajax({
+        type        :   'GET',
+        url         :   api_url+callback+source,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $(data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $('#usersDataTable').DataTable({
+                        "data" :data.data,
+                        "processing" : true,
+                        dom: 'ftipB',
+                        buttons: [
+                            'copy', 'excel', 'pdf', 'print'
+                        ],columns : [ {
+                            data : "f_name"
+                        }, {
+                            data : "l_name"
+                        }, {
+                            data : "postal_address"
+                        }, {
+                            data : "email_adddress"
+                        }, {
+                            data : "username"
+                        }, {
+                            data : "national_id_num"
+                        }, {
+                            data : "phone_num"
+                        }, {
+                            data : "date_of_registration"
+                        }]
+                    });
+
+                }else{
+
+                    $.notify("There are no registered customers yet!", {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+}
+
+function populate_suppliers_datatable() {
+
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "getSuppliers";
+    var source = "/web/";
+
+
+    $.ajax({
+        type        :   'GET',
+        url         :   api_url+callback+source,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $(data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $('#usersDataTable').DataTable({
+                        "data" :data.data,
+                        "processing" : true,
+                        dom: 'ftipB',
+                        buttons: [
+                            'copy', 'excel', 'pdf', 'print'
+                        ],columns : [ {
+                            data : "f_name"
+                        }, {
+                            data : "l_name"
+                        }, {
+                            data : "postal_address"
+                        }, {
+                            data : "email_adddress"
+                        }, {
+                            data : "username"
+                        }, {
+                            data : "national_id_num"
+                        }, {
+                            data : "phone_num"
+                        }, {
+                            data : "date_of_registration"
+                        }]
+                    });
+
+                }else{
+
+                    $.notify("There are no registered suppliers yet!", {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+}
+
+
+
 
 
 

@@ -38,81 +38,20 @@
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="verified">
                                             <div class="card-content table-responsive">
-                                                <table class="table table-hover">
+                                                <table class="table table-hover" id="allCarsDataTable">
                                                     <thead class="text-main">
-                                                    <tr><th><strong>Reg Number</strong></th>
+                                                    <tr>
+                                                        <th><strong>Owner</strong></th>
+                                                        <th><strong>Reg Number</strong></th>
                                                         <th><strong>Make</strong></th>
                                                         <th><strong>Model</strong></th>
                                                         <th><strong>Type</strong></th>
                                                         <th><strong>Location</strong></th>
-                                                        <th><strong>Owner</strong></th>
-                                                        <th><strong>Action</strong></th>
-                                                    </tr></thead>
+                                                        <th><strong>Price</strong></th>
+                                                        <th><strong>Status</strong></th>
+                                                    </tr>
+                                                    </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>KBA 232</td>
-                                                        <td>Toyota</td>
-                                                        <td>Noah</td>
-                                                        <td>Van</td>
-                                                        <td>Nairobi</td>
-                                                        <td>James</td>
-                                                        <td class="text-success"><i class="fa fa-eye"></i> View</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>KBA 232</td>
-                                                        <td>Toyota</td>
-                                                        <td>Noah</td>
-                                                        <td>Van</td>
-                                                        <td>Nairobi</td>
-                                                        <td>James</td>
-                                                        <td class="text-success"><i class="fa fa-eye"></i> View</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>KBA 232</td>
-                                                        <td>Toyota</td>
-                                                        <td>Noah</td>
-                                                        <td>Van</td>
-                                                        <td>Nairobi</td>
-                                                        <td>James</td>
-                                                        <td class="text-success"><i class="fa fa-eye"></i> View</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>KBA 232</td>
-                                                        <td>Toyota</td>
-                                                        <td>Noah</td>
-                                                        <td>Van</td>
-                                                        <td>Nairobi</td>
-                                                        <td>James</td>
-                                                        <td class="text-success"><i class="fa fa-eye"></i> View</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>KBA 232</td>
-                                                        <td>Toyota</td>
-                                                        <td>Noah</td>
-                                                        <td>Van</td>
-                                                        <td>Nairobi</td>
-                                                        <td>James</td>
-                                                        <td class="text-success"><i class="fa fa-eye"></i> View</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>KBA 232</td>
-                                                        <td>Toyota</td>
-                                                        <td>Noah</td>
-                                                        <td>Van</td>
-                                                        <td>Nairobi</td>
-                                                        <td>James</td>
-                                                        <td class="text-success"><i class="fa fa-eye"></i> View</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>KBA 232</td>
-                                                        <td>Toyota</td>
-                                                        <td>Noah</td>
-                                                        <td>Van</td>
-                                                        <td>Nairobi</td>
-                                                        <td>James</td>
-                                                        <td class="text-success"><i class="fa fa-eye"></i> View</td>
-                                                    </tr>
-
 
                                                     </tbody>
                                                 </table>
@@ -320,3 +259,8 @@
 </body>
 
 <?php include 'includes/scripts.php';?>
+<script type="application/javascript">
+    $( document ).ready(function() {
+        populate_all_cars_datatable();
+    });
+</script>

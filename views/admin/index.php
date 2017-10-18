@@ -116,7 +116,7 @@
 <!--                                    <p class="category">Some cars have not been authorized</p>-->
                                 </div>
                                 <div class="card-content table-responsive">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover" id="allCarsDataTable">
                                         <thead class="text-main">
                                         <tr>
                                             <th><strong>Owner</strong></th>
@@ -124,62 +124,13 @@
                                             <th><strong>Make</strong></th>
                                             <th><strong>Model</strong></th>
                                             <th><strong>Type</strong></th>
-                                            <th><strong>City</strong></th>
                                             <th><strong>Location</strong></th>
-                                            <th><strong>Action</strong></th>
+                                            <th><strong>Price</strong></th>
+                                            <th><strong>Status</strong></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>James Mwangi</td>
-                                                <td>KBA 232</td>
-                                                <td>Toyota</td>
-                                                <td>Noah</td>
-                                                <td>Van</td>
-                                                <td>Nairobi</td>
-                                                <td>Westlands</td>
-                                                <td class=""><i class="fa fa-check text-success"></i>/<i class="fa fa-times text-danger"></i> <B>VERIFY</B></td>
-                                            </tr>
-                                            <tr>
-                                                <td>James Mwangi</td>
-                                                <td>KBA 232</td>
-                                                <td>Toyota</td>
-                                                <td>Noah</td>
-                                                <td>Van</td>
-                                                <td>Nairobi</td>
-                                                <td>Westlands</td>
-                                                <td class=""><i class="fa fa-check text-success"></i>/<i class="fa fa-times text-danger"></i> <B>VERIFY</B></td>
-                                            </tr>
-                                            <tr>
-                                                <td>James Mwangi</td>
-                                                <td>KBA 232</td>
-                                                <td>Toyota</td>
-                                                <td>Noah</td>
-                                                <td>Van</td>
-                                                <td>Nairobi</td>
-                                                <td>Westlands</td>
-                                                <td class=""><i class="fa fa-check text-success"></i>/<i class="fa fa-times text-danger"></i> <B>VERIFY</B></td>
-                                            </tr>
-                                            <tr>
-                                                <td>James Mwangi</td>
-                                                <td>KBA 232</td>
-                                                <td>Toyota</td>
-                                                <td>Noah</td>
-                                                <td>Van</td>
-                                                <td>Nairobi</td>
-                                                <td>Westlands</td>
-                                                <td class=""><i class="fa fa-check text-success"></i>/<i class="fa fa-times text-danger"></i> <B>VERIFY</B></td>
-                                            </tr>
-                                            <tr>
-                                                <td>James Mwangi</td>
-                                                <td>KBA 232</td>
-                                                <td>Toyota</td>
-                                                <td>Noah</td>
-                                                <td>Van</td>
-                                                <td>Nairobi</td>
-                                                <td>Westlands</td>
-                                                <td class=""><i class="fa fa-check text-success"></i>/<i class="fa fa-times text-danger"></i> <B>VERIFY</B></td>
-                                            </tr>
+                                           
                                         </tbody>
                                     </table>
                                 </div>
@@ -202,6 +153,9 @@
 
 
 <?php include 'includes/scripts.php';?>
-
-
+<script type="application/javascript">
+    $( document ).ready(function() {
+        populate_all_cars_datatable();
+    });
+</script>
 

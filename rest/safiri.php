@@ -203,6 +203,7 @@ class SafiriRentalDriver
                                                     WHERE username = :username
                                                     OR email_adddress = :username
                                                     OR phone_num = :username
+                                                    OR national_id_num = :username
                                                     AND password = :hash_password');
 
             $stmt->bindParam(':username', $username);
@@ -440,6 +441,103 @@ class SafiriRentalDriver
                                                     ORDER BY pick_up_point_id DESC');
 
             $stmt->bindParam(':location_code', $location_code);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $counter = 0;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $counter++;
+
+
+                    $jsonData["response"] = true;
+                    $jsonData["status"] = 200;
+                    $jsonData["data"][] = $row;
+
+                }
+
+            } else {
+
+                $jsonData["response"] = false;
+                $jsonData["status"] = 403;
+                $row["error"] = "FAILED";
+                $jsonData["data"] = $row;
+
+            }
+
+
+        } catch (Exception $e) {
+            $jsonData["response"] = false;
+            $row["error"] = "AUTH_FAILED";
+            $row["extended_error"] = $e->getMessage();
+            $jsonData["status"] = 500;
+            $jsonData["data"] = $row;
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    public function sf_get_all_pickup()
+    {
+
+        $jsonData = array();
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT *
+                                                    FROM safirire_safiri.pick_up_points, safirire_safiri.location
+                                                    WHERE pick_up_points.location_code = location.location_code
+                                                    ORDER BY pick_up_point_id DESC');
+            
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $counter = 0;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $counter++;
+
+
+                    $jsonData["response"] = true;
+                    $jsonData["status"] = 200;
+                    $jsonData["data"][] = $row;
+
+                }
+
+            } else {
+
+                $jsonData["response"] = false;
+                $jsonData["status"] = 403;
+                $row["error"] = "FAILED";
+                $jsonData["data"] = $row;
+
+            }
+
+
+        } catch (Exception $e) {
+            $jsonData["response"] = false;
+            $row["error"] = "AUTH_FAILED";
+            $row["extended_error"] = $e->getMessage();
+            $jsonData["status"] = 500;
+            $jsonData["data"] = $row;
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    public function sf_get_all_users($type)
+    {
+
+        $jsonData = array();
+        $admin_flag = "admin";
+        try {
+            $stmt = $this->DB_con->prepare('SELECT f_name, m_name, l_name, national_id_num, postal_address, email_adddress, phone_num, date_of_registration, username
+                                                    FROM safirire_safiri.users
+                                                    WHERE user_type != :admin
+                                                    AND user_type = :type
+                                                    ORDER BY id DESC');
+
+            $stmt->bindParam(":admin", $admin_flag);
+            $stmt->bindParam(":type", $type);
             $stmt->execute();
 
             if ($stmt->rowCount() > 0) {

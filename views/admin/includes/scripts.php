@@ -30,6 +30,7 @@ if($host === 'localhost'){
 <script src="<?php echo $host_name; ?>/assets/js/perfect-scrollbar.js"></script>
 <!--  Notifications Plugin    -->
 <script src="<?php echo $host_name; ?>/assets/js/bootstrap-notify.js"></script>
+<script src="<?php echo $host_name; ?>/assets/FreddieDataTables/datatables.js"></script>
 <script src="<?php echo $host_name; ?>/assets/js/jasny-bootstrap.min.js" type="text/javascript"></script>
 <!--  Google Maps Plugin    -->
 <script type="text/javascript" src="<?php echo $host_name; ?>/assets/js/js"></script>
@@ -39,13 +40,5 @@ if($host === 'localhost'){
 <!--<script src="--><?php //echo $host_name; ?><!--/assets/js/demo.js"></script>-->
 <!-- Select! -->
 <script src="<?php echo $host_name; ?>/assets/js/bootstrap-select.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
+<script src="<?php echo $host_name; ?>/assets/js/safiri/safiri_custom.js"></script>
 
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
-
-    });
-</script>
-
-</body><!--   Core JS Files   --></html>

@@ -6,72 +6,33 @@
                     <div class="row">
                         <div class="card">
                             <h4 class="text-center text-main">Use the Field Below to Add New Makes</h4>
-                            <form>
+                            <form id="addCarMakeForAdmin" action="https://api.safirirental.com/addCarMake/web/" method="post">
                                 <div class="row" style="padding-left: 10px">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" value="" placeholder="Enter New Rentals Location" class="form-control" />
+                                            <input type="text" name="make" value="" placeholder="Enter New Car Make" class="form-control" required/>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <center>
                                         <button class="btn btn-danger btn-sm" type="reset">CLEAR</button>
-                                        <button type="submit" class="btn btn-success btn-sm" href="//localhost/safiri/photos/" >ADD</button>
+                                        <button type="submit" class="btn btn-success btn-sm">ADD</button>
                                         </center>
                                     </div></div>
                             </form>
                         </div></div></div></div>
                         <div class="col-lg-12 col-md-12">
                             <div class="card">
-<h3 class="text-center">Your Locations</h3>
+<h3 class="text-center">Car Makes</h3>
                                 <div class="card-content table-responsive">
-                                                <table class="table table-hover text-center">
+                                                <table class="table table-hover text-center" id="makeDataTable">
                                                     <thead class="text-main">
                                                     <tr><th class="text-center"><strong>ID</strong></th>
                                                         <th class="text-center"><strong>Make</strong></th>
                                                         <th class="text-center"><strong>Action</strong></th>
                                                     </tr></thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>Toyota</td>
-                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>02</td>
-                                                        <td>Nissan</td>
-                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>03</td>
-                                                        <td>Mitsubishi</td>
-                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>04</td>
-                                                        <td>Volkswagen</td>
-                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>05</td>
-                                                        <td>Subaru</td>
-                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>06</td>
-                                                        <td>Mercedes Benz</td>
-                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>07</td>
-                                                        <td>BMW</td>
-                                                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
-                                                    </tr>
-
-
-
-
+                                                  
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -97,3 +58,10 @@
 </body>
 
 <?php include 'includes/scripts.php';?>
+<script type="application/javascript">
+    $( document ).ready(function() {
+       load_car_make_datatable();
+    });
+</script>
+</body>
+</html>

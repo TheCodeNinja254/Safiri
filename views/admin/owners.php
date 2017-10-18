@@ -7,85 +7,23 @@
                             <div class="card">
 <h3 class="text-center">Registered Car Owners</h3>
                                 <div class="card-content table-responsive">
-                                                <table class="table table-hover">
-                                                    <thead class="text-main">
-                                                    <tr><th><strong>ID</strong></th>
-                                                        <th><strong>First name</strong></th>
-                                                        <th><strong>Last name</strong></th>
-                                                        <th><strong>Email</strong></th>
-                                                        <th><strong>Phone</strong></th>
-                                                        <th><strong>Date Joined</strong></th>
-                                                        <th><strong>Number of cars</strong></th>
-                                                    </tr></thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>02</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>03</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>04</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>05</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>06</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>07</td>
-                                                        <td>James</td>
-                                                        <td>Mwangi</td>
-                                                        <td>jmwangi@gmail.com</td>
-                                                        <td>0708678990</td>
-                                                        <td>23-09-2017 10:00</td>
-                                                        <td>3</td>
-                                                    </tr>
+                                    <table class="table table-hover" id="usersDataTable">
+                                        <thead class="text-main text-bold">
 
+                                        <tr><th><strong>First Name</strong></th>
+                                            <th><strong>Last name</strong></th>
+                                            <th><strong>Postal Address</strong></th>
+                                            <th><strong>Email</strong></th>
+                                            <th><strong>Username</strong></th>
+                                            <th><strong>National ID</strong></th>
+                                            <th><strong>Phone</strong></th>
+                                            <th><strong>Date Joined</strong></th>
+                                            <th><strong>Action</strong></th>
+                                        </tr></thead>
+                                        <tbody>
 
-
-                                                    </tbody>
-                                                </table>
+                                        </tbody>
+                                    </table>
                                             </div>
                                         </div>
 
@@ -112,3 +50,10 @@
 </body>
 
 <?php include 'includes/scripts.php';?>
+<script type="application/javascript">
+    $( document ).ready(function() {
+        populate_suppliers_datatable();
+    });
+</script>
+</body>
+</html>

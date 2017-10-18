@@ -93,7 +93,7 @@
 										<span class="input-group-addon">
 											<i class="material-icons">email</i>
 										</span>
-                                <input type="text" name="lg_username" class="form-control" placeholder="Username...">
+                                <input type="text" name="lg_username" class="form-control" placeholder="Username, Email, Phone, ID Number">
                             </div>
 
                             <div class="input-group">
