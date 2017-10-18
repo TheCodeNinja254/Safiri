@@ -156,6 +156,7 @@ if ($method === 'addCar') {
     $make = array_key_exists("make", $_REQUEST) ? $_REQUEST["make"] : null;
     $model = array_key_exists("model", $_REQUEST) ? $_REQUEST["model"] : null;
     $body_type = array_key_exists("body_type", $_REQUEST) ? $_REQUEST["body_type"] : null;
+    $car_number_plate = array_key_exists("car_number_plate", $_REQUEST) ? $_REQUEST["car_number_plate"] : null;
     $pick_up_point = array_key_exists("pick_up_point", $_REQUEST) ? $_REQUEST["pick_up_point"] : null;
     $hire_price_per_day = array_key_exists("hire_price_per_day", $_REQUEST) ? $_REQUEST["hire_price_per_day"] : null;
     $owner_username = "admin";
@@ -166,7 +167,7 @@ if ($method === 'addCar') {
     $uri_log_book = "https://cdn.safirirental.com/files/" . $newFileName;
 
     $driver->uploadFile($newFileName);
-    $driver->add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point);
+    $driver->add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point, $car_number_plate);
 }
 
 if ($method === 'sfOAuthLogout') {

@@ -48,7 +48,7 @@
                                                     <span class="btn btn-round btn-primary btn-file">
                                                         <span class="fileinput-new">Select photo</span>
                                                         <span class="fileinput-exists">Change</span>
-                                                        <input type="file" name="post_image_two" accept="image/*"/>
+                                                        <input type="file" name="post_image_two" accept="image/*" required/>
                                                     </span>
                                                     <br />
                                                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
@@ -68,7 +68,7 @@
                                                     <span class="btn btn-round btn-primary btn-file">
                                                         <span class="fileinput-new">Select photo</span>
                                                         <span class="fileinput-exists">Change</span>
-                                                        <input type="file" name="post_image_three" accept="image/*"/>
+                                                        <input type="file" name="post_image_three" accept="image/*" required/>
                                                     </span>
                                                     <br />
                                                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
@@ -88,7 +88,7 @@
                                                     <span class="btn btn-round btn-primary btn-file">
                                                         <span class="fileinput-new">Select photo</span>
                                                         <span class="fileinput-exists">Change</span>
-                                                        <input type="file" name="post_image_four" accept="image/*"/>
+                                                        <input type="file" name="post_image_four" accept="image/*" required/>
                                                     </span>
                                                     <br />
                                                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>

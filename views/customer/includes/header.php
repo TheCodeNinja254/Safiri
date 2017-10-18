@@ -45,6 +45,7 @@ if($host === 'localhost'){
     <!--     Fonts and icons     -->
     <link href="<?php echo $host_name; ?>/assets/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo $host_name; ?>/assets/css/customer_css/css.css" rel="styleshet" type="text/css">
+    <link href="<?php echo $host_name; ?>/assets/FreddieDataTables/datatables.css" rel="styleshet" type="text/css">
 
 
 

@@ -437,7 +437,7 @@ class SafiriRentalDriver
             $stmt = $this->DB_con->prepare('SELECT *
                                                     FROM safirire_safiri.pick_up_points
                                                     WHERE location_code = :location_code
-                                                    ORDER BY id DESC');
+                                                    ORDER BY pick_up_point_id DESC');
 
             $stmt->bindParam(':location_code', $location_code);
             $stmt->execute();
@@ -534,7 +534,7 @@ class SafiriRentalDriver
                                                     WHERE cars.pick_up_point = :pick_up_point
                                                     AND cars.body_type = :body_type
                                                     AND cars.body_type = body_type.type_code
-                                                    AND cars.pick_up_point = pick_up_points.id
+                                                    AND cars.pick_up_point = pick_up_points.pick_up_point_id
                                                     AND cars.make = make.make_id
                                                     AND cars.owner_username = users.username
                                                     ORDER BY cars.car_id DESC');
@@ -597,7 +597,7 @@ class SafiriRentalDriver
                                             safirire_safiri.body_type 
                                             WHERE cars.owner_username = :owner_username
                                             AND cars.body_type = body_type.type_code 
-                                            AND cars.pick_up_point = pick_up_points.id 
+                                            AND cars.pick_up_point = pick_up_points.pick_up_point_id 
                                             AND cars.make = make.make_id 
                                             AND cars.owner_username = users.username 
                                             ORDER BY cars.car_id DESC");
@@ -648,7 +648,7 @@ class SafiriRentalDriver
             $stmt = $this->DB_con->prepare('SELECT *, NULL AS password, NULL AS current_session_key, NULL AS date_of_registration, NULL AS user_type, NULL AS username
                                                     FROM safirire_safiri.cars, safirire_safiri.pick_up_points, safirire_safiri.make, safirire_safiri.users, safirire_safiri.body_type
                                                     WHERE  cars.body_type = body_type.type_code
-                                                    AND cars.pick_up_point = pick_up_points.id
+                                                    AND cars.pick_up_point = pick_up_points.pick_up_point_id
                                                     AND cars.make = make.make_id
                                                     AND cars.owner_username = users.username
                                                     ORDER BY cars.car_id DESC');
@@ -855,7 +855,7 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
-    public function add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point){
+    public function add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point, $car_number_plate){
         $jsonData = array();
 
         $hire_status = 00;
@@ -869,7 +869,8 @@ class SafiriRentalDriver
                                             hire_price_per_day, 
                                             pick_up_point, 
                                             owner_username, 
-                                            hire_status)
+                                            hire_status, 
+                                            car_number_plate)
                                                   
                                           VALUES (
                                                   :make,
@@ -879,7 +880,8 @@ class SafiriRentalDriver
                                                   :hire_price_per_day,
                                                   :pick_up_point,
                                                   :owner_username,
-                                                  :hire_status
+                                                  :hire_status,
+                                                  :car_number_plate
                                                   
                                           )');
 
@@ -891,6 +893,7 @@ class SafiriRentalDriver
             $stmt->bindParam(':pick_up_point', $pick_up_point);
             $stmt->bindParam(':owner_username', $owner_username);
             $stmt->bindParam(':hire_status', $hire_status);
+            $stmt->bindParam(':car_number_plate', $car_number_plate);
 
             $stmt->execute();
 
@@ -1019,64 +1022,91 @@ class SafiriRentalDriver
         $cdn = $pic_url = "https://cdn.safirirental.com/images/";
 
         //First Photo;
+
         $temp = explode(".", $_FILES["post_image_one"]["name"]);
-        $newFileName = "safiri"."-".round(microtime(true)) .rand(1000000,99999999). '.' . end($temp);
 
-        $pic_url = $cdn.$newFileName; 
-        $pic_type = 00;
+        if(end($temp) != null){
 
-        self:: uploadImage($newFileName);
-        if(self::upload_car_photos($car_id, $pic_url, $pic_type)) {
-            $row['pic_one_upload_ok'] = true;
-        } else {
+            $newFileName = "safiri"."-".round(microtime(true)) .rand(1000000,99999999). '.' . end($temp);
+
+            $pic_url = $cdn.$newFileName;
+            $pic_type = 00;
+
+            $tempName = "post_image_one";
+            self:: uploadImageToCDN($newFileName, $tempName);
+            if(self::upload_car_photos($car_id, $pic_url, $pic_type)) {
+                $row['pic_one_upload_ok'] = true;
+            } else {
+                $row['pic_one_upload_ok'] = false;
+            }
+        }else{
             $row['pic_one_upload_ok'] = false;
         }
+
         //---------------------------
 
 
         //Second Photo
         $temp1 = explode(".", $_FILES["post_image_two"]["name"]);
-        $newFileName1 = "safiri"."-".round(microtime(true)) . rand(1000000,99999999).'.' . end($temp1);
 
-        $pic_url1 = $cdn.$newFileName1;
-        $pic_type = 00;
+        if(end($temp1) != null) {
+            $newFileName1 = "safiri" . "-" . round(microtime(true)) . rand(1000000, 99999999) . '.' . end($temp1);
 
-        self:: uploadImage($newFileName1);
-        if(self::upload_car_photos($car_id, $pic_url1, $pic_type)) {
-            $row['pic_two_upload_ok'] = true;
-        } else {
+            $pic_url1 = $cdn . $newFileName1;
+            $pic_type = 00;
+
+            $tempName1 = "post_image_two";
+            self:: uploadImageToCDN($newFileName1, $tempName1);
+            if (self::upload_car_photos($car_id, $pic_url1, $pic_type)) {
+                $row['pic_two_upload_ok'] = true;
+            } else {
+                $row['pic_two_upload_ok'] = false;
+            }
+        }else{
             $row['pic_two_upload_ok'] = false;
         }
         //---------------------------
 
 
         //Third Photo
-        $temp = explode(".", $_FILES["post_image_three"]["name"]);
-        $newFileNam2 = "safiri"."-".round(microtime(true)) . rand(1000000,99999999).'.' . end($temp);
+        $temp2 = explode(".", $_FILES["post_image_three"]["name"]);
 
-        $pic_url2 = $cdn.$newFileNam2;
-        $pic_type = 00;
+        if(end($temp2) != null) {
+            $newFileNam2 = "safiri" . "-" . round(microtime(true)) . rand(1000000, 99999999) . '.' . end($temp2);
 
-        self:: uploadImage($newFileNam2);
-        if(self::upload_car_photos($car_id, $pic_url2, $pic_type)) {
-            $row['pic_three_upload_ok'] = true;
-        } else {
+            $pic_url2 = $cdn . $newFileNam2;
+            $pic_type = 00;
+
+            $tempName2 = "post_image_three";
+            self:: uploadImageToCDN($newFileNam2, $tempName2);
+            if (self::upload_car_photos($car_id, $pic_url2, $pic_type)) {
+                $row['pic_three_upload_ok'] = true;
+            } else {
+                $row['pic_three_upload_ok'] = false;
+            }
+        }else{
             $row['pic_three_upload_ok'] = false;
         }
         //---------------------------
 
 
         //Fourth Photo
-        $temp = explode(".", $_FILES["post_image_four"]["name"]);
-        $newFileName3 = "safiri"."-".round(microtime(true)) . rand(1000000,99999999).'.' . end($temp);
+        $temp3 = explode(".", $_FILES["post_image_four"]["name"]);
 
-        $pic_url3 = $cdn.$newFileName3;
-        $pic_type = 00;
+        if(end($temp3) != null) {
+            $newFileName3 = "safiri" . "-" . round(microtime(true)) . rand(1000000, 99999999) . '.' . end($temp3);
 
-        self:: uploadImage($newFileName3);
-        if(self::upload_car_photos($car_id, $pic_url3, $pic_type)) {
-            $row['pic_four_upload_ok'] = true;
-        } else {
+            $pic_url3 = $cdn . $newFileName3;
+            $pic_type = 00;
+
+            $tempName3 = "post_image_four";
+            self:: uploadImageToCDN($newFileName3, $tempName3);
+            if (self::upload_car_photos($car_id, $pic_url3, $pic_type)) {
+                $row['pic_four_upload_ok'] = true;
+            } else {
+                $row['pic_four_upload_ok'] = false;
+            }
+        }else{
             $row['pic_four_upload_ok'] = false;
         }
         //---------------------------
@@ -1097,7 +1127,7 @@ class SafiriRentalDriver
     public function uploadImage($newphotoname){
 
         //File Upload Library
-        $target_dir = "uploads/images"; //uploads refers to the preferred folder
+        $target_dir = "uploads/images/"; //uploads refers to the preferred folder
         $target_file = $target_dir . $newphotoname;
         $uploadOk = 1;
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -1140,6 +1170,73 @@ class SafiriRentalDriver
             // process
 
             if (move_uploaded_file($_FILES["post_image"]["tmp_name"], $target_file)) {
+
+                return true;
+
+            } else {
+
+                //For Debugging purposes only
+//                echo $target_dir;
+//                echo "::::";
+//                echo $target_file;
+//                echo "::::";
+//                echo $_FILES['post_image']['temp_name'];
+//                echo "::::";
+//                echo "Sorry, there was an error uploading your file. Error => " . $_FILES["post_image"]["error"];
+//                ini_set('display_errors', 1);
+//                error_reporting(E_ALL);
+
+                return false;
+            }
+        }
+    }
+
+    public function uploadImageToCDN($newphotoname, $tempName){
+
+        //File Upload Library
+        $target_dir = "uploads/images/"; //uploads refers to the preferred folder
+        $target_file = $target_dir . $newphotoname;
+        $uploadOk = 1;
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+        // Check if image file is a actual image or fake image
+
+        $check = getimagesize($_FILES["post_image"]["tmp_name"]);
+
+
+        if ($_FILES["post_image"]["size"] > 30000000 ) {
+
+
+            return false;
+
+        }
+
+        // Allow certain file formats
+        if($imageFileType != "jpg"
+            && $imageFileType != "png"
+            && $imageFileType != "jpeg"
+            && $imageFileType != "gif"
+            && $imageFileType != "JPG"
+            && $imageFileType != "GIF"
+            && $imageFileType != "JPEG" ) {
+
+//                    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+
+            return false;
+
+        }
+
+        if($_FILES['post_image']['error']) {
+            // handle the error
+
+//            echo $_FILES["post_image"]["error"];
+            return false;
+
+        } else {
+            // process
+
+            if (move_uploaded_file($_FILES[$tempName]["tmp_name"], $target_file)) {
 
                 return true;
 

@@ -326,7 +326,7 @@ function load_car_pickup_point_list(location_code) {
                     $.each(data.data, function(key, value) {
 
                         var selectList = $('#car_pickup_point_list');
-                        selectList.append("<option value='"+value.id+"'>"+value.pick_up_point+"</option>");
+                        selectList.append("<option value='"+value.pick_up_point_id+"'>"+value.pick_up_point+"</option>");
 
                     });
 
@@ -434,7 +434,7 @@ $('#uploadCarPhotosWebForm').submit(function(event) {
     var formData = new FormData($(this)[0]);
 
     formData.append = {
-        'car_id': $('input[name=car_id_from_list]').val()
+        'car_id_from_list': $('input[name=car_id_from_list]').val()
     };
 
     // process the form
@@ -443,9 +443,6 @@ $('#uploadCarPhotosWebForm').submit(function(event) {
         url         : api_url+callback+source, // the url where we want to POST
         data        : formData, // our data object
         dataType    : 'json', // what type of data do we expect back from the server
-        encode      : true,
-        async       : false,
-        cache       : false,
         contentType : false,
         enctype     : 'multipart/form-data',
         processData : false
@@ -453,8 +450,8 @@ $('#uploadCarPhotosWebForm').submit(function(event) {
     })
         .done(function(data) {
 
-            $('#loginForm')[0].reset();
-            $(data).each(function(key,value){
+            $('#uploadCarPhotosWebForm')[0].reset();
+            $(data.data).each(function(key,value){
 
                 if(value.response === true){
 
@@ -509,7 +506,7 @@ function load_owner_cars_list() {
                     $.each(data.data, function(key, value) {
                         
                         var selectList = $('#owner_cars_list_select');
-                        selectList.append("<option value='"+value.car_number_plate+"'>"+value.car_number_plate+" - "+value.make+"</option>");
+                        selectList.append("<option value='"+value.car_id+"'>"+value.car_number_plate+" - "+value.make+"</option>");
 
                     });
 
@@ -558,17 +555,17 @@ function populate_owners_car_datatable() {
                     $('#ownersCarsDataTable').DataTable({
                         "data" :data.data,
                         "processing" : true,
-
-                        columns : [ {
-                            data : "car_id"
+                        dom: 'ftipB',
+                        buttons: [
+                            'copy', 'excel', 'pdf', 'print'
+                        ],columns : [ {
+                            data : "car_number_plate"
                         }, {
                             data : "make"
                         }, {
                             data : "model"
                         }, {
                             data : "body_type"
-                        }, {
-                            data : "location"
                         }, {
                             data : "pick_up_point"
                         }, {

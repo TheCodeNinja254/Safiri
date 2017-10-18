@@ -2,42 +2,42 @@
 <?php include 'includes/nav.php';?>
             <div class="content">
                 <div class="container-fluid">
-                    <div class="row"><center>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="orange">
-                                    <i class="fa fa-car"></i>
-                                </div>
-                                <div class="card-content">
-                                    <a class="btn btn-warning btn-sm" href="<?php echo $host_name; ?>cars"><i class="fa fa-eye"></i> View your cars</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="green">
-                                    <i class="fa fa-taxi"></i>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <a class="btn btn-success btn-sm" href="<?php echo $host_name; ?>/customer/dashboard/cars/"><i class="fa fa-plus-circle"></i> Add a car</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="red">
-                                    <i class="fa fa-taxi"></i>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <a class="btn btn-danger btn-sm" href="#pablo"><i class="fa fa-minus-circle"></i> Remove a car</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </center> </div>
+<!--                    <div class="row"><center>-->
+<!--                        <div class="col-lg-3 col-md-6 col-sm-6">-->
+<!--                            <div class="card card-stats">-->
+<!--                                <div class="card-header" data-background-color="orange">-->
+<!--                                    <i class="fa fa-car"></i>-->
+<!--                                </div>-->
+<!--                                <div class="card-content">-->
+<!--                                    <a class="btn btn-warning btn-sm" href="--><?php //echo $host_name; ?><!--cars"><i class="fa fa-eye"></i> View your cars</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-3 col-md-6 col-sm-6">-->
+<!--                            <div class="card card-stats">-->
+<!--                                <div class="card-header" data-background-color="green">-->
+<!--                                    <i class="fa fa-taxi"></i>-->
+<!--                                </div>-->
+<!--                                <div class="card-footer">-->
+<!--                                    <div class="stats">-->
+<!--                                        <a class="btn btn-success btn-sm" href="--><?php //echo $host_name; ?><!--/customer/dashboard/cars/"><i class="fa fa-plus-circle"></i> Add a car</a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-3 col-md-6 col-sm-6">-->
+<!--                            <div class="card card-stats">-->
+<!--                                <div class="card-header" data-background-color="red">-->
+<!--                                    <i class="fa fa-taxi"></i>-->
+<!--                                </div>-->
+<!--                                <div class="card-footer">-->
+<!--                                    <div class="stats">-->
+<!--                                        <a class="btn btn-danger btn-sm" href="#pablo"><i class="fa fa-minus-circle"></i> Remove a car</a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        </center> </div>-->
                     <div class="row">
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
@@ -80,48 +80,11 @@
                                                             <th>Make</th>
                                                             <th>Model</th>
                                                             <th>Body Type</th>
-                                                            <th>Location</th>
                                                             <th>Pick Up Point</th>
                                                             <th>Price per day</th>
                                                             <th>Status</th>
                                                         </tr></thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>KBA 232</td>
-                                                            <td>Toyota</td>
-                                                            <td>Noah</td>
-                                                            <td>Van</td>
-                                                            <td>Nairobi</td>
-                                                            <td>3000</td>
-                                                            <td>Verified</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>KBA 232</td>
-                                                            <td>Toyota</td>
-                                                            <td>Noah</td>
-                                                            <td>Van</td>
-                                                            <td>Nairobi</td>
-                                                            <td>3000</td>
-                                                            <td>Verified</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>KBA 232</td>
-                                                            <td>Toyota</td>
-                                                            <td>Noah</td>
-                                                            <td>Van</td>
-                                                            <td>Nairobi</td>
-                                                            <td>3000</td>
-                                                            <td>Verified</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>KBA 232</td>
-                                                            <td>Toyota</td>
-                                                            <td>Noah</td>
-                                                            <td>Van</td>
-                                                            <td>Nairobi</td>
-                                                            <td>3000</td>
-                                                            <td>Verified</td>
-                                                        </tr>
 
                                                         </tbody>
                                                     </table>
@@ -189,47 +152,11 @@
                                                             <th>Make</th>
                                                             <th>Model</th>
                                                             <th>Type</th>
-                                                            <th>Location</th>
                                                             <th>Price per day</th>
                                                             <th>Status</th>
                                                         </tr></thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>KBA 232</td>
-                                                            <td>Toyota</td>
-                                                            <td>Noah</td>
-                                                            <td>Van</td>
-                                                            <td>Nairobi</td>
-                                                            <td>3000</td>
-                                                            <td>Verified</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>KBA 232</td>
-                                                            <td>Toyota</td>
-                                                            <td>Noah</td>
-                                                            <td>Van</td>
-                                                            <td>Nairobi</td>
-                                                            <td>3000</td>
-                                                            <td>UnVerified</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>KBA 232</td>
-                                                            <td>Toyota</td>
-                                                            <td>Noah</td>
-                                                            <td>Van</td>
-                                                            <td>Nairobi</td>
-                                                            <td>3000</td>
-                                                            <td>Verified</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>KBA 232</td>
-                                                            <td>Toyota</td>
-                                                            <td>Noah</td>
-                                                            <td>Van</td>
-                                                            <td>Nairobi</td>
-                                                            <td>3000</td>
-                                                            <td>UnVerified</td>
-                                                        </tr>
+
 
                                                         </tbody>
                                                     </table>
@@ -258,5 +185,11 @@
 
 <?php include 'includes/scripts.php';?>
 
+<!--populate_owners_car_datatable()-->
+<script type="application/javascript">
+    $( document ).ready(function() {
+        populate_owners_car_datatable();
+    });
+</script>
 
 
