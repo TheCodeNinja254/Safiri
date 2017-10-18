@@ -104,9 +104,9 @@
                                         <a href="#">Change password</a>
                                     </li>
                                     <li>
-                                        <a href="#">Logout</a>
+                                        <a href="#" onclick="logout()">Logout</a>
                                     </li>
-                                </ul>
+                                </ul> 
                             </li>
                         </ul>
                     </div>

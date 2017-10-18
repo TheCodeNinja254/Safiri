@@ -217,7 +217,8 @@ class SafiriRentalDriver
                     $counter++;
 
                     $current_session_key = self::sf_auth_generate_csk();
-                    $_SESSION['username'] = $username;
+                    $_SESSION['username'] = $row['username'];
+                    $_SESSION['phone_num'] = $row['phone_num'];
                     $_SESSION['email_address'] = $row['email_address'];
                     $_SESSION['csk'] = $current_session_key;
                     setcookie("username", $username, 86400, "/", "htts://safirirental.com", "httpsonly");
@@ -1023,6 +1024,7 @@ class SafiriRentalDriver
         $jsonData = array();
         self::sf_auth_set_csk($username, "0000");
         $row["response"] = true;
+        $row["username"] = $username;
         $jsonData["data"] = $row;
         echo json_encode($jsonData);
     }

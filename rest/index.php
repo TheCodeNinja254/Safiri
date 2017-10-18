@@ -1,6 +1,8 @@
 <?php
+session_start();
 
 //error_reporting(0);
+
 
 include_once 'safiri.php';
 $driver = new SafiriRentalDriver();
@@ -173,7 +175,13 @@ if ($method === 'addCar') {
 if ($method === 'sfOAuthLogout') {
 
     $username = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
-    $driver->sf_auth_logout($username);
+
+    if(isset($username) && !empty($username)){
+        $driver->sf_auth_logout($username);
+    }else{
+        $username = $_SESSION['username'];
+        $driver->sf_auth_logout($username);
+    }
 
 }
 

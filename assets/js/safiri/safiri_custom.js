@@ -80,7 +80,7 @@ $('#loginForm').submit(function(event) {
         'password': $('input[name=lg_password]').val()
     };
 
-    var api_url = "https://api.safirirental.com/";
+    var api_url = "https://safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "safiriOauth";
     var source = "/web";
@@ -1190,6 +1190,54 @@ function populate_suppliers_datatable() {
                 }else{
 
                     $.notify("There are no registered suppliers yet!", {
+                        type: 'warning'
+                    });
+
+                }
+
+            });
+        })
+
+        .fail(function() {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+}
+
+function logout() {
+
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "sfOAuthLogout";
+    var source = "/web/";
+
+
+    $.ajax({
+        type        :   'GET',
+        url         :   api_url+callback+source,
+        dataType    :   'json',
+        encode      :   true
+    })
+        .done(function(data) {
+
+            $(data.data).each(function(key,value){
+
+                if(value.response === true){
+
+                    $.notify("Session terminated successfully", {
+                        type: 'success'
+                    });
+                    $(location).attr('href', 'https://safirirental.com/#session-terminated/')
+
+                }else{
+
+                    $.notify("Logout failed", {
                         type: 'warning'
                     });
 
