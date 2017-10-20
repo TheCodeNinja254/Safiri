@@ -49,8 +49,8 @@
 								<span class="input-group-addon">
 									<i class="fa fa-user"></i>
 								</span>
-                                           <input type="text" name="f_name" class="form-control" placeholder="First Name" required>
-                                       </div>
+                                               <input type="text" name="f_name" class="form-control" placeholder="First Name" required>
+                                          </div>
                                    </div>
                                    <div class="col-md-6">
                                        <div class="input-group">

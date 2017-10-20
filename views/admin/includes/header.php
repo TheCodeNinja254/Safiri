@@ -44,4 +44,9 @@ if($host === 'localhost'){
     <link href="<?php echo $host_name; ?>/assets/css/admin_css/css.css" rel="styleshet" type="text/css">
     <link href="<?php echo $host_name; ?>/assets/FreddieDataTables/datatables.css" rel="styleshet" type="text/css">
 
+    <style>
+        html{
+            height: 100% !important;
+        }
+    </style>
 </head>

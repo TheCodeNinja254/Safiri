@@ -38,6 +38,7 @@ if($host === 'localhost'){
 <!--<script src="--><?php //echo $host_name; ?><!--/assets/js/demo.js"></script>-->
 <!-- Select! -->
 <script src="<?php echo $host_name; ?>/assets/js/bootstrap-select.min.js"></script>
+<script src="<?php echo $host_name; ?>/assets/js/jquery.cookie.js"></script>
 <!-- File Upload! -->
 <!--<script src="--><?php //echo $host_name; ?><!--/assets/js/jasny-bootstrap.min.js"></script>-->
 <script src="<?php echo $host_name; ?>/assets/FreddieDataTables/datatables.js"></script>
@@ -47,6 +48,21 @@ if($host === 'localhost'){
 
         // Javascript method's body can be found in assets/js/demos.js
 //        demo.initDashboardPageCharts();
+
+    });
+</script>
+<script type="text/javascript">
+
+    $().ready(function(){
+        // the body of this function is in assets/material-kit.js
+        materialKit.initSliders();
+        window_width = $(window).width();
+
+        if (window_width >= 992){
+            big_image = $('.wrapper > .header');
+
+            $(window).on('scroll', materialKitDemo.checkScrollForParallax);
+        }
 
     });
 </script>

@@ -23,6 +23,201 @@ class SafiriRentalDriver
         }
     }
 
+    public function sf_method_oauth()
+    {
+
+        $jsonData = array();
+
+        //        Getting token from URI
+        $path = array_key_exists("method", $_REQUEST) ? $_REQUEST["method"] : null;
+        $pathTrimmed = trim($path, '/');
+        $pathTokens = explode('/', $pathTrimmed);
+        $current_session_key_from_url = $pathTokens[2];
+
+//        Getting token from POST or GET
+        if(isset($_REQUEST['current_session_key']) && !empty($_REQUEST['current_session_key'])){
+
+            $current_session_key = $_REQUEST['current_session_key'];
+
+        }elseif (isset($current_session_key_from_url) && !empty($current_session_key_from_url)){
+
+            $current_session_key = $current_session_key_from_url;
+
+        }
+
+        if (!isset($current_session_key) || empty($current_session_key)) {
+            $row["response"] = false;
+            $row["error"] = "OAUTH_ERROR";
+            $row["extended_error"] = "NO_SF_OAUTH_TOKEN";
+            $jsonData["data"] = $row;
+
+            echo json_encode($jsonData);
+            die();
+        }else{
+            if($current_session_key === "0000"){
+
+                $row["response"] = false;
+                $row["error"] = "OAUTH_ERROR";
+                $row["extended_error"] = "INVALID_SF_OAUTH_TOKEN";
+                $jsonData["data"] = $row;
+
+                echo json_encode($jsonData);
+                die();
+
+            }else if((bool)self::ab_oauth_verify_csk($current_session_key)){
+
+                if((bool)self::session_log_commit($current_session_key)){
+
+//                        echo "some happended";
+                }else{
+
+                }
+
+            }else{
+                $row["response"] = false;
+                $row["error"] = "OAUTH_ERROR";
+                $row["extended_error"] = "INVALID_SF_OAUTH_TOKEN";
+                $jsonData["data"] = $row;
+
+                echo json_encode($jsonData);
+                die();
+            }
+        }
+    }
+
+    private   function get_real_ip_address(){
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))   //check ip from share internet
+        {
+            $ip=$_SERVER['HTTP_CLIENT_IP'];
+        }
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))   //to check ip is pass from proxy
+        {
+            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        else
+        {
+            $ip=$_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+    }
+
+    private  function get_method_accessed(){
+        $path = array_key_exists("method", $_REQUEST) ? $_REQUEST["method"] : null;
+        $pathTrimmed = trim($path, '/');
+        $pathTokens = explode('/', $pathTrimmed);
+        return $method = $pathTokens[0];
+    }
+
+    private  function get_method_access_time(){
+        date_default_timezone_set('Africa/Nairobi');
+        return $date = date("j  F Y  g.i a", time());
+    }
+
+    
+    private function get_logged_user($csk){
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT users.username 
+                                            FROM safirire_safiri.users 
+                                            WHERE users.current_session_key = :current_session_key');
+
+            $stmt->bindParam(':current_session_key', $csk);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+                    return $row['username'];
+                }
+
+            } else {
+
+                return false;
+            }
+
+
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    private function session_log_commit($csk){
+
+        $device_id = "";
+        $sample = "some value";
+        $method_accessed = self::get_method_accessed();
+        $ip_address = self::get_real_ip_address();
+        $username = self::get_logged_user($csk);
+        $time_accessed = self::get_method_access_time();
+
+        try {
+            $stmt = $this->DB_con->prepare('INSERT INTO safirire_safiri.session_logs 
+                                          (method_accessed, 
+                                          time_of_access, 
+                                          ip_address, 
+                                          device_id, 
+                                          token, 
+                                          username) 
+                                          VALUES (
+                                          :method_accessed,
+                                          :time_of_access,
+                                          :ip_address,
+                                          :device_id,
+                                          :token,
+                                          :username
+                                          )');
+
+            $stmt->bindParam(':method_accessed', $method_accessed);
+            $stmt->bindParam(':time_of_access', $time_accessed);
+            $stmt->bindParam(':ip_address', $ip_address);
+            $stmt->bindParam(':device_id', $device_id);
+            $stmt->bindParam(':token', $csk);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                return true;
+
+            } else {
+
+                return false;
+            }
+
+
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+
+    private function ab_oauth_verify_csk($current_session_key){
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT users.username 
+                                            FROM safirire_safiri.users 
+                                            WHERE users.current_session_key = :current_session_key');
+
+            $stmt->bindParam(':current_session_key', $current_session_key);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                return true;
+
+            } else {
+
+                return false;
+            }
+
+
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+
     public function api_key_verifier(){
         //Getting API KEY FROM URL
 
@@ -429,6 +624,46 @@ class SafiriRentalDriver
         echo json_encode($jsonData);
     }
 
+    public function sf_get_car_pictures($car_id)
+    {
+
+        $jsonData = array();
+
+        try {
+            $stmt = $this->DB_con->prepare('SELECT *
+                                                    FROM safirire_safiri.car_pictures 
+                                                    WHERE car_id = :car_id
+                                                    ORDER BY pic_id DESC');
+
+            $stmt-> bindParam(":car_id", $car_id);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+
+                $counter = 0;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $counter++;
+
+                    $jsonData[] = $row;
+
+                }
+
+            } else {
+
+                $row["result"] = "No Pictures Uploaded";
+                $jsonData["pictures"][] = $row;
+
+            }
+
+
+        } catch (Exception $e) {
+            $row["result"] = "No Pictures Uploaded";
+            $jsonData["pictures"][] = $row;
+        }
+
+        return $jsonData;
+    }
+
 
     public function sf_get_pickup_points($location_code)
     {
@@ -648,6 +883,8 @@ class SafiriRentalDriver
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     $counter++;
 
+                    $car_id = $row['car_id'];
+                    $row["pictures"] = self::sf_get_car_pictures($car_id);
                     $jsonData["response"] = true;
                     $jsonData["status"] = 200;
                     $jsonData["count"] = $counter;
@@ -710,6 +947,8 @@ class SafiriRentalDriver
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     $counter++;
 
+                    $car_id = $row['car_id'];
+                    $row["pictures"] = self::sf_get_car_pictures($car_id);
                     $jsonData["response"] = true;
                     $jsonData["status"] = 200;
                     $jsonData["count"] = $counter;
@@ -760,6 +999,8 @@ class SafiriRentalDriver
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     $counter++;
 
+                    $car_id = $row['car_id'];
+                    $row["pictures"] = self::sf_get_car_pictures($car_id);
                     $jsonData["response"] = true;
                     $jsonData["status"] = 200;
                     $jsonData["count"] = $counter;
@@ -1022,10 +1263,40 @@ class SafiriRentalDriver
 
     public function sf_auth_logout($username){
         $jsonData = array();
+
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie('username', '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httsponly"]
+            );
+
+            setcookie('email_adddress', '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httsponly"]
+            );
+
+            setcookie('phone_num', '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httsponly"]
+            );
+
+            setcookie('current_session_key', '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httsponly"]
+            );
+        }
+
+// Finally, destroy the session.
+        session_unset();
+        session_destroy();
+
         self::sf_auth_set_csk($username, "0000");
         $row["response"] = true;
         $row["username"] = $username;
         $jsonData["data"] = $row;
+        
+        
         echo json_encode($jsonData);
     }
 

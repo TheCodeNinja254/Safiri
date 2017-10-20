@@ -27,6 +27,7 @@ if (!isset($path)) {
     die();
 }
 
+
 //Home Parser
 if($base === "home"){
     if($pathTokens[1] === 'rent'){
@@ -48,43 +49,62 @@ if($base === "home"){
 
 //Admin Parser
 if($base === "admin"){
-    if($pathTokens[2] === 'home') {
-        include 'views/admin/index.php';
-    }else if($pathTokens[2] === 'cars') {
-        include 'views/admin/cars.php';
-    }else if($pathTokens[2] === 'customers') {
-        include 'views/admin/customers.php';
-    }else if($pathTokens[2] === 'owners') {
-        include 'views/admin/owners.php';
-    }else if($pathTokens[2] === 'locations'){
-        include 'views/admin/locations.php';
-    }else if($pathTokens[2] === 'pick-up'){
-        include 'views/admin/pick-up.php';
-    }else if($pathTokens[2] === 'makes'){
-        include 'views/admin/makes.php';
-    }else {
-        include 'views/admin/index.php';
+
+    if(!isset($_COOKIE["username"]) || empty($_COOKIE["username"])){
+        header('location:/home/');
+        die();
     }
 
+    if(isset($_COOKIE["USER_CSRF"]) && ($_COOKIE["USER_CSRF"] === md5("admin"))){
+        if($pathTokens[2] === 'home') {
+            include 'views/admin/index.php';
+        }else if($pathTokens[2] === 'cars') {
+            include 'views/admin/cars.php';
+        }else if($pathTokens[2] === 'customers') {
+            include 'views/admin/customers.php';
+        }else if($pathTokens[2] === 'owners') {
+            include 'views/admin/owners.php';
+        }else if($pathTokens[2] === 'locations'){
+            include 'views/admin/locations.php';
+        }else if($pathTokens[2] === 'pick-up'){
+            include 'views/admin/pick-up.php';
+        }else if($pathTokens[2] === 'makes'){
+            include 'views/admin/makes.php';
+        }else {
+            include 'views/admin/index.php';
+        }
+    }else{
+        header('location:/home/');
+    }
     die();
 }
 
 //Customer Parser
 if($base === "customer"){
-    if($pathTokens[2] === 'cars') {
-        include 'views/customer/cars.php';
-    }else if($pathTokens[2] === 'customers') {
-        include 'views/customer/customers.php';
-    }else if($pathTokens[2] === 'id-upload') {
-        include 'views/customer/id.php';
-    }else if($pathTokens[2] === 'owners') {
-        include 'views/customer/id.php';
-    }else if($pathTokens[2] === 'photos') {
-        include 'views/customer/photos.php';
-    }else{
-        include 'views/customer/index.php';
+
+    if(!isset($_COOKIE["username"]) || empty($_COOKIE["username"])){
+        header('location:/home/');
+        die();
     }
 
+    if(isset($_COOKIE["USER_CSRF"]) && ($_COOKIE["USER_CSRF"] === md5("supplier"))){
+
+        if($pathTokens[2] === 'cars') {
+            include 'views/customer/cars.php';
+        }else if($pathTokens[2] === 'customers') {
+            include 'views/customer/customers.php';
+        }else if($pathTokens[2] === 'id-upload') {
+            include 'views/customer/id.php';
+        }else if($pathTokens[2] === 'owners') {
+            include 'views/customer/id.php';
+        }else if($pathTokens[2] === 'photos') {
+            include 'views/customer/photos.php';
+        }else{
+            include 'views/customer/index.php';
+        }
+    }else{
+        header('location:/home/');
+    }
     die();
 }
 

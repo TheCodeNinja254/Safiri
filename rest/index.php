@@ -53,6 +53,7 @@ $driver-> api_key_verifier();
 if ($method === 'getApiKey') {
 
     $driver->sf_auth_generate_csk();
+    die();
 
 }
 
@@ -74,7 +75,7 @@ if ($method === 'addSupplier') {
 
 
     $driver->add_user($f_name, $m_name, $l_name, $national_id_num, $postal_address, $email_adddress, $phone_num, $date_of_registration, $username, $password, $user_type, $uri_copy_of_id);
-
+    die();
 }
 
 if ($method === 'addCustomer') {
@@ -94,6 +95,7 @@ if ($method === 'addCustomer') {
     $uri_copy_of_id = "00";
 
     $driver->add_user($f_name, $m_name, $l_name, $national_id_num, $postal_address, $email_adddress, $phone_num, $date_of_registration, $username, $password, $user_type, $uri_copy_of_id);
+    die();
 }
 
 if ($method === 'safiriOauth') {
@@ -103,8 +105,13 @@ if ($method === 'safiriOauth') {
 
 
     $driver->sf_auth_login($username, $password);
+    die();
 }
 
+
+
+//Authenticated Method calls
+//$driver->sf_method_oauth();
 
 if ($method === 'getLocations') {
 
@@ -161,7 +168,7 @@ if ($method === 'addCar') {
     $car_number_plate = array_key_exists("car_number_plate", $_REQUEST) ? $_REQUEST["car_number_plate"] : null;
     $pick_up_point = array_key_exists("pick_up_point", $_REQUEST) ? $_REQUEST["pick_up_point"] : null;
     $hire_price_per_day = array_key_exists("hire_price_per_day", $_REQUEST) ? $_REQUEST["hire_price_per_day"] : null;
-    $owner_username = "admin";
+    $owner_username = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
 
     $temp = explode(".", $_FILES["post_file"]["name"]);
     $newFileName = "safiri" . "-" . round(microtime(true)) . '.' . end($temp);
@@ -202,7 +209,7 @@ if ($method === 'getCarMake') {
 if ($method === 'getMyCars') {
 
 //    $owner = $_SESSION['username'];
-    $owner = 'admin';//for test
+    $owner = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
     $driver->sf_get_cars_per_owner($owner);
 }
 

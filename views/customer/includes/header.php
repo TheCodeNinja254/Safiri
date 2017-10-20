@@ -18,7 +18,7 @@ if($host === 'localhost'){
 
 ?>
 <!DOCTYPE html>
-<html class="" lang="en"><head>
+<html class="" lang="en" ><head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <link rel="apple-touch-icon" sizes="76x76" href="<?php echo $host_name; ?>/assets/img/apple-icon.png">
@@ -46,6 +46,11 @@ if($host === 'localhost'){
     <link href="<?php echo $host_name; ?>/assets/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo $host_name; ?>/assets/css/customer_css/css.css" rel="styleshet" type="text/css">
     <link href="<?php echo $host_name; ?>/assets/FreddieDataTables/datatables.css" rel="styleshet" type="text/css">
-
+<style>
+    html{
+        height: 100% !important;
+    }
+</style>
+    </head>
 
 

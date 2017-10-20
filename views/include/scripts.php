@@ -34,33 +34,11 @@ if($host === 'localhost'){
 <script src="<?php echo $host_name; ?>/assets/js/toastr.min.js" type="text/javascript"></script>
 <script src="<?php echo $host_name; ?>/assets/js/jasny-bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo $host_name; ?>/assets/js/safiri/myToast.js" type="text/javascript"></script>
+<script src="<?php echo $host_name; ?>/assets/js/jquery.cookie.js" type="text/javascript"></script>
 <script src="<?php echo $host_name; ?>/assets/js/safiri/safiri_custom.js" type="text/javascript"></script>
 
 <!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
 <script src="<?php echo $host_name; ?>/assets/js/material-kit.js" type="text/javascript"></script>
 
 <!--    Plugin For Google Maps   -->
-<script  type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFPQibxeDaLIUHsC6_KqDdFaUdhrbhZ3M"></script>
-<script type="text/javascript">
-    $().ready(function(){
-
-        materialKitDemo.initContactUs2Map();
-    });
-</script>
-<script type="text/javascript">
-
-    $().ready(function(){
-        // the body of this function is in assets/material-kit.js
-        materialKit.initSliders();
-        window_width = $(window).width();
-
-        if (window_width >= 992){
-            big_image = $('.wrapper > .header');
-
-            $(window).on('scroll', materialKitDemo.checkScrollForParallax);
-        }
-
-    });
-</script>
-</body>
 

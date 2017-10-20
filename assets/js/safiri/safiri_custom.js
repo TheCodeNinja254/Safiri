@@ -1,7 +1,10 @@
 /**
  * Created by freddie on 9/26/17.
  */
-
+$( document ).ready(function() {
+    var name = $.cookie("x-user");
+    $("#x-user").html(name).toUpperCase()
+});
 // process the form
 $('#addSupplierForm').submit(function(event) {
 
@@ -24,7 +27,7 @@ $('#addSupplierForm').submit(function(event) {
         var api_url = "https://api.safirirental.com/";
         // var api_url = "http://localhost/safiri/rest/";
         var callback = "addSupplier";
-        var source = "/web";
+        var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
         $.ajax({
@@ -80,10 +83,10 @@ $('#loginForm').submit(function(event) {
         'password': $('input[name=lg_password]').val()
     };
 
-    var api_url = "https://safirirental.com/";
+    var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "safiriOauth";
-    var source = "/web";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     $.ajax({
@@ -99,6 +102,50 @@ $('#loginForm').submit(function(event) {
             $(data).each(function(key,value){
 
                 if(value.response === true){
+
+                    $.cookie("username", data.data.username, {
+                        expires : 10,//days
+                        path    : '/',
+                        secure  : true
+                    });
+
+                    var USER_CSRF;
+
+                    if(data.data.user_type === "admin"){
+                         USER_CSRF = "21232f297a57a5a743894a0e4a801fc3";
+                    }else{
+                         USER_CSRF = "99b0e8da24e29e4ccb5d7d76e677c2ac";
+                    }
+
+                    $.cookie("USER_CSRF", USER_CSRF, {
+                        expires : 10,//days
+                        path    : '/',
+                        secure  : true
+                    });
+
+                    $.cookie("current_session_key", data.data.current_session_key, {
+                        expires : 10,//days
+                        path    : '/',
+                        secure  : true
+                    });
+
+                    $.cookie("x-user", data.data.f_name+" "+data.data.l_name, {
+                        expires : 10,//days
+                        path    : '/',
+                        secure  : true
+                    });
+
+                    $.cookie("email_address", data.data.email_adddress, {
+                        expires : 10,//days
+                        path    : '/',
+                        secure  : true
+                    });
+
+                    $.cookie("phone_num", data.data.phone_num, {
+                        expires : 10,//days
+                        path    : '/',
+                        secure  : true
+                    });
 
                     $.notify('Login Successful, redirecting...', {
                         type: 'success'
@@ -145,7 +192,7 @@ function load_car_make() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getCarMake";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     $.ajax({
@@ -197,7 +244,7 @@ function load_body_types() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getBodyTypes";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     $.ajax({
@@ -246,7 +293,7 @@ function load_car_location_list() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getLocations";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     $.ajax({
@@ -301,7 +348,7 @@ function load_car_pickup_point_list(location_code) {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getPickUpPoints";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
     var formData = {
         'location_code': location_code
@@ -358,7 +405,10 @@ $('#addCarWebForm').submit(function(event) {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "addCar";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
+    var tail = "?username="+$.cookie("username");
+
 
 
     var formData = new FormData($(this)[0]);
@@ -379,7 +429,7 @@ $('#addCarWebForm').submit(function(event) {
     // process the form
     $.ajax({
         type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-        url         : api_url+callback+source, // the url where we want to POST
+        url         : api_url+callback+source+csk+tail, // the url where we want to POST
         data        : formData, // our data object
         dataType    : 'json', // what type of data do we expect back from the server
         contentType : false,
@@ -428,7 +478,7 @@ $('#uploadCarPhotosWebForm').submit(function(event) {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "uploadCarPhotos";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     var formData = new FormData($(this)[0]);
@@ -488,12 +538,17 @@ function load_owner_cars_list() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getMyCars";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk =  $.cookie("current_session_key");
 
+    var formData = {
+        'username' : $.cookie("username")
+    };
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
+        type        :   'POST',
+        url         :   api_url+callback+source+csk,
+        data        :   formData,
         dataType    :   'json',
         encode      :   true
     })
@@ -537,13 +592,19 @@ function populate_owners_car_datatable() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getMyCars";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk =  $.cookie("current_session_key");
+
+    var formData = {
+        'username' : $.cookie("username")
+    };
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
+        type        :   'POST',
+        url         :   api_url+callback+source+csk,
         dataType    :   'json',
+        data        :   formData,
         encode      :   true
     })
         .done(function(data) {
@@ -602,7 +663,7 @@ function populate_all_cars_datatable() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getAllCars";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     $.ajax({
@@ -674,7 +735,7 @@ function populate_all_locations_datatable() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getLocations";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     $.ajax({
@@ -735,7 +796,7 @@ $('#addLocationFormAdmin').submit(function(event) {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "addLocation";
-    var source = "/web";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d";
 
 
     $.ajax({
@@ -793,7 +854,7 @@ function populate_all_pickup_datatable() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getAllPickUpPoints";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
 
@@ -854,7 +915,7 @@ function load_admin_locations_list() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getLocations";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     $.ajax({
@@ -908,7 +969,7 @@ $('#addPickupPointsFormAdmin').submit(function(event) {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "addPickupPoint";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     $.ajax({
@@ -965,7 +1026,7 @@ function load_car_make_datatable() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getCarMake";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     $.ajax({
@@ -1025,7 +1086,7 @@ $('#addCarMakeForAdmin').submit(function(event) {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "addCarMake";
-    var source = "/web";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d";
 
 
     $.ajax({
@@ -1079,7 +1140,7 @@ function populate_customers_datatable() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getCustomers";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     $.ajax({
@@ -1147,7 +1208,7 @@ function populate_suppliers_datatable() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getSuppliers";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
 
 
     $.ajax({
@@ -1215,13 +1276,19 @@ function logout() {
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "sfOAuthLogout";
-    var source = "/web/";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
+
+    var formData = {
+        username : $.cookie("username")
+    };
 
 
     $.ajax({
         type        :   'GET',
-        url         :   api_url+callback+source,
+        url         :   api_url+callback+source+csk,
         dataType    :   'json',
+        data        :   formData,
         encode      :   true
     })
         .done(function(data) {
@@ -1229,6 +1296,11 @@ function logout() {
             $(data.data).each(function(key,value){
 
                 if(value.response === true){
+
+                    $.removeCookie('username', { path: '/' });
+                    $.removeCookie('current_session_key', { path: '/' });
+                    $.removeCookie('phone_num', { path: '/' });
+                    $.removeCookie('email_address', { path: '/' });
 
                     $.notify("Session terminated successfully", {
                         type: 'success'

@@ -635,7 +635,7 @@ h2.title {
 .wrapper {
     position: relative;
     top: 0;
-    height: 100vh;
+    height: auto;!important;
 }
 
 .sidebar,

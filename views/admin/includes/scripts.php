@@ -28,12 +28,13 @@ if($host === 'localhost'){
 <script src="<?php echo $host_name; ?>/assets/js/jquery.js"></script>
 <!--  PerfectScrollbar Library -->
 <script src="<?php echo $host_name; ?>/assets/js/perfect-scrollbar.js"></script>
+<script src="<?php echo $host_name; ?>/assets/js/jquery.cookie.js"></script>
 <!--  Notifications Plugin    -->
 <script src="<?php echo $host_name; ?>/assets/js/bootstrap-notify.js"></script>
 <script src="<?php echo $host_name; ?>/assets/FreddieDataTables/datatables.js"></script>
 <script src="<?php echo $host_name; ?>/assets/js/jasny-bootstrap.min.js" type="text/javascript"></script>
 <!--  Google Maps Plugin    -->
-<script type="text/javascript" src="<?php echo $host_name; ?>/assets/js/js"></script>
+
 <!-- Material Dashboard javascript methods -->
 <script src="<?php echo $host_name; ?>/assets/js/material-dashboard.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->

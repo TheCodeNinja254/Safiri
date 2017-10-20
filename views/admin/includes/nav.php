@@ -97,11 +97,14 @@
 
                             <li class="dropdown hidden-xs hidden-sm">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-user text-center"></i> Profile
+                                    <i class="fa fa-user text-center"></i> <span id="x-user"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a href="#">Change password</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Edit Account</a>
                                     </li>
                                     <li>
                                         <a href="#" onclick="logout()">Logout</a>
