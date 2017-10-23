@@ -18,9 +18,15 @@
             <div class="sidebar-wrapper ps-container ps-theme-default" data-ps-id="200dec3b-e6fe-1e46-dc17-26f4c021bf6e">
                 <ul class="nav">
                     <li class="">
-                        <a href="<?php echo $host_name; ?>/admin/dashboard/">
+                        <a href="<?php echo $host_name; ?>/">
                             <i class="fa fa-home"></i>
                             <p>Home</p>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="<?php echo $host_name; ?>/admin/dashboard/">
+                            <i class="fa fa-dashboard"></i>
+                            <p>Dashboard</p>
                         </a>
                     </li>
                     <li>
@@ -90,21 +96,18 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"> Hey Admin, Welcome </a>
+                        <a class="navbar-brand" href="#"> Hey <span id="x-user-display-main"></span>, Welcome </a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right ">
 
                             <li class="dropdown hidden-xs hidden-sm">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-user text-center"></i> <span id="x-user"></span>
+                                    <i class="fa fa-fw fa-user text-center"></i> <span id="x-user"></span> <i class="fa fa-fw fa-chevron-down"></i>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#">Change password</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Edit Account</a>
+                                        <a href="#" data-toggle="modal" data-target="#changePasswordModal">Change Password</a>
                                     </li>
                                     <li>
                                         <a href="#" onclick="logout()">Logout</a>

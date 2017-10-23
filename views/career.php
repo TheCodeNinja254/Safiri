@@ -19,7 +19,7 @@
 
     <div class="main ">
         <div class="section section-basic">
-            <div class="container">
+            <div class="container" >
                 <div class="col-md-12">
                     <h3 class="title text-center">Why work with us?</h3>
                     <p class="text-justify"> Safiri is the fastest-growing car rental company in Kenya with millions of customers across 47 counties. We have built a smartphone app to enable people rent safe and fast rides at the tap of a button. At Safiri we employ skilled and knowledgeable talents that match our level of quality service delivery. </p>

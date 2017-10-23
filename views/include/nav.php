@@ -59,9 +59,19 @@
                         <i class="fa fa-envelope"></i> Contact Us
                     </a>
                 </li>
-                <li>
+                <li id="no-user-logged">
                     <a href="#" data-toggle="modal" data-target="#loginModal">
                         <i class="fa fa-user"></i> ACCOUNT
+                    </a>
+                </li>
+                <li id="admin-on-home">
+                    <a href="<?php echo $host_name; ?>/admin/dashboard/" >
+                        <i class="fa fa-user"></i> <span id="x-user-admin"></span>
+                    </a>
+                </li>
+                <li id="supplier-on-home">
+                    <a href="<?php echo $host_name; ?>/customer/dashboard/" >
+                        <i class="fa fa-user"></i> <span id="x-user-supplier"></span>
                     </a>
                 </li>
 

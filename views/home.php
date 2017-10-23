@@ -3,7 +3,7 @@
 
 <div class="wrapper">
 	<div class="header header-filter" style="background-image: url('https://safirirental.com/assets/img/banner3.jpeg');">
-		<div class="container">
+		<div class="container" >
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="brand">

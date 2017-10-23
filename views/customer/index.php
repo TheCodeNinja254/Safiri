@@ -1,7 +1,7 @@
 <?php include 'includes/header.php';?>
 <?php include 'includes/nav.php';?>
             <div class="content">
-                <div class="container-fluid">
+                <div class="container-fluid" id="with-dl_check">
                     <div class="row"><center>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats">

@@ -101,17 +101,39 @@ if ($method === 'addCustomer') {
 if ($method === 'safiriOauth') {
 
     $username = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
-    $password = array_key_exists("password", $_REQUEST) ? $_REQUEST["password"] : null;;
+    $password = array_key_exists("password", $_REQUEST) ? $_REQUEST["password"] : null;
 
 
     $driver->sf_auth_login($username, $password);
     die();
 }
 
+if ($method === 'doubleLoginChecker') {
+
+    $csk = array_key_exists("csk", $_REQUEST) ? $_REQUEST["csk"] : null;
+
+    $driver -> double_login_prevention($csk);
+    die();
+}
+
+if ($method === 'sfOAuthLogout') {
+
+    $username = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
+
+    if(isset($username) && !empty($username)){
+        $driver->sf_auth_logout($username);
+    }else{
+        $username = $_SESSION['username'];
+        $driver->sf_auth_logout($username);
+    }
+    die();
+
+}
+
 
 
 //Authenticated Method calls
-//$driver->sf_method_oauth();
+$driver->sf_method_oauth();
 
 if ($method === 'getLocations') {
 
@@ -179,18 +201,6 @@ if ($method === 'addCar') {
     $driver->add_car($make, $model, $uri_log_book, $body_type, $hire_price_per_day, $owner_username, $pick_up_point, $car_number_plate);
 }
 
-if ($method === 'sfOAuthLogout') {
-
-    $username = array_key_exists("username", $_REQUEST) ? $_REQUEST["username"] : null;
-
-    if(isset($username) && !empty($username)){
-        $driver->sf_auth_logout($username);
-    }else{
-        $username = $_SESSION['username'];
-        $driver->sf_auth_logout($username);
-    }
-
-}
 
 if ($method === 'addCarMake') {
 

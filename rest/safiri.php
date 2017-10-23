@@ -217,6 +217,23 @@ class SafiriRentalDriver
         }
     }
 
+    public function double_login_prevention($csk){
+
+        $jsonData = array();
+
+        if((bool)self::ab_oauth_verify_csk($csk)){
+            $row["response"] = true;
+            $jsonData["data"] = $row;
+        }else{
+            $row["response"] = false;
+            $row["error"] = "DOUBLE_LOGIN";
+            $row["extended_error"] = "OTHER_COMPUTER_LOGGED_IN";
+            $jsonData["data"] = $row;
+        }
+
+        echo json_encode($jsonData);
+    }
+
 
     public function api_key_verifier(){
         //Getting API KEY FROM URL

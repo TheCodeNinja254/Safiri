@@ -2,7 +2,7 @@
 <?php include 'includes/nav.php';?><br><br>
 
 <div class="main">
-            <div class="container-fluid">
+            <div class="container-fluid" id="with-dl_check">
                 <div class="col-lg-12 col-md-12">
                     <div class="row">
                         <div class="card">

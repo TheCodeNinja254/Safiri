@@ -93,14 +93,14 @@
 										<span class="input-group-addon">
 											<i class="material-icons">email</i>
 										</span>
-                                <input type="text" name="lg_username" class="form-control" placeholder="Username, Email, Phone, ID Number">
+                                <input type="text" name="lg_username" class="form-control" placeholder="Username, Email, Phone, ID Number" required>
                             </div>
 
                             <div class="input-group">
 										<span class="input-group-addon">
 											<i class="material-icons">lock_outline</i>
 										</span>
-                                <input type="password" name="lg_password" placeholder="Password..." class="form-control" />
+                                <input type="password" name="lg_password" placeholder="Password..." class="form-control" required/>
                             </div>
 
 
@@ -118,7 +118,8 @@
 
             </div>
         </div>
-    </div>
+    
+</div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default btn-simple">Nice Button</button>
         <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal">Close</button>

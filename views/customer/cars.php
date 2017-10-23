@@ -2,7 +2,7 @@
 <?php include 'includes/nav.php';?>
 
             <div class="content">
-                <div class="container-fluid">
+                <div class="container-fluid" id="with-dl_check">
                     <div class="card">
                         <h4 class="text-center text-main">Please provide CORRECT information of your</h4>
                         <form  id="addCarWebForm" action="https://api.safirirental.com/addCar/web/" method="post" enctype="multipart/form-data">

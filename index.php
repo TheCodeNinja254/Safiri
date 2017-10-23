@@ -40,6 +40,8 @@ if($base === "home"){
         include 'views/contact.php';
     }else if($pathTokens[1] === 'home'){
         include 'views/home.php';
+    }else if($pathTokens[1] === 'dl-check-fail-html-viewer'){
+        include 'views/dl.php';
     }else{
         include 'views/home.php';
     }
@@ -97,7 +99,7 @@ if($base === "customer"){
             include 'views/customer/id.php';
         }else if($pathTokens[2] === 'owners') {
             include 'views/customer/id.php';
-        }else if($pathTokens[2] === 'photos') {
+        }else if($pathTokens[2] === 'photo-upload') {
             include 'views/customer/photos.php';
         }else{
             include 'views/customer/index.php';

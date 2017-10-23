@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: freddie
- * Date: 9/23/17
- * Time: 8:41 PM
- */
+include "modals.php";
 
 global $host;
 

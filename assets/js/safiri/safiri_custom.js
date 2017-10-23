@@ -1,12 +1,117 @@
 /**
  * Created by freddie on 9/26/17.
  */
-$( document ).ready(function() {
+$(document).ready(function () {
     var name = $.cookie("x-user");
-    $("#x-user").html(name).toUpperCase()
+    var username = $.cookie("usernames");
+    var USER_CSRF = $.cookie("USER_CSRF");
+    var admin_applet = $("#admin-on-home");
+    var supplier_applet = $("#supplier-on-home");
+    var no_logged_user = $("#no-user-logged");
+
+    double_login_checker();
+
+    admin_applet.hide();
+    supplier_applet.hide();
+    no_logged_user.hide();
+
+    // alert(USER_CSRF);
+    if (username === "undefined") {
+        no_logged_user.show();
+        // alert("Failed here");
+
+    } else {
+
+        if (USER_CSRF === "21232f297a57a5a743894a0e4a801fc3") {
+
+            // alert("admin logged in");
+            var x_user_admin = $("#x-user-admin");
+            x_user_admin.html(name);
+            x_user_admin.parent("a").attr("href","/admin/dashboard");
+            admin_applet.show();
+
+        } else if (USER_CSRF === "99b0e8da24e29e4ccb5d7d76e677c2ac") {
+
+            var x_user_supplier = $("#x-user-supplier");
+            x_user_supplier.html(name);
+            x_user_supplier.parent("a").attr("href","/customer/dashboard");
+            supplier_applet.show();
+
+        } else {
+            no_logged_user.show();
+            // alert("Failed here");
+        }
+    }
+
+    $("#x-user").html(name);
+    $("#x-user-display-main").html(name);
+
 });
+
+function double_login_checker() {
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+
+    var api_url = "https://api.safirirental.com/";
+    // var api_url = "http://localhost/safiri/rest/";
+    var callback = "doubleLoginChecker";
+    var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
+
+
+    var formData = {
+        'csk' : $.cookie("current_session_key")
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        data: formData,
+        encode: true
+    })
+        .done(function (data) {
+
+            $(data.data).each(function (key, value) {
+
+                if (value.response === true) {
+                    
+
+                } else {
+                    $("#dashboard_username_verification").val($.cookie(("username")));
+                    $.ajax({
+                        type: 'GET',
+                        url: "https://safirirental.com/home/" + "dl-check-fail-html-viewer" + source,
+                        dataType: 'html'
+                    })
+                        .done(function (data) {
+                            $("#with-dl_check").empty().html(data);
+                        })
+
+                        .fail(function () {
+
+                            $.notify('You are offline', {
+                                type: 'warning'
+                            });
+
+                        });
+
+                }
+
+            });
+        })
+
+        .fail(function () {
+
+            $.notify('You are offline', {
+                type: 'warning'
+            });
+
+        });
+}
+
 // process the form
-$('#addSupplierForm').submit(function(event) {
+$('#addSupplierForm').submit(function (event) {
 
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
@@ -74,7 +179,7 @@ $('#addSupplierForm').submit(function(event) {
 });
 
 
-$('#loginForm').submit(function(event) {
+$('#loginForm').submit(function (event) {
 
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
@@ -90,77 +195,77 @@ $('#loginForm').submit(function(event) {
 
 
     $.ajax({
-        type        :   'POST',
-        url         :   api_url + callback + source,
-        data        :   formData,
-        dataType    :   'json',
-        encode      :   true
+        type: 'POST',
+        url: api_url + callback + source,
+        data: formData,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
             $('#loginForm')[0].reset();
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $.cookie("username", data.data.username, {
-                        expires : 10,//days
-                        path    : '/',
-                        secure  : true
+                        expires: 10,//days
+                        path: '/',
+                        secure: true
                     });
 
                     var USER_CSRF;
 
-                    if(data.data.user_type === "admin"){
-                         USER_CSRF = "21232f297a57a5a743894a0e4a801fc3";
-                    }else{
-                         USER_CSRF = "99b0e8da24e29e4ccb5d7d76e677c2ac";
+                    if (data.data.user_type === "admin") {
+                        USER_CSRF = "21232f297a57a5a743894a0e4a801fc3";
+                    } else {
+                        USER_CSRF = "99b0e8da24e29e4ccb5d7d76e677c2ac";
                     }
 
                     $.cookie("USER_CSRF", USER_CSRF, {
-                        expires : 10,//days
-                        path    : '/',
-                        secure  : true
+                        expires: 10,//days
+                        path: '/',
+                        secure: true
                     });
 
                     $.cookie("current_session_key", data.data.current_session_key, {
-                        expires : 10,//days
-                        path    : '/',
-                        secure  : true
+                        expires: 10,//days
+                        path: '/',
+                        secure: true
                     });
 
-                    $.cookie("x-user", data.data.f_name+" "+data.data.l_name, {
-                        expires : 10,//days
-                        path    : '/',
-                        secure  : true
+                    $.cookie("x-user", data.data.f_name + " " + data.data.l_name, {
+                        expires: 10,//days
+                        path: '/',
+                        secure: true
                     });
 
                     $.cookie("email_address", data.data.email_adddress, {
-                        expires : 10,//days
-                        path    : '/',
-                        secure  : true
+                        expires: 10,//days
+                        path: '/',
+                        secure: true
                     });
 
                     $.cookie("phone_num", data.data.phone_num, {
-                        expires : 10,//days
-                        path    : '/',
-                        secure  : true
+                        expires: 10,//days
+                        path: '/',
+                        secure: true
                     });
 
                     $.notify('Login Successful, redirecting...', {
                         type: 'success'
                     });
-                    if(data.data.user_type === 'supplier'){
+                    if (data.data.user_type === 'supplier') {
                         $(location).attr('href', 'https://safirirental.com/customer/dashboard/')
-                    }else if(data.data.user_type === 'admin'){
+                    } else if (data.data.user_type === 'admin') {
                         $(location).attr('href', 'https://safirirental.com/admin/dashboard/')
-                    }else{
+                    } else {
                         $.notify('You can only login via the Android App', {
                             type: 'info'
                         });
                     }
 
-                }else{
+                } else {
 
                     // $.notify("Registration Failed, incorrect username/password combination", "danger");
                     $.notify('Login Failed, incorrect username/password combination', {
@@ -172,7 +277,7 @@ $('#loginForm').submit(function(event) {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -193,30 +298,31 @@ function load_car_make() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getCarMake";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
-        dataType    :   'json',
-        encode      :   true
+        type: 'GET',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
-                    $.each(data.data, function(key, value) {
+                    $.each(data.data, function (key, value) {
 
-                        selectList.append("<option value='"+value.make_id+"'>"+value.make+"</option>");
-                       
+                        selectList.append("<option value='" + value.make_id + "'>" + value.make + "</option>");
+
 
                         // console.log(make);
                         console.log(value.make)
                     });
 
-                }else{
+                } else {
 
                     // $.notify("Registration Failed, incorrect username/password combination", "danger");
                     $.notify('Could not retrieve a list of available Car Makes', {
@@ -228,7 +334,7 @@ function load_car_make() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -245,27 +351,28 @@ function load_body_types() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getBodyTypes";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
-        dataType    :   'json',
-        encode      :   true
+        type: 'GET',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
-                    $.each(data.data, function(key, value) {
+                    $.each(data.data, function (key, value) {
                         var selectList = $('#car_body_type_list');
-                        selectList.append("<option value='"+value.type_code+"'>"+value.type+"</option>");
+                        selectList.append("<option value='" + value.type_code + "'>" + value.type + "</option>");
 
                     });
 
-                }else{
+                } else {
 
                     // $.notify("Registration Failed, incorrect username/password combination", "danger");
                     $.notify('Could not retrieve a list of available body types', {
@@ -277,7 +384,7 @@ function load_body_types() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -294,27 +401,28 @@ function load_car_location_list() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getLocations";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
-        dataType    :   'json',
-        encode      :   true
+        type: 'GET',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
-                    $.each(data.data, function(key, value) {
+                    $.each(data.data, function (key, value) {
                         var selectList = $('#car_location_list');
-                        selectList.append("<option value='"+value.location_code+"'>"+value.location_name+"</option>");
+                        selectList.append("<option value='" + value.location_code + "'>" + value.location_name + "</option>");
 
                     });
 
-                }else{
+                } else {
 
                     // $.notify("Registration Failed, incorrect username/password combination", "danger");
                     $.notify('Could not retrieve a list of available locations', {
@@ -326,7 +434,7 @@ function load_car_location_list() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -335,8 +443,7 @@ function load_car_location_list() {
         });
 }
 
-$('#car_location_list').change(function()
-{
+$('#car_location_list').change(function () {
     // alert('Value change to ' + $(this).val());
     load_car_pickup_point_list($(this).val())
 });
@@ -349,35 +456,36 @@ function load_car_pickup_point_list(location_code) {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getPickUpPoints";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
     var formData = {
         'location_code': location_code
     };
 
     $.ajax({
-        type        :   'POST',
-        url         :   api_url+callback+source,
-        data         :  formData,
-        dataType    :   'json',
-        encode      :   true
+        type: 'POST',
+        url: api_url + callback + source + csk,
+        data: formData,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
             var selectList = $('#car_pickup_point_list');
             selectList.empty().append("<option value=''>Select Pick Up Point</option>");
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
-                    $.each(data.data, function(key, value) {
+                    $.each(data.data, function (key, value) {
 
                         var selectList = $('#car_pickup_point_list');
-                        selectList.append("<option value='"+value.pick_up_point_id+"'>"+value.pick_up_point+"</option>");
+                        selectList.append("<option value='" + value.pick_up_point_id + "'>" + value.pick_up_point + "</option>");
 
                     });
 
-                }else{
+                } else {
 
                     // $.notify("Registration Failed, incorrect username/password combination", "danger");
                     $.notify('Could not retrieve a list of available pick up points', {
@@ -389,7 +497,7 @@ function load_car_pickup_point_list(location_code) {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -398,23 +506,22 @@ function load_car_pickup_point_list(location_code) {
         });
 }
 
-$('#addCarWebForm').submit(function(event) {
+$('#addCarWebForm').submit(function (event) {
 
     // get the form data
-   
+
     var api_url = "https://api.safirirental.com/";
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "addCar";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
     var csk = $.cookie("current_session_key");
-    var tail = "?username="+$.cookie("username");
-
+    var tail = "?username=" + $.cookie("username");
 
 
     var formData = new FormData($(this)[0]);
 
-    
-          formData.append = {
+
+    formData.append = {
         'make': $('select[name=make]').val(),
         'model': $('input[name=model]').val(),
         'body_type': $('select[name=body_type]').val(),
@@ -428,27 +535,27 @@ $('#addCarWebForm').submit(function(event) {
 
     // process the form
     $.ajax({
-        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-        url         : api_url+callback+source+csk+tail, // the url where we want to POST
-        data        : formData, // our data object
-        dataType    : 'json', // what type of data do we expect back from the server
-        contentType : false,
-        enctype     : 'multipart/form-data',
-        processData : false
+        type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url: api_url + callback + source + csk + tail, // the url where we want to POST
+        data: formData, // our data object
+        dataType: 'json', // what type of data do we expect back from the server
+        contentType: false,
+        enctype: 'multipart/form-data',
+        processData: false
 
     })
-        .done(function(data) {
+        .done(function (data) {
 
             $('#addCarWebForm')[0].reset();
-            $(data.data).each(function(key,value){
+            $(data.data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $.notify('Your car has been added successfully', {
                         type: 'success'
                     });
 
-                }else{
+                } else {
 
                     $.notify('The upload failed. Kindly try again, otherwise check your internet connection', {
                         type: 'warning'
@@ -459,7 +566,7 @@ $('#addCarWebForm').submit(function(event) {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -471,7 +578,7 @@ $('#addCarWebForm').submit(function(event) {
 });
 
 
-$('#uploadCarPhotosWebForm').submit(function(event) {
+$('#uploadCarPhotosWebForm').submit(function (event) {
 
     // get the form data
 
@@ -479,6 +586,7 @@ $('#uploadCarPhotosWebForm').submit(function(event) {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "uploadCarPhotos";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
 
     var formData = new FormData($(this)[0]);
@@ -489,27 +597,27 @@ $('#uploadCarPhotosWebForm').submit(function(event) {
 
     // process the form
     $.ajax({
-        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-        url         : api_url+callback+source, // the url where we want to POST
-        data        : formData, // our data object
-        dataType    : 'json', // what type of data do we expect back from the server
-        contentType : false,
-        enctype     : 'multipart/form-data',
-        processData : false
+        type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url: api_url + callback + source + csk, // the url where we want to POST
+        data: formData, // our data object
+        dataType: 'json', // what type of data do we expect back from the server
+        contentType: false,
+        enctype: 'multipart/form-data',
+        processData: false
 
     })
-        .done(function(data) {
+        .done(function (data) {
 
             $('#uploadCarPhotosWebForm')[0].reset();
-            $(data.data).each(function(key,value){
+            $(data.data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $.notify('Photos uploaded successfully', {
                         type: 'success'
                     });
 
-                }else{
+                } else {
 
                     $.notify('The upload failed. Kindly try again, otherwise check your internet connection', {
                         type: 'warning'
@@ -520,7 +628,7 @@ $('#uploadCarPhotosWebForm').submit(function(event) {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -539,33 +647,33 @@ function load_owner_cars_list() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getMyCars";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
-    var csk =  $.cookie("current_session_key");
+    var csk = $.cookie("current_session_key");
 
     var formData = {
-        'username' : $.cookie("username")
+        'username': $.cookie("username")
     };
 
     $.ajax({
-        type        :   'POST',
-        url         :   api_url+callback+source+csk,
-        data        :   formData,
-        dataType    :   'json',
-        encode      :   true
+        type: 'POST',
+        url: api_url + callback + source + csk,
+        data: formData,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
-                    $.each(data.data, function(key, value) {
-                        
+                    $.each(data.data, function (key, value) {
+
                         var selectList = $('#owner_cars_list_select');
-                        selectList.append("<option value='"+value.car_id+"'>"+value.car_number_plate+" - "+value.make+"</option>");
+                        selectList.append("<option value='" + value.car_id + "'>" + value.car_number_plate + " - " + value.make + "</option>");
 
                     });
 
-                }else{
+                } else {
 
                     $.notify("You have not uploaded any cars yet", {
                         type: 'warning'
@@ -576,7 +684,7 @@ function load_owner_cars_list() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -593,50 +701,50 @@ function populate_owners_car_datatable() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getMyCars";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
-    var csk =  $.cookie("current_session_key");
+    var csk = $.cookie("current_session_key");
 
     var formData = {
-        'username' : $.cookie("username")
+        'username': $.cookie("username")
     };
 
 
     $.ajax({
-        type        :   'POST',
-        url         :   api_url+callback+source+csk,
-        dataType    :   'json',
-        data        :   formData,
-        encode      :   true
+        type: 'POST',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        data: formData,
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $('#ownersCarsDataTable').DataTable({
-                        "data" :data.data,
-                        "processing" : true,
+                        "data": data.data,
+                        "processing": true,
                         dom: 'ftipB',
                         buttons: [
                             'copy', 'excel', 'pdf', 'print'
-                        ],columns : [ {
-                            data : "car_number_plate"
+                        ], columns: [{
+                            data: "car_number_plate"
                         }, {
-                            data : "make"
+                            data: "make"
                         }, {
-                            data : "model"
+                            data: "model"
                         }, {
-                            data : "type"
+                            data: "type"
                         }, {
-                            data : "pick_up_point"
+                            data: "pick_up_point"
                         }, {
-                            data : "hire_price_per_day"
+                            data: "hire_price_per_day"
                         }, {
-                            data : "status"
+                            data: "status"
                         }]
                     });
 
-                }else{
+                } else {
 
                     $.notify("You have not uploaded any cars yet", {
                         type: 'warning'
@@ -647,7 +755,7 @@ function populate_owners_car_datatable() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -664,46 +772,47 @@ function populate_all_cars_datatable() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getAllCars";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
-        dataType    :   'json',
-        encode      :   true
+        type: 'GET',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $('#allCarsDataTable').DataTable({
-                        "data" :data.data,
-                        "processing" : true,
+                        "data": data.data,
+                        "processing": true,
                         dom: 'ftipB',
                         buttons: [
                             'copy', 'excel', 'pdf', 'print'
-                        ],columns : [ {
-                            data : "f_name"
+                        ], columns: [{
+                            data: "f_name"
                         }, {
-                            data : "car_number_plate"
+                            data: "car_number_plate"
                         }, {
-                            data : "make"
+                            data: "make"
                         }, {
-                            data : "model"
+                            data: "model"
                         }, {
-                            data : "type"
+                            data: "type"
                         }, {
-                            data : "pick_up_point"
+                            data: "pick_up_point"
                         }, {
-                            data : "hire_price_per_day"
+                            data: "hire_price_per_day"
                         }, {
-                            data : "status"
+                            data: "status"
                         }]
                     });
 
-                }else{
+                } else {
 
                     $.notify("There are now cars uploaded yet", {
                         type: 'warning'
@@ -714,7 +823,7 @@ function populate_all_cars_datatable() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -724,7 +833,7 @@ function populate_all_cars_datatable() {
 }
 
 function populate_all_locations_datatable() {
-    if ( $.fn.dataTable.isDataTable( '#allLocationsDataTable' ) ) {
+    if ($.fn.dataTable.isDataTable('#allLocationsDataTable')) {
         table = $('#allLocationsDataTable').DataTable();
 
         table.destroy();
@@ -736,36 +845,37 @@ function populate_all_locations_datatable() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getLocations";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
-        dataType    :   'json',
-        encode      :   true
+        type: 'GET',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $('#allLocationsDataTable').DataTable({
-                        "data" :data.data,
-                        "processing" : true,
+                        "data": data.data,
+                        "processing": true,
                         dom: 'ftipB',
                         buttons: [
                             'copy', 'excel', 'pdf', 'print'
-                        ],columns : [ {
-                            data : "id"
+                        ], columns: [{
+                            data: "id"
                         }, {
-                            data : "location_code"
+                            data: "location_code"
                         }, {
-                            data : "location_name"
+                            data: "location_name"
                         }]
                     });
 
-                }else{
+                } else {
 
                     $.notify("There are now locations added yet", {
                         type: 'warning'
@@ -776,7 +886,7 @@ function populate_all_locations_datatable() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -785,7 +895,7 @@ function populate_all_locations_datatable() {
         });
 }
 
-$('#addLocationFormAdmin').submit(function(event) {
+$('#addLocationFormAdmin').submit(function (event) {
 
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
@@ -797,28 +907,29 @@ $('#addLocationFormAdmin').submit(function(event) {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "addLocation";
     var source = "/2567a5ec9705eb7ac2c984033e06189d";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'POST',
-        url         :   api_url + callback + source,
-        data        :   formData,
-        dataType    :   'json',
-        encode      :   true
+        type: 'POST',
+        url: api_url + callback + source + csk,
+        data: formData,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
             $('#addLocatioFormAdmin')[0].reset();
-            $(data.data).each(function(key,value){
+            $(data.data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $.notify('Location added successfully', {
                         type: 'success'
                     });
                     populate_all_locations_datatable();
 
-                }else{
+                } else {
 
                     $.notify('There was an error adding the location, please try again later', {
                         type: 'warning'
@@ -829,7 +940,7 @@ $('#addLocationFormAdmin').submit(function(event) {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -841,7 +952,7 @@ $('#addLocationFormAdmin').submit(function(event) {
 });
 
 function populate_all_pickup_datatable() {
-    if ( $.fn.dataTable.isDataTable( '#allPickUpPointsDataTable' ) ) {
+    if ($.fn.dataTable.isDataTable('#allPickUpPointsDataTable')) {
         table = $('#allPickUpPointsDataTable').DataTable();
 
         table.destroy();
@@ -855,39 +966,39 @@ function populate_all_pickup_datatable() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getAllPickUpPoints";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
-
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
-        dataType    :   'json',
-        encode      :   true
+        type: 'GET',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $('#allPickUpPointsDataTable').DataTable({
-                        "data" :data.data,
-                        "processing" : true,
+                        "data": data.data,
+                        "processing": true,
                         dom: 'ftipB',
                         buttons: [
                             'copy', 'excel', 'pdf', 'print'
-                        ],columns : [ {
-                            data : "id"
+                        ], columns: [{
+                            data: "id"
                         }, {
-                            data : "location_name"
+                            data: "location_name"
                         }, {
-                            data : "pick_up_point"
+                            data: "pick_up_point"
                         }, {
-                            data : "pick_up_point_id"
+                            data: "pick_up_point_id"
                         }]
                     });
 
-                }else{
+                } else {
 
                     // $.notify("Registration Failed, incorrect username/password combination", "danger");
                     $.notify('Could not retrieve a list of available pick up points', {
@@ -899,7 +1010,7 @@ function populate_all_pickup_datatable() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -916,27 +1027,28 @@ function load_admin_locations_list() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getLocations";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
-        dataType    :   'json',
-        encode      :   true
+        type: 'GET',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
-                    $.each(data.data, function(key, value) {
+                    $.each(data.data, function (key, value) {
                         var selectList = $('#car_location_list_admin');
-                        selectList.append("<option value='"+value.location_code+"'>"+value.location_name+"</option>");
+                        selectList.append("<option value='" + value.location_code + "'>" + value.location_name + "</option>");
 
                     });
 
-                }else{
+                } else {
 
                     // $.notify("Registration Failed, incorrect username/password combination", "danger");
                     $.notify('Could not retrieve a list of available locations', {
@@ -948,7 +1060,7 @@ function load_admin_locations_list() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -957,7 +1069,7 @@ function load_admin_locations_list() {
         });
 }
 
-$('#addPickupPointsFormAdmin').submit(function(event) {
+$('#addPickupPointsFormAdmin').submit(function (event) {
 
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
@@ -970,28 +1082,29 @@ $('#addPickupPointsFormAdmin').submit(function(event) {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "addPickupPoint";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'POST',
-        url         :   api_url + callback + source,
-        data        :   formData,
-        dataType    :   'json',
-        encode      :   true
+        type: 'POST',
+        url: api_url + callback + source + csk,
+        data: formData,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
             $('#addPickupPointsFormAdmin')[0].reset();
-            $(data.data).each(function(key,value){
+            $(data.data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $.notify('Location added successfully', {
                         type: 'success'
                     });
                     populate_all_pickup_datatable();
 
-                }else{
+                } else {
 
                     $.notify('There was an error adding the location, please try again later', {
                         type: 'warning'
@@ -1002,7 +1115,7 @@ $('#addPickupPointsFormAdmin').submit(function(event) {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -1014,7 +1127,7 @@ $('#addPickupPointsFormAdmin').submit(function(event) {
 });
 
 function load_car_make_datatable() {
-    if ( $.fn.dataTable.isDataTable( '#makeDataTable' ) ) {
+    if ($.fn.dataTable.isDataTable('#makeDataTable')) {
         table = $('#makeDataTable').DataTable();
 
         table.destroy();
@@ -1027,34 +1140,35 @@ function load_car_make_datatable() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getCarMake";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
-        dataType    :   'json',
-        encode      :   true
+        type: 'GET',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $('#makeDataTable').DataTable({
-                        "data" :data.data,
-                        "processing" : true,
+                        "data": data.data,
+                        "processing": true,
                         dom: 'ftipB',
                         buttons: [
                             'copy', 'excel', 'pdf', 'print'
-                        ],columns : [ {
-                            data : "make_id"
+                        ], columns: [{
+                            data: "make_id"
                         }, {
-                            data : "make"
+                            data: "make"
                         }]
                     })
 
-                }else{
+                } else {
 
                     // $.notify("Registration Failed, incorrect username/password combination", "danger");
                     $.notify('Could not retrieve a list of available Car Makes', {
@@ -1066,7 +1180,7 @@ function load_car_make_datatable() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -1075,7 +1189,7 @@ function load_car_make_datatable() {
         });
 }
 
-$('#addCarMakeForAdmin').submit(function(event) {
+$('#addCarMakeForAdmin').submit(function (event) {
 
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
@@ -1087,28 +1201,29 @@ $('#addCarMakeForAdmin').submit(function(event) {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "addCarMake";
     var source = "/2567a5ec9705eb7ac2c984033e06189d";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'POST',
-        url         :   api_url + callback + source,
-        data        :   formData,
-        dataType    :   'json',
-        encode      :   true
+        type: 'POST',
+        url: api_url + callback + source + csk,
+        data: formData,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
             $('#addCarMakeForAdmin')[0].reset();
-            $(data.data).each(function(key,value){
+            $(data.data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $.notify('Location added successfully', {
                         type: 'success'
                     });
                     load_car_make_datatable();
 
-                }else{
+                } else {
 
                     $.notify('There was an error adding the location, please try again later', {
                         type: 'warning'
@@ -1119,7 +1234,7 @@ $('#addCarMakeForAdmin').submit(function(event) {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -1131,7 +1246,6 @@ $('#addCarMakeForAdmin').submit(function(event) {
 });
 
 
-
 function populate_customers_datatable() {
 
     // get the form data
@@ -1141,46 +1255,47 @@ function populate_customers_datatable() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getCustomers";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
-        dataType    :   'json',
-        encode      :   true
+        type: 'GET',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $('#usersDataTable').DataTable({
-                        "data" :data.data,
-                        "processing" : true,
+                        "data": data.data,
+                        "processing": true,
                         dom: 'ftipB',
                         buttons: [
                             'copy', 'excel', 'pdf', 'print'
-                        ],columns : [ {
-                            data : "f_name"
+                        ], columns: [{
+                            data: "f_name"
                         }, {
-                            data : "l_name"
+                            data: "l_name"
                         }, {
-                            data : "postal_address"
+                            data: "postal_address"
                         }, {
-                            data : "email_adddress"
+                            data: "email_adddress"
                         }, {
-                            data : "username"
+                            data: "username"
                         }, {
-                            data : "national_id_num"
+                            data: "national_id_num"
                         }, {
-                            data : "phone_num"
+                            data: "phone_num"
                         }, {
-                            data : "date_of_registration"
+                            data: "date_of_registration"
                         }]
                     });
 
-                }else{
+                } else {
 
                     $.notify("There are no registered customers yet!", {
                         type: 'warning'
@@ -1191,7 +1306,7 @@ function populate_customers_datatable() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -1209,46 +1324,47 @@ function populate_suppliers_datatable() {
     // var api_url = "http://localhost/safiri/rest/";
     var callback = "getSuppliers";
     var source = "/2567a5ec9705eb7ac2c984033e06189d/";
+    var csk = $.cookie("current_session_key");
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source,
-        dataType    :   'json',
-        encode      :   true
+        type: 'GET',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data).each(function(key,value){
+            $(data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
                     $('#usersDataTable').DataTable({
-                        "data" :data.data,
-                        "processing" : true,
+                        "data": data.data,
+                        "processing": true,
                         dom: 'ftipB',
                         buttons: [
                             'copy', 'excel', 'pdf', 'print'
-                        ],columns : [ {
-                            data : "f_name"
+                        ], columns: [{
+                            data: "f_name"
                         }, {
-                            data : "l_name"
+                            data: "l_name"
                         }, {
-                            data : "postal_address"
+                            data: "postal_address"
                         }, {
-                            data : "email_adddress"
+                            data: "email_adddress"
                         }, {
-                            data : "username"
+                            data: "username"
                         }, {
-                            data : "national_id_num"
+                            data: "national_id_num"
                         }, {
-                            data : "phone_num"
+                            data: "phone_num"
                         }, {
-                            data : "date_of_registration"
+                            data: "date_of_registration"
                         }]
                     });
 
-                }else{
+                } else {
 
                     $.notify("There are no registered suppliers yet!", {
                         type: 'warning'
@@ -1259,7 +1375,7 @@ function populate_suppliers_datatable() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'
@@ -1280,34 +1396,36 @@ function logout() {
     var csk = $.cookie("current_session_key");
 
     var formData = {
-        username : $.cookie("username")
+        username: $.cookie("username")
     };
 
 
     $.ajax({
-        type        :   'GET',
-        url         :   api_url+callback+source+csk,
-        dataType    :   'json',
-        data        :   formData,
-        encode      :   true
+        type: 'GET',
+        url: api_url + callback + source + csk,
+        dataType: 'json',
+        data: formData,
+        encode: true
     })
-        .done(function(data) {
+        .done(function (data) {
 
-            $(data.data).each(function(key,value){
+            $(data.data).each(function (key, value) {
 
-                if(value.response === true){
+                if (value.response === true) {
 
-                    $.removeCookie('username', { path: '/' });
-                    $.removeCookie('current_session_key', { path: '/' });
-                    $.removeCookie('phone_num', { path: '/' });
-                    $.removeCookie('email_address', { path: '/' });
+                    $.removeCookie('username', {path: '/'});
+                    $.removeCookie('current_session_key', {path: '/'});
+                    $.removeCookie('phone_num', {path: '/'});
+                    $.removeCookie('email_address', {path: '/'});
+                    $.removeCookie('USER_CSRF', {path: '/'});
+                    $.removeCookie('x-user', {path: '/'});
 
                     $.notify("Session terminated successfully", {
                         type: 'success'
                     });
                     $(location).attr('href', 'https://safirirental.com/#session-terminated/')
 
-                }else{
+                } else {
 
                     $.notify("Logout failed", {
                         type: 'warning'
@@ -1318,7 +1436,7 @@ function logout() {
             });
         })
 
-        .fail(function() {
+        .fail(function () {
 
             $.notify('You are offline', {
                 type: 'warning'

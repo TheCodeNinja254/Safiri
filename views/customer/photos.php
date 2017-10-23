@@ -1,7 +1,7 @@
 <?php include 'includes/header.php';?>
 <?php include 'includes/nav.php';?>
             <div class="content">
-                <div class="container-fluid">
+                <div class="container-fluid" id="with-dl_check">
                     <div class="card">
                         <h4 class="text-center text-main">Please Upload photos of your car<small>(Maximum Photos 5)</small> </h4>
                         <form id="uploadCarPhotosWebForm" action="https://api.safirirental.com/uploadCarPhotos/web/" method="post" enctype="multipart/form-data" >
