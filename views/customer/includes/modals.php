@@ -80,7 +80,7 @@
                                 <button type="submit" class="btn btn-simple btn-primary btn-sm btn-round">LOGIN</button>
                     </form>
 
-                    <strong>OR </strong><a href="<?php echo $host_name; ?>/home/rent" class="btn btn-success btn-sm btn-round">REGISTER</a>
+                    <strong>OR </strong><a href="#" onclick="logout()" class="btn btn-success btn-sm btn-round">LOGOUT</a>
                 </div>
             </div>
             <div class="footer text-center">

@@ -27,6 +27,13 @@ if (!isset($path)) {
     die();
 }
 
+$http_origin = $_SERVER['HTTP_ORIGIN'];
+
+if ($http_origin == "https://www.safirirental.com" || $http_origin == "https://safirirental.com")
+{
+    header("Access-Control-Allow-Origin: $http_origin");
+}
+
 
 //Home Parser
 if($base === "home"){

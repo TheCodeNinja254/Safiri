@@ -409,20 +409,21 @@ class SafiriRentalDriver
         $hash_password = self::hash_password($password);
         self::sf_auth_set_csk($username, "0000");
 
+
         try {
             $stmt = $this->DB_con->prepare('SELECT id, f_name, m_name, l_name, postal_address, email_adddress, username, user_type, national_id_num, phone_num, date_of_registration, uri_copy_of_id
                                                     FROM safirire_safiri.users 
-                                                    WHERE username = :username
+                                                    WHERE password = :hash_password
+                                                    AND username = :username
                                                     OR email_adddress = :username
                                                     OR phone_num = :username
-                                                    OR national_id_num = :username
-                                                    AND password = :hash_password');
+                                                    OR national_id_num = :username');
 
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':hash_password', $hash_password);
             $stmt->execute();
 
-            if ($stmt->rowCount() > 0) {
+            if ($stmt->rowCount() === 1) {
 
                 $counter = 0;
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
