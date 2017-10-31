@@ -23,7 +23,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="content">
-                            <center><h5 class=""><i class="fa fa-envelope text-main"></i> <br ><strong>Send your Message. complain or complement </strong></h5></center>
+                            <center><h5 class=""><i class="fa fa-envelope text-main"></i> <br ><strong>Send your Message. complain or compliment </strong></h5></center>
                             <div class="row">
                                 <form>
                                 <div class="col-md-6">
@@ -93,8 +93,7 @@
                                         </div>
                                         <div class="description">
                                             <h5 class="info-title">Find us at the office</h5>
-                                            <p> Daystar University,Ngong Road<br>
-                                                Hurligham<br>
+                                            <p>Hurligham<br>
                                                 Nairobi
                                             </p>
                                         </div>
@@ -107,7 +106,7 @@
                                         </div>
                                         <div class="description">
                                             <h5 class="info-title">Give us a ring</h5>
-                                            <p> Safiri Applications<br>
+                                            <p> Safiri Car Rental<br>
                                                 +254 799 391 657<br>
                                                 Mon - Fri, 8:00-17:00
                                             </p>

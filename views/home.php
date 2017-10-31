@@ -26,8 +26,8 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="content">
-                                <center><h3 class=""><i class="fa fa-car text-main"></i> <br ><strong>Big variety of car categories </strong></h3></center>
-                                <p>At Safiri Car Rental, we allow many categories of cars. This means that whatever car you want to rent on our APP is allowed as long as it falls under our creterias.</p>
+                                <center><h3 class=""><i class="fa fa-car text-main"></i> <br ><strong>Wide range of car types </strong></h3></center>
+                                <p>At Safiri Car Rental, we allow you to register any category of cars so as to serve our wide clientele base. This means that whatever car you want to rent on our APP is allowed as long as it falls under our criteria.</p>
                                 <center><button class="btn btn-primary-outline btn-round btn-sm text-center">Register</button></center>
 
                             </div>
@@ -38,8 +38,8 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="content">
-                                <center><h3 class=""><i class="fa fa-info text-main"></i> <br><strong>We are Reliable </strong></h3></center>
-                                <p>At Safiri Car Rental, we always strive to make sure your cars are easily accessible by clients and ca ne be booked without much hustle.</p>
+                                <center><h3 class=""><i class="fa fa-info text-main"></i> <br><strong>We are reliable </strong></h3></center>
+                                <p>At Safiri Car Rental, we strive to make sure your car is easily accessible by our wide clientele base and can be booked without any hustle.</p>
                                 <center><button class="btn btn-primary-outline btn-round btn-sm text-center">Register</button></center>
 
                             </div>
@@ -50,7 +50,7 @@
                         <div class="card">
                             <div class="content">
                                 <center><h3 class=""><i class="fa fa-refresh text-main"></i> <br><strong>We are fast </strong></h3></center>
-                                <p>At Safiri Car Rental,  renting a car ia as easy as 123 and instantaneous so as to enable real time communication link between you and your clients.</p>
+                                <p>Listing your car on the Safiri App is simple and usually takes about 10 minutes. The information you provide on this website will be pushed to the mobile application.</p>
                             <center><button class="btn btn-primary-outline btn-round btn-sm text-center">Register</button></center>
                             </div>
                         </div>

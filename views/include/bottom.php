@@ -8,48 +8,48 @@
 ?>
 <footer class="footer ">
     <div class="container">
-        <nav class="pull-left sharing-area">
+        <nav class="text-center sharing-area">
             <ul>
                 <li>
                     SAFIRI © <script>document.write(new Date().getFullYear());</script>
                 </li>
-                <li>
-                    <a href="http://www.creative-tim.com">
-                        PRIVACY
-                    </a>
-                </li>
-                <li>
-                    <a href="http://presentation.creative-tim.com">
-                        TERMS
-                    </a>
-                </li>
-                <li>
-                    <a href="http://blog.creative-tim.com">
-                        CAREERS
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        ABOUT US
-                    </a>
-                </li>
-                <li>
-                    <a href="#" >
-                        CONTACT
-                    </a>
-                </li>
+<!--                <li>-->
+<!--                    <a href="http://www.creative-tim.com">-->
+<!--                        PRIVACY-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="http://presentation.creative-tim.com">-->
+<!--                        TERMS-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="http://blog.creative-tim.com">-->
+<!--                        CAREERS-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#">-->
+<!--                        ABOUT US-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#" >-->
+<!--                        CONTACT-->
+<!--                    </a>-->
+<!--                </li>-->
             </ul>
         </nav>
-        <div class=" pull-right sharing-area">
-
-            <button href="#" class="btn btn-twitter btn-sm btn-round ">
-                <i class="fa fa-twitter text-center"></i>
-            </button>
-
-            <button href="#" class="btn btn-facebook btn-sm btn-round">
-                <i class="fa fa-facebook-square"></i>
-            </button>
-        </div>
+<!--        <div class=" pull-right sharing-area">-->
+<!---->
+<!--            <button href="#" class="btn btn-twitter btn-sm btn-round ">-->
+<!--                <i class="fa fa-twitter text-center"></i>-->
+<!--            </button>-->
+<!---->
+<!--            <button href="#" class="btn btn-facebook btn-sm btn-round">-->
+<!--                <i class="fa fa-facebook-square"></i>-->
+<!--            </button>-->
+<!--        </div>-->
 </footer>
 </div>
 
